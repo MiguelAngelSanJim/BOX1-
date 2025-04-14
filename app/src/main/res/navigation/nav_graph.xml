@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/splashScreen">
+
+
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.boxuno.vista.Login"
+        android:label="Login" >
+        <action
+            android:id="@+id/action_login_to_registro"
+            app:destination="@id/registro" />
+        <action
+            android:id="@+id/action_login_to_inicio"
+            app:destination="@id/inicio" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registro"
+        android:name="com.boxuno.vista.Registro"
+        android:label="Registro" />
+
+    <fragment
+        android:id="@+id/inicio"
+        android:name="com.boxuno.vista.Inicio"
+        android:label="Inicio" />
+
+    <fragment
+        android:id="@+id/detalleProducto"
+        android:name="com.boxuno.vista.DetalleProducto"
+        android:label="Detalle producto" />
+
+    <fragment
+        android:id="@+id/comprar"
+        android:name="com.boxuno.vista.Comprar"
+        android:label="Comprar" />
+
+    <fragment
+        android:id="@+id/subirProducto"
+        android:name="com.boxuno.vista.SubirProducto"
+        android:label="Subir producto" />
+
+    <fragment
+        android:id="@+id/perfil"
+        android:name="com.boxuno.vista.Perfil"
+        android:label="Perfil" />
+
+    <fragment
+        android:id="@+id/favoritos"
+        android:name="com.boxuno.vista.Favoritos"
+        android:label="Favoritos" />
+
+    <fragment
+        android:id="@+id/chatLista"
+        android:name="com.boxuno.vista.ChatLista"
+        android:label="Lista de chats" />
+
+    <fragment
+        android:id="@+id/chatConversacion"
+        android:name="com.boxuno.vista.ChatConversacion"
+        android:label="Chat privado" />
+
+</navigation>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="0"
+    android:toDegrees="360"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:duration="50"
+    android:repeatCount="infinite"
+    android:interpolator="@android:interpolator/linear">
+    <shape android:shape="ring">
+        <size android:width="48dp" android:height="48dp" />
+        <thickness android:thicknessRatio="0.1" />
+        <solid android:color="#182B95" />
+    </shape>
+</rotate>
