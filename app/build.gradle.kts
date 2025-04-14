@@ -37,9 +37,11 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    // Navigation Component
-    implementation ("androidx.navigation:navigation-fragment:2.7.7")
-    implementation ("androidx.navigation:navigation-ui:2.7.7")
+    implementation(libs.glide)
+    implementation (libs.navigation.fragment)
+    implementation (libs.navigation.ui)
+    implementation (libs.material)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

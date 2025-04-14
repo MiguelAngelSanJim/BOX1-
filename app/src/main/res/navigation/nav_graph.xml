@@ -2,14 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/splashScreen">
-
+    app:startDestination="@+id/login">
 
 
     <fragment
         android:id="@+id/login"
         android:name="com.boxuno.vista.Login"
-        android:label="Login" >
+        android:label="Login">
         <action
             android:id="@+id/action_login_to_registro"
             app:destination="@id/registro" />
@@ -21,7 +20,13 @@
     <fragment
         android:id="@+id/registro"
         android:name="com.boxuno.vista.Registro"
-        android:label="Registro" />
+        android:label="Registro">
+        <argument
+            android:name="emailNoRegistrado"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/inicio"
