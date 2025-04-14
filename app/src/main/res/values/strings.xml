@@ -8,4 +8,7 @@
     <string name="recuerdame">Recuerdame</string>
     <string name="email">Email</string>
     <string name="contrasenia">Contraseña</string>
+    <string name="nombre">Nombre</string>
+    <string name="repita_la_contrase_a">Repita la contraseña</string>
+    <string name="registrarse">Registrarse</string>
 </resources>

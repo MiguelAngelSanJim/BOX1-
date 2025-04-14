@@ -1,15 +1,20 @@
 package com.boxuno.vista;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.boxuno.R;
 
@@ -66,6 +71,7 @@ public class Registro extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_registro, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -74,6 +80,29 @@ public class Registro extends Fragment {
 
         EditText emailEditText = view.findViewById(R.id.emailRegistro);
         emailEditText.setText(emailRecibido);
+
+        Button registrarse = view.findViewById(R.id.btn_registro);
+        EditText contrasenia = view.findViewById(R.id.textContraseniaRegistro);
+        EditText contraseniaConfirmada = view.findViewById(R.id.confirmpasswordRegistro);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        registrarse.setOnClickListener(v -> {
+            if (contrasenia.getText().toString().isEmpty() || contraseniaConfirmada.getText().toString().isEmpty()) {
+                builder.setTitle("Campos vacíos");
+                builder.setMessage("Por favor, completa todos los campos antes de continuar.");
+                builder.setPositiveButton("Aceptar", (dialog, which) -> dialog.dismiss());
+                builder.show();
+            } else if (!contrasenia.getText().toString().equals(contraseniaConfirmada.getText().toString())) {
+                builder.setTitle("Error");
+                builder.setMessage("Las contraseñas no coinciden.");
+                builder.setPositiveButton("Aceptar", (dialog, which) -> dialog.dismiss());
+                builder.show();
+            }else{
+                NavController navController = Navigation.findNavController(view);
+                navController.navigate(R.id.action_registro_to_inicio);
+
+            }
+        });
     }
 
 }

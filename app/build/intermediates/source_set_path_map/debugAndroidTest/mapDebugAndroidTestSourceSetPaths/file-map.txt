@@ -1,0 +1,5 @@
+com.boxuno.test.app-core-1.6.1-0 C:\Users\manol\.gradle\caches\transforms-4\cb8eb8e2c0b65ce2f79bf839efd8c24c\transformed\core-1.6.1\res
+com.boxuno.test.app-androidTest-1 C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\generated\res\resValues\androidTest\debug
+com.boxuno.test.app-mergeDebugAndroidTestResources-2 C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.boxuno.test.app-mergeDebugAndroidTestResources-3 C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.boxuno.test.app-debugAndroidTest-4 C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

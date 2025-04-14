@@ -1,0 +1,154 @@
+[
+    {
+        "merged": "com.boxuno.app-debug-44:/layout_activity_main.xml.flat",
+        "source": "com.boxuno.app-main-46:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.boxuno.app-main-46:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/xml_backup_rules.xml.flat",
+        "source": "com.boxuno.app-main-46:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/drawable_magnifyingglass.png.flat",
+        "source": "com.boxuno.app-main-46:/drawable/magnifyingglass.png"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/drawable_logopng.png.flat",
+        "source": "com.boxuno.app-main-46:/drawable/logopng.png"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.boxuno.app-main-46:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/layout_fragment_registro.xml.flat",
+        "source": "com.boxuno.app-main-46:/layout/fragment_registro.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/xml_data_extraction_rules.xml.flat",
+        "source": "com.boxuno.app-main-46:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.boxuno.app-main-46:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/layout_fragment_comprar.xml.flat",
+        "source": "com.boxuno.app-main-46:/layout/fragment_comprar.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/drawable_login_gradient.xml.flat",
+        "source": "com.boxuno.app-main-46:/drawable/login_gradient.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.boxuno.app-main-46:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/navigation_nav_graph.xml.flat",
+        "source": "com.boxuno.app-main-46:/navigation/nav_graph.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.boxuno.app-main-46:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/layout_fragment_favoritos.xml.flat",
+        "source": "com.boxuno.app-main-46:/layout/fragment_favoritos.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/layout_fragment_login.xml.flat",
+        "source": "com.boxuno.app-main-46:/layout/fragment_login.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/layout_fragment_detalle_producto.xml.flat",
+        "source": "com.boxuno.app-main-46:/layout/fragment_detalle_producto.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.boxuno.app-main-46:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/layout_fragment_chat_conversacion.xml.flat",
+        "source": "com.boxuno.app-main-46:/layout/fragment_chat_conversacion.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.boxuno.app-main-46:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/layout_fragment_subir_producto.xml.flat",
+        "source": "com.boxuno.app-main-46:/layout/fragment_subir_producto.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/drawable_download.png.flat",
+        "source": "com.boxuno.app-main-46:/drawable/download.png"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/menu_bottom_menu.xml.flat",
+        "source": "com.boxuno.app-main-46:/menu/bottom_menu.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/drawable_custon_spinner.xml.flat",
+        "source": "com.boxuno.app-main-46:/drawable/custon_spinner.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.boxuno.app-main-46:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/layout_fragment_perfil.xml.flat",
+        "source": "com.boxuno.app-main-46:/layout/fragment_perfil.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.boxuno.app-main-46:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/drawable_user.png.flat",
+        "source": "com.boxuno.app-main-46:/drawable/user.png"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.boxuno.app-main-46:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.boxuno.app-main-46:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.boxuno.app-main-46:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/layout_splash_screen.xml.flat",
+        "source": "com.boxuno.app-main-46:/layout/splash_screen.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.boxuno.app-main-46:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/layout_fragment_chat_lista.xml.flat",
+        "source": "com.boxuno.app-main-46:/layout/fragment_chat_lista.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/layout_fragment_inicio.xml.flat",
+        "source": "com.boxuno.app-main-46:/layout/fragment_inicio.xml"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.boxuno.app-main-46:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/drawable_home.png.flat",
+        "source": "com.boxuno.app-main-46:/drawable/home.png"
+    },
+    {
+        "merged": "com.boxuno.app-debug-44:/drawable_edittext_style.xml.flat",
+        "source": "com.boxuno.app-main-46:/drawable/edittext_style.xml"
+    }
+]

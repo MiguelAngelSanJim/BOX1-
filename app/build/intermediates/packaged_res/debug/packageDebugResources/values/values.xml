@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="blue">#0B1B4E</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">Box1</string>
+    <string name="boton_iniciar_sesion">Iniciar sesión</string>
+    <string name="contrasenia">Contraseña</string>
+    <string name="email">Email</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_contrasenia">contraseña</string>
+    <string name="hint_usuario_email_com">usuario@email.com</string>
+    <string name="nombre">Nombre</string>
+    <string name="recuerdame">Recuerdame</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="repita_la_contrase_a">Repita la contraseña</string>
+    <style name="Base.Theme.Box1" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
+    <style name="Theme.Box1" parent="Base.Theme.Box1"/>
+</resources>

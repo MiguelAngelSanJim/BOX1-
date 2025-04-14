@@ -123,25 +123,13 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="988" />
-                            <option name="y" value="368" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="splashScreen">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="500" />
-                            <option name="y" value="410" />
+                            <option name="x" value="965" />
+                            <option name="y" value="228" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_splash_to_login">
+                            <entry key="action_registro_to_inicio">
                               <value>
                                 <LayoutPositions />
                               </value>
