@@ -11,4 +11,7 @@
     <string name="nombre">Nombre</string>
     <string name="repita_la_contrase_a">Repita la contraseña</string>
     <string name="registrarse">Registrarse</string>
+    <string name="f1">F1</string>
+    <string name="wrc">WRC</string>
+    <string name="resistencia">Resistencia</string>
 </resources>

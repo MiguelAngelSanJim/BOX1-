@@ -7,6 +7,7 @@ drawable custon_spinner
 drawable download
 drawable edittext_style
 drawable home
+drawable ic_empty
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable login_gradient
@@ -84,6 +85,7 @@ string app_name
 string boton_iniciar_sesion
 string contrasenia
 string email
+string f1
 string gcm_defaultSenderId
 string google_api_key
 string google_app_id
@@ -97,7 +99,11 @@ string project_id
 string recuerdame
 string registrarse
 string repita_la_contrase_a
+string resistencia
+string wrc
 style Base.Theme.Box1
+style BottomNavStyle
+style BottomNavText
 style Theme.Box1
 xml backup_rules
 xml data_extraction_rules

@@ -83,12 +83,12 @@ public class Login extends Fragment {
                         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 NavOptions navOptions = new NavOptions.Builder()
-                                        .setPopUpTo(R.id.login, true) // Elimina 'registro' del backstack
+                                        .setPopUpTo(R.id.login, true) // Elimina 'login' del backstack
                                         .build();
                                 SharedPreferences prefs = requireActivity().getSharedPreferences("box1_prefs", Context.MODE_PRIVATE);
                                 prefs.edit().putBoolean("recordar", checkBox.isChecked()).apply();
 
-                                Navigation.findNavController(view).navigate(R.id.action_login_to_inicio,null, navOptions);
+                                Navigation.findNavController(view).navigate(R.id.action_login_to_inicio, null, navOptions);
                             } else {
                                 Toast.makeText(getContext(), "Contraseña incorrecta.", Toast.LENGTH_SHORT).show();
                             }
@@ -105,7 +105,7 @@ public class Login extends Fragment {
 
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomnavigation);
 
-        if(bottomNavigationView != null){
+        if (bottomNavigationView != null) {
             bottomNavigationView.setVisibility(View.INVISIBLE);
         }
     }

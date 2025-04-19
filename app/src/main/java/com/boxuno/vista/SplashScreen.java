@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.splash_screen);
         recuerdame();
         splashscreenstart();
+
     }
 
     public void recuerdame() {

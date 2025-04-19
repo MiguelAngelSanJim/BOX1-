@@ -32,6 +32,10 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-51:\\layout\\splash_screen.xml"
     },
     {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-49:\\drawable_ic_empty.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-51:\\drawable\\ic_empty.xml"
+    },
+    {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-49:\\menu_bottom_menu.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-51:\\menu\\bottom_menu.xml"
     },
@@ -78,6 +82,10 @@
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-49:\\layout_fragment_perfil.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-51:\\layout\\fragment_perfil.xml"
+    },
+    {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-49:\\menu_middle_menu.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-51:\\menu\\middle_menu.xml"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-49:\\layout_fragment_comprar.xml.flat",

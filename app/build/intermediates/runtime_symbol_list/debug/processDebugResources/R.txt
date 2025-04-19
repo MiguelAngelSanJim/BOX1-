@@ -3115,6 +3115,7 @@ int drawable ic_call_decline 0x7f0700a5
 int drawable ic_call_decline_low 0x7f0700a6
 int drawable ic_clear_black_24 0x7f0700a7
 int drawable ic_clock_black_24dp 0x7f0700a8
+int drawable ic_empty 0x7f070104
 int drawable ic_keyboard_black_24dp 0x7f0700a9
 int drawable ic_launcher_background 0x7f0700aa
 int drawable ic_launcher_foreground 0x7f0700ab
@@ -4070,6 +4071,7 @@ int string email 0x7f120045
 int string error_a11y_label 0x7f120046
 int string error_icon_content_description 0x7f120047
 int string exposed_dropdown_menu_content_description 0x7f120048
+int string f1 0x7f1200d0
 int string fab_transformation_scrim_behavior 0x7f120049
 int string fab_transformation_sheet_behavior 0x7f12004a
 int string fallback_menu_item_copy_link 0x7f12004b
@@ -4198,6 +4200,7 @@ int string project_id 0x7f1200c5
 int string recuerdame 0x7f1200c6
 int string registrarse 0x7f1200c7
 int string repita_la_contrase_a 0x7f1200c8
+int string resistencia 0x7f1200d1
 int string search_menu_title 0x7f1200c9
 int string searchbar_scrolling_view_behavior 0x7f1200ca
 int string searchview_clear_text_content_description 0x7f1200cb
@@ -4205,6 +4208,7 @@ int string searchview_navigation_content_description 0x7f1200cc
 int string side_sheet_accessibility_pane_title 0x7f1200cd
 int string side_sheet_behavior 0x7f1200ce
 int string status_bar_notification_info_overflow 0x7f1200cf
+int string wrc 0x7f1200d2
 int style AlertDialog_AppCompat 0x7f130000
 int style AlertDialog_AppCompat_Light 0x7f130001
 int style Animation_AppCompat_Dialog 0x7f130002
@@ -4493,6 +4497,8 @@ int style Base_Widget_MaterialComponents_Snackbar 0x7f13011c
 int style Base_Widget_MaterialComponents_TextInputEditText 0x7f13011d
 int style Base_Widget_MaterialComponents_TextInputLayout 0x7f13011e
 int style Base_Widget_MaterialComponents_TextView 0x7f13011f
+int style BottomNavStyle 0x7f130468
+int style BottomNavText 0x7f130469
 int style CardView 0x7f130120
 int style CardView_Dark 0x7f130121
 int style CardView_Light 0x7f130122

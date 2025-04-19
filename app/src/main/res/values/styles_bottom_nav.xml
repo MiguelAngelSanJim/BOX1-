@@ -1,0 +1,12 @@
+<resources>
+    <style name="BottomNavStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconSize">20dp</item>
+        <item name="itemTextAppearanceActive">@style/BottomNavText</item>
+        <item name="itemTextAppearanceInactive">@style/BottomNavText</item>
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
+
+    <style name="BottomNavText" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">10sp</item>
+    </style>
+</resources>
