@@ -7,8 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.boxuno.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,37 +83,88 @@ public class Registro extends Fragment {
         return inflater.inflate(R.layout.fragment_registro, container, false);
     }
 
+    private void guardarUsuarioEnFirestore(FirebaseUser user, String nombreDesdeEditText) {
+        if (user == null) return;
+
+        String uid = user.getUid();
+        String email = user.getEmail();
+
+        Map<String, Object> usuario = new HashMap<>();
+        usuario.put("uid", uid);
+        usuario.put("email", email);
+        usuario.put("nombre", nombreDesdeEditText); // ← pásalo desde el EditText
+        usuario.put("fotoPerfilUrl", ""); // o súbela y pon la URL
+        usuario.put("timestamp", FieldValue.serverTimestamp());
+        usuario.put("favoritos", new ArrayList<>());
+        usuario.put("productos", new ArrayList<>());
+
+        FirebaseFirestore.getInstance()
+                .collection("usuarios")
+                .document(uid)
+                .set(usuario)
+                .addOnSuccessListener(aVoid -> Log.d("FIRESTORE", "Usuario guardado correctamente"))
+                .addOnFailureListener(e -> Log.e("FIRESTORE", "Error al guardar usuario", e));
+    }
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
         String emailRecibido = getArguments().getString("emailNoRegistrado");
 
         EditText emailEditText = view.findViewById(R.id.emailRegistro);
         emailEditText.setText(emailRecibido);
+        EditText nombreUsuario = view.findViewById(R.id.nombreRegistro);
 
         Button registrarse = view.findViewById(R.id.btn_registro);
-        EditText contrasenia = view.findViewById(R.id.textContraseniaRegistro);
-        EditText contraseniaConfirmada = view.findViewById(R.id.confirmpasswordRegistro);
+        EditText campoContrasenia = view.findViewById(R.id.passwordRegistro);
+        EditText campoConfirmacionContrasenia = view.findViewById(R.id.confirmpasswordRegistro);
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         registrarse.setOnClickListener(v -> {
-            if (contrasenia.getText().toString().isEmpty() || contraseniaConfirmada.getText().toString().isEmpty()) {
+            String contrasenia = campoContrasenia.getText().toString().trim();
+            String contraseniaConfirmada = campoConfirmacionContrasenia.getText().toString().trim();
+
+            if (contrasenia.isEmpty() || contraseniaConfirmada.isEmpty()) {
                 builder.setTitle("Campos vacíos");
                 builder.setMessage("Por favor, completa todos los campos antes de continuar.");
                 builder.setPositiveButton("Aceptar", (dialog, which) -> dialog.dismiss());
                 builder.show();
-            } else if (!contrasenia.getText().toString().equals(contraseniaConfirmada.getText().toString())) {
+            } else if (!contrasenia.equals(contraseniaConfirmada)) {
                 builder.setTitle("Error");
                 builder.setMessage("Las contraseñas no coinciden.");
                 builder.setPositiveButton("Aceptar", (dialog, which) -> dialog.dismiss());
                 builder.show();
-            }else{
+            } else {
                 NavController navController = Navigation.findNavController(view);
-                navController.navigate(R.id.action_registro_to_inicio);
 
+                String email = emailEditText.getText().toString().trim();
+                String nombre = nombreUsuario.getText().toString();
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, contrasenia).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        NavOptions navOptions = new NavOptions.Builder()
+                                .setPopUpTo(R.id.registro, true) // Elimina 'registro' del backstack
+                                .build();
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        guardarUsuarioEnFirestore(user, nombre );
+                        navController.navigate(R.id.action_registro_to_inicio, null, navOptions);
+                    } else {
+
+                        Toast.makeText(getContext(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
+
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomnavigation);
+
+        if(bottomNavigationView != null){
+            bottomNavigationView.setVisibility(View.INVISIBLE);
+        }
     }
+
 
 }

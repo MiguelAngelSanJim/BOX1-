@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "1026158738517",
+    "project_id": "boxuno-9b593",
+    "storage_bucket": "boxuno-9b593.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026158738517:android:3c5ae4746bb1326ddfa8dc",
+        "android_client_info": {
+          "package_name": "com.boxuno"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1026158738517-vk4r4k3fgoj0me57kl42n6hls5dgshcc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.boxuno",
+            "certificate_hash": "c6ce85f57825c82b10daac1bace31d83bb5403b7"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBp20DmO0OhOvEtR-MY6mpLBHCkCpkIW1s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

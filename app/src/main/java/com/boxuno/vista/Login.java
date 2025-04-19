@@ -1,20 +1,31 @@
 package com.boxuno.vista;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.boxuno.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,33 +34,13 @@ import com.boxuno.R;
  */
 public class Login extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public Login() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Login.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Login newInstance(String param1, String param2) {
+    public static Login newInstance() {
         Login fragment = new Login();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,10 +48,6 @@ public class Login extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -74,17 +61,52 @@ public class Login extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button botonRegistro = view.findViewById(R.id.btn_inicioSesion);
+        Button botonInicioSesion = view.findViewById(R.id.btn_inicioSesion);
+        Button botonRegistro = view.findViewById(R.id.btn_registro);
         EditText campoEmail = view.findViewById(R.id.email);
+        EditText contrasenia = view.findViewById(R.id.password);
+        CheckBox checkBox = view.findViewById(R.id.checkBox);
+
+        botonInicioSesion.setOnClickListener(v -> {
+            String email = campoEmail.getText().toString().trim();
+            String password = contrasenia.getText().toString();
+
+            if (email.isEmpty() && password.isEmpty()) {
+                Toast.makeText(getContext(), "Email o contraseña no pueden estar en blanco.", Toast.LENGTH_SHORT).show();
+            } else {
+                FirebaseFirestore.getInstance().collection("usuarios").whereEqualTo("email", email).get().addOnSuccessListener(querySnapshot -> {
+                    if (querySnapshot.isEmpty()) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("emailNoRegistrado", email);
+                        Navigation.findNavController(view).navigate(R.id.action_login_to_registro, bundle);
+                    } else {
+                        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                NavOptions navOptions = new NavOptions.Builder()
+                                        .setPopUpTo(R.id.login, true) // Elimina 'registro' del backstack
+                                        .build();
+                                SharedPreferences prefs = requireActivity().getSharedPreferences("box1_prefs", Context.MODE_PRIVATE);
+                                prefs.edit().putBoolean("recordar", checkBox.isChecked()).apply();
+
+                                Navigation.findNavController(view).navigate(R.id.action_login_to_inicio,null, navOptions);
+                            } else {
+                                Toast.makeText(getContext(), "Contraseña incorrecta.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+            }
+        });
 
         botonRegistro.setOnClickListener(v -> {
-            String email = campoEmail.getText().toString();
-
-            Bundle bundle = new Bundle();
-            bundle.putString("emailNoRegistrado", email);
-
-            NavController navController = Navigation.findNavController(view);
-            navController.navigate(R.id.action_login_to_registro, bundle);
+            Navigation.findNavController(view).navigate(R.id.action_login_to_registro);
         });
+
+
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomnavigation);
+
+        if(bottomNavigationView != null){
+            bottomNavigationView.setVisibility(View.INVISIBLE);
+        }
     }
 }
