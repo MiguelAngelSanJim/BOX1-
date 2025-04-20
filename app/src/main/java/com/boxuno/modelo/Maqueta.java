@@ -10,6 +10,7 @@ public class Maqueta {
     private String descripcion;
     private double precio;
     private String marca;
+    private String categoria;
     private String estado;             // "Nuevo", "Usado", etc.
     private List<String> imagenes;     // URLs a Firebase Storage.
     private String usuarioId;          // UID del usuario que publica.
@@ -22,7 +23,7 @@ public class Maqueta {
     }
 
     public Maqueta(String id, String titulo, String escala, String descripcion, double precio,
-                   String marca, String estado, List<String> imagenes,
+                   String marca, String categoria, String estado, List<String> imagenes,
                    String usuarioId, boolean vendido, long timestamp) {
         this.id = id;
         this.titulo = titulo;
@@ -30,6 +31,7 @@ public class Maqueta {
         this.descripcion = descripcion;
         this.precio = precio;
         this.marca = marca;
+        this.categoria = categoria;
         this.estado = estado;
         this.imagenes = (imagenes != null) ? imagenes : new ArrayList<>();
         this.usuarioId = usuarioId;
@@ -59,6 +61,14 @@ public class Maqueta {
 
     public void setEscala(String escala) {
         this.escala = escala;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     public String getDescripcion() {

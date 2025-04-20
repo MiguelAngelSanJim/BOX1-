@@ -1503,6 +1503,7 @@ color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color ic_launcher_background
 color m3_appbar_overlay_color
 color m3_assist_chip_icon_tint_color
 color m3_assist_chip_stroke_color
@@ -3069,6 +3070,7 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable borde_redondeado_blanco
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -3127,6 +3129,9 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable ic_other_sign_in
+drawable ic_passkey
+drawable ic_password
 drawable ic_search_black_24
 drawable indeterminate_static
 drawable login_gradient
@@ -3204,6 +3209,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable placeholder
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -3322,13 +3328,15 @@ id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
 id btn_inicioSesion
+id btn_publicar_producto
 id btn_registro
-id busqueda
+id btn_subir_imagenes
 id buttonPanel
 id cache_measures
 id callMeasure
 id cancel_button
 id carryVelocity
+id categoriaProducto
 id center
 id centerCrop
 id centerInside
@@ -3376,7 +3384,7 @@ id decor_content_parent
 id default_activity_button
 id deltaRelative
 id dependency_ordering
-id descargas
+id descripcionProducto
 id design_bottom_sheet
 id design_menu_item_action_area
 id design_menu_item_action_area_stub
@@ -3415,7 +3423,9 @@ id end
 id endToStart
 id enterAlways
 id enterAlwaysCollapsed
+id escalaProducto
 id escape
+id estadoProducto
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -3442,7 +3452,7 @@ id frameLayout4
 id frameLayout5
 id frameLayout6
 id frameLayout7
-id frameLayout8
+id frameLayout9
 id frost
 id fullscreen_header
 id ghost_view
@@ -3470,6 +3480,9 @@ id ignore
 id ignoreRequest
 id image
 id imageView
+id imagen_item
+id imagen_maqueta
+id imagenesRecyclerView
 id immediateStop
 id included
 id indeterminate
@@ -3498,6 +3511,7 @@ id logo
 id ltr
 id m3_side_sheet
 id main
+id marcaProducto
 id marquee
 id masked
 id match_constraint
@@ -3617,6 +3631,8 @@ id perfil
 id pin
 id position
 id postLayout
+id precioProducto
+id precio_maqueta
 id pressed
 id progressBar
 id progress_circular
@@ -3624,6 +3640,7 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+id recyclerviewinicio
 id registro
 id report_drawn
 id reverseSawtooth
@@ -3698,6 +3715,7 @@ id subirProducto
 id submenuarrow
 id submit_area
 id supportScrollUp
+id tabLayout
 id tabMode
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
@@ -3730,7 +3748,6 @@ id textView4
 id textView5
 id textView6
 id textView7
-id textView8
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3744,6 +3761,8 @@ id time
 id title
 id titleDividerNoCustom
 id title_template
+id tituloProducto
+id titulo_maqueta
 id toggle
 id top
 id topPanel
@@ -3931,6 +3950,8 @@ layout fragment_registro
 layout fragment_subir_producto
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout item_imagen
+layout item_maqueta
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
@@ -3995,7 +4016,9 @@ layout splash_screen
 layout support_simple_spinner_dropdown_item
 menu bottom_menu
 mipmap ic_launcher
+mipmap ic_launcher_foreground
 mipmap ic_launcher_round
+mipmap placeholder
 navigation nav_graph
 plurals mtrl_badge_content_description
 raw firebase_common_keep
@@ -4026,6 +4049,8 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string android_credentials_TYPE_PASSWORD_CREDENTIAL
+string androidx_credentials_TYPE_PUBLIC_KEY_CREDENTIAL
 string androidx_startup
 string app_name
 string appbar_scrolling_view_behavior
@@ -4209,6 +4234,7 @@ string searchview_navigation_content_description
 string side_sheet_accessibility_pane_title
 string side_sheet_behavior
 string status_bar_notification_info_overflow
+string todos
 string wrc
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
@@ -4765,6 +4791,7 @@ style Theme_Design_Light
 style Theme_Design_Light_BottomSheetDialog
 style Theme_Design_Light_NoActionBar
 style Theme_Design_NoActionBar
+style Theme_Hidden
 style Theme_Material3_Dark
 style Theme_Material3_Dark_BottomSheetDialog
 style Theme_Material3_Dark_Dialog
@@ -4842,6 +4869,7 @@ style Theme_MaterialComponents_Light_NoActionBar
 style Theme_MaterialComponents_Light_NoActionBar_Bridge
 style Theme_MaterialComponents_NoActionBar
 style Theme_MaterialComponents_NoActionBar_Bridge
+style Theme_PlayCore_Transparent
 style ThemeOverlay_AppCompat
 style ThemeOverlay_AppCompat_ActionBar
 style ThemeOverlay_AppCompat_Dark

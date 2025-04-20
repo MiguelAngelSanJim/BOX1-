@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.boxuno.app-mergeDebugResources-47:/values-ldltr-v21/values-ldltr-v21.xml",
+            "outputFile": "com.boxuno.app-mergeDebugResources-51:/values-ldltr-v21/values-ldltr-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\187d9266b403929686cb3c973dee7126\\transformed\\appcompat-1.7.0\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
+                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\947c985c697ee1137c6de3df51955c68\\transformed\\appcompat-1.7.0\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

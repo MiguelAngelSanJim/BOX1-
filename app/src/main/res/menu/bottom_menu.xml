@@ -7,18 +7,23 @@
         android:icon="@drawable/home"
         android:title="" />
     <item
-        android:id="@+id/busqueda"
+        android:id="@+id/favoritos"
         android:enabled="true"
         android:icon="@drawable/magnifyingglass"
         android:title=""/>
     <item
-        android:id="@+id/perfil"
+        android:id="@+id/subirProducto"
         android:enabled="true"
         android:icon="@drawable/user"
         android:title=""/>
 
     <item
-        android:id="@+id/descargas"
+        android:id="@+id/chatLista"
+        android:enabled="true"
+        android:icon="@drawable/download"
+        android:title=""/>
+    <item
+        android:id="@+id/perfil"
         android:enabled="true"
         android:icon="@drawable/download"
         android:title=""/>

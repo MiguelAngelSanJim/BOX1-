@@ -4,7 +4,7 @@
             "outputFile": "com.boxuno.test.app-mergeDebugAndroidTestResources-2:/values/values.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\3a11349cac36bd2125d181470f7e9963\\transformed\\core-1.6.1\\res\\values\\values.xml",
+                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\bd64b88d6e62e4b7ab866487fe94e09d\\transformed\\core-1.6.1\\res\\values\\values.xml",
                     "from": {
                         "startLines": "4,11",
                         "startColumns": "0,0",

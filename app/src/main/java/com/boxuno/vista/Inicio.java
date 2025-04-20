@@ -5,13 +5,23 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.boxuno.R;
+import com.boxuno.adapter.MaquetaAdapter;
+import com.boxuno.modelo.Maqueta;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +39,9 @@ public class Inicio extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
+    private List<Maqueta> maquetaList;
+    private MaquetaAdapter maquetaAdapter;
     public Inicio() {
         // Required empty public constructor
     }
@@ -66,8 +79,28 @@ public class Inicio extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomnavigation);
 
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerviewinicio);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2)); // 2 columnas
+        maquetaList = new ArrayList<>();
+        maquetaAdapter = new MaquetaAdapter(maquetaList, getContext());
+        recyclerView.setAdapter(maquetaAdapter);
+
+// Cargar datos de Firestore
+        FirebaseFirestore.getInstance().collection("maquetas")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                        Maqueta maqueta = doc.toObject(Maqueta.class);
+                        maquetaList.add(maqueta);
+                    }
+                    maquetaAdapter.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Error al cargar maquetas", Toast.LENGTH_SHORT).show();
+                });
+
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomnavigation);
 
         if (bottomNavigationView != null) {
             bottomNavigationView.setVisibility(View.VISIBLE);

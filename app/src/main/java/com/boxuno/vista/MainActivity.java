@@ -3,6 +3,7 @@ package com.boxuno.vista;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -32,8 +33,9 @@ public class MainActivity extends AppCompatActivity {
             } else if (idItemn == R.id.favoritos) {
                 loadFragment(new Favoritos());
                 return false;
-            } else if (idItemn == R.id.detalleProducto) {
-                loadFragment(new DetalleProducto());
+            } else if (idItemn == R.id.subirProducto) {
+                Log.d("DEBUG_MENU", "Se ha pulsado subir producto");
+                loadFragment(new SubirProducto());
                 return false;
             } else if (idItemn == R.id.chatLista) {
                 loadFragment(new ChatLista());

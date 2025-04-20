@@ -50,5 +50,10 @@ dependencies {
     implementation(platform(libs.firebase.bom.v3272))
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage.ktx)
+    implementation(platform(libs.firebase.bom))
+
+
+
 }
 apply(plugin = "com.google.gms.google-services")

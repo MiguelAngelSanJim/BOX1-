@@ -1,21 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout8"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vista.SubirProducto">
+    android:background="#D0D4E4"
+    android:padding="16dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/hello_blank_fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Botón para añadir imágenes -->
+
+        <!-- RecyclerView de imágenes -->
+        <Button
+            android:id="@+id/btn_subir_imagenes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="220dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white"
+            android:text="Añadir imágenes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/imagenesRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/btn_subir_imagenes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Campo: Título -->
+        <EditText
+            android:id="@+id/tituloProducto"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:hint="Título"
+            android:background="@drawable/edittext_style"
+            android:padding="10dp"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/imagenesRecyclerView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Campo: Escala -->
+        <EditText
+            android:id="@+id/escalaProducto"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:hint="Escala (ej. 1:18)"
+            android:background="@drawable/edittext_style"
+            android:padding="10dp"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/tituloProducto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Campo: Precio -->
+        <EditText
+            android:id="@+id/precioProducto"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:hint="Precio (€)"
+            android:background="@drawable/edittext_style"
+            android:padding="10dp"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/escalaProducto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Campo: Marca -->
+        <EditText
+            android:id="@+id/marcaProducto"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:hint="Marca"
+            android:background="@drawable/edittext_style"
+            android:padding="10dp"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/precioProducto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Campo: Categoría -->
+        <EditText
+            android:id="@+id/categoriaProducto"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:hint="Categoría"
+            android:background="@drawable/edittext_style"
+            android:padding="10dp"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/marcaProducto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Campo: Estado -->
+        <EditText
+            android:id="@+id/estadoProducto"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:hint="Estado (nuevo/usado)"
+            android:background="@drawable/edittext_style"
+            android:padding="10dp"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/categoriaProducto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Campo: Descripción -->
+        <EditText
+            android:id="@+id/descripcionProducto"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:hint="Descripción"
+            android:background="@drawable/edittext_style"
+            android:padding="10dp"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            app:layout_constraintTop_toBottomOf="@id/estadoProducto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Botón Publicar -->
+        <Button
+            android:id="@+id/btn_publicar_producto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Publicar"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/descripcionProducto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

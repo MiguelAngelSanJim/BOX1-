@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="blue">#0B1B4E</color>
+    <color name="ic_launcher_background">#F1F5F2</color>
     <color name="white">#FFFFFFFF</color>
     <string name="app_name">Box1</string>
     <string name="boton_iniciar_sesion">Iniciar sesión</string>
@@ -22,6 +23,7 @@
     <string name="registrarse">Registrarse</string>
     <string name="repita_la_contrase_a">Repita la contraseña</string>
     <string name="resistencia">Resistencia</string>
+    <string name="todos">Todos</string>
     <string name="wrc">WRC</string>
     <style name="Base.Theme.Box1" parent="Theme.Material3.DayNight.NoActionBar">
         
