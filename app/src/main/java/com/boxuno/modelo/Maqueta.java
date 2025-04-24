@@ -12,7 +12,8 @@ public class Maqueta {
     private String marca;
     private String categoria;
     private String estado;             // "Nuevo", "Usado", etc.
-    private List<String> imagenes;     // URLs a Firebase Storage.
+    private List<String> imagenes; // URLs a Firebase Storage.
+    private String nombreUsuario;
     private String usuarioId;          // UID del usuario que publica.
     private boolean vendido;
     private long timestamp;
@@ -109,6 +110,14 @@ public class Maqueta {
 
     public void setImagenes(List<String> imagenes) {
         this.imagenes = (imagenes != null) ? imagenes : new ArrayList<>();
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public String getUsuarioId() {

@@ -3104,7 +3104,6 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
-drawable download
 drawable edittext_style
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
@@ -3119,6 +3118,8 @@ drawable ic_call_decline_low
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_empty
+drawable ic_heart_red
+drawable ic_heart_white
 drawable ic_keyboard_black_24dp
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -3147,7 +3148,6 @@ drawable m3_tabs_background
 drawable m3_tabs_line_indicator
 drawable m3_tabs_rounded_line_indicator
 drawable m3_tabs_transparent_background
-drawable magnifyingglass
 drawable material_cursor_drawable
 drawable material_ic_calendar_black_24dp
 drawable material_ic_clear_black_24dp
@@ -3158,6 +3158,8 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
+drawable megusta
+drawable mensaje
 drawable mtrl_bottomsheet_drag_handle
 drawable mtrl_checkbox_button
 drawable mtrl_checkbox_button_checked_unchecked
@@ -3210,6 +3212,8 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable placeholder
+drawable spinner_background
+drawable subirproducto
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -3275,8 +3279,10 @@ id action_bar_subtitle
 id action_bar_title
 id action_container
 id action_context_bar
+id action_detalleProducto_self
 id action_divider
 id action_image
+id action_inicio_to_detalle_producto
 id action_login_to_inicio
 id action_login_to_registro
 id action_menu_divider
@@ -3327,7 +3333,9 @@ id browser_actions_menu_item_icon
 id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
+id btn_comprar
 id btn_inicioSesion
+id btn_mandarMensaje
 id btn_publicar_producto
 id btn_registro
 id btn_subir_imagenes
@@ -3336,7 +3344,7 @@ id cache_measures
 id callMeasure
 id cancel_button
 id carryVelocity
-id categoriaProducto
+id carta
 id center
 id centerCrop
 id centerInside
@@ -3363,6 +3371,7 @@ id compress
 id confirm_button
 id confirmpasswordRegistro
 id constraint
+id constraintContent
 id container
 id content
 id contentPanel
@@ -3384,6 +3393,7 @@ id decor_content_parent
 id default_activity_button
 id deltaRelative
 id dependency_ordering
+id descripcionDetalleProducto
 id descripcionProducto
 id design_bottom_sheet
 id design_menu_item_action_area
@@ -3413,6 +3423,7 @@ id easeInOut
 id easeOut
 id east
 id edge
+id editTextText
 id edit_query
 id edit_text_id
 id elastic
@@ -3425,7 +3436,6 @@ id enterAlways
 id enterAlwaysCollapsed
 id escalaProducto
 id escape
-id estadoProducto
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -3480,6 +3490,9 @@ id ignore
 id ignoreRequest
 id image
 id imageView
+id imagenMisFavoritos
+id imagenPerfilUser
+id imagenProducto
 id imagen_item
 id imagen_maqueta
 id imagenesRecyclerView
@@ -3505,6 +3518,10 @@ id line3
 id linear
 id listMode
 id list_item
+id listaf1
+id listaresistencia
+id listatodos
+id listawrc
 id locale
 id login
 id logo
@@ -3537,6 +3554,7 @@ id material_timepicker_ok_button
 id material_timepicker_view
 id material_value_index
 id matrix
+id megusta
 id message
 id middle
 id mini
@@ -3631,6 +3649,7 @@ id perfil
 id pin
 id position
 id postLayout
+id precioDetalleProducto
 id precioProducto
 id precio_maqueta
 id pressed
@@ -3640,6 +3659,7 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+id recycler_similares
 id recyclerviewinicio
 id registro
 id report_drawn
@@ -3693,6 +3713,8 @@ id snapMargins
 id south
 id spacer
 id special_effects_controller_view_tag
+id spinnerCategoria
+id spinnerEstado
 id spline
 id split_action_bar
 id spread
@@ -3711,11 +3733,14 @@ id staticLayout
 id staticPostLayout
 id stop
 id stretch
+id subidoPor
+id subido_por
 id subirProducto
 id submenuarrow
 id submit_area
 id supportScrollUp
 id tabLayout
+id tabLayoutFavoritos
 id tabMode
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
@@ -3746,7 +3771,6 @@ id textView2
 id textView3
 id textView4
 id textView5
-id textView6
 id textView7
 id text_input_end_icon
 id text_input_error_icon
@@ -3757,10 +3781,13 @@ id textinput_helper_text
 id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
+id textoFavoritos
+id textoSimilares
 id time
 id title
 id titleDividerNoCustom
 id title_template
+id tituloDetalleProducto
 id tituloProducto
 id titulo_maqueta
 id toggle
@@ -4090,6 +4117,7 @@ string common_google_play_services_wear_update_text
 string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
+string comprar
 string contrasenia
 string copy_toast_msg
 string dest_title
@@ -4152,6 +4180,7 @@ string material_timepicker_minute
 string material_timepicker_pm
 string material_timepicker_select_time
 string material_timepicker_text_input_mode_description
+string mis_favoritos
 string mtrl_badge_numberless_content_description
 string mtrl_checkbox_button_icon_path_checked
 string mtrl_checkbox_button_icon_path_group_name
@@ -4216,6 +4245,7 @@ string mtrl_timepicker_cancel
 string mtrl_timepicker_confirm
 string nav_app_bar_navigate_up_description
 string nav_app_bar_open_drawer_description
+string no_recuerdas_la_contrase_a_haz_click_aqu
 string nombre
 string password_toggle_content_description
 string path_password_eye

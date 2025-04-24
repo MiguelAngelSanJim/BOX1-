@@ -3,24 +3,24 @@
 3    package="com.boxuno.test" >
 4
 5    <uses-sdk
-5-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest11638173763806681428.xml:5:5-74
+5-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7576410196602115257.xml:5:5-74
 6        android:minSdkVersion="24"
-6-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest11638173763806681428.xml:5:15-41
+6-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7576410196602115257.xml:5:15-41
 7        android:targetSdkVersion="35" />
-7-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest11638173763806681428.xml:5:42-71
+7-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7576410196602115257.xml:5:42-71
 8
 9    <instrumentation
-9-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest11638173763806681428.xml:11:5-15:60
+9-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7576410196602115257.xml:11:5-15:60
 10        android:name="androidx.test.runner.AndroidJUnitRunner"
-10-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest11638173763806681428.xml:11:22-76
+10-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7576410196602115257.xml:11:22-76
 11        android:functionalTest="false"
-11-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest11638173763806681428.xml:14:22-52
+11-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7576410196602115257.xml:14:22-52
 12        android:handleProfiling="false"
-12-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest11638173763806681428.xml:13:22-53
+12-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7576410196602115257.xml:13:22-53
 13        android:label="Tests for com.boxuno"
-13-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest11638173763806681428.xml:15:22-58
+13-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7576410196602115257.xml:15:22-58
 14        android:targetPackage="com.boxuno" />
-14-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest11638173763806681428.xml:12:22-56
+14-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7576410196602115257.xml:12:22-56
 15
 16    <queries>
 16-->[androidx.test:runner:1.6.1] C:\Users\manol\.gradle\caches\transforms-4\3621c6e4cde84e7edb740850353de2a0\transformed\runner-1.6.1\AndroidManifest.xml:24:5-28:15
@@ -40,12 +40,12 @@
 22-->[androidx.test:core:1.6.1] C:\Users\manol\.gradle\caches\transforms-4\bd64b88d6e62e4b7ab866487fe94e09d\transformed\core-1.6.1\AndroidManifest.xml:24:22-69
 23
 24    <application
-24-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest11638173763806681428.xml:7:5-9:19
+24-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7576410196602115257.xml:7:5-9:19
 25        android:debuggable="true"
 26        android:extractNativeLibs="false" >
 27        <uses-library android:name="android.test.runner" />
-27-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest11638173763806681428.xml:8:9-60
-27-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest11638173763806681428.xml:8:23-57
+27-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7576410196602115257.xml:8:9-60
+27-->C:\Users\manol\OneDrive\Escritorio\tfg\App\BOX1-\app\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7576410196602115257.xml:8:23-57
 28
 29        <activity
 29-->[androidx.test:core:1.6.1] C:\Users\manol\.gradle\caches\transforms-4\bd64b88d6e62e4b7ab866487fe94e09d\transformed\core-1.6.1\AndroidManifest.xml:27:9-34:20

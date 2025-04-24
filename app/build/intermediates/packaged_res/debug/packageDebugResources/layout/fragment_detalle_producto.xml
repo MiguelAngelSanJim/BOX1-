@@ -5,4 +5,160 @@
     android:id="@+id/frameLayout9"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vista.DetalleProducto"/>
+    android:background="#D0D4E4"
+    tools:context=".vista.DetalleProducto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_style"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/imagenProducto"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tituloDetalleProducto"
+                android:layout_width="117dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="8dp"
+                android:text="Título"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imagenProducto" />
+
+            <TextView
+                android:id="@+id/precioDetalleProducto"
+                android:layout_width="75dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="4dp"
+                android:text="Precio"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tituloDetalleProducto" />
+
+            <TextView
+                android:id="@+id/subidoPor"
+                android:layout_width="74dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Subido por Usuario"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/imagenPerfilUser"
+                app:layout_constraintEnd_toStartOf="@id/imagenPerfilUser"
+                app:layout_constraintHorizontal_bias="0.003"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/precioDetalleProducto"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/imagenPerfilUser"
+                android:layout_width="37dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="260dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/precioDetalleProducto"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/descripcionDetalleProducto"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Descripción del producto..."
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:lineSpacingExtra="4dp"
+                android:maxLines="20"
+                android:ellipsize="end"
+                android:scrollbars="vertical"
+                app:layout_constraintTop_toBottomOf="@id/imagenPerfilUser"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="8dp" />
+
+
+            <Button
+                android:id="@+id/btn_comprar"
+                android:layout_width="157dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="#0B1B4E"
+                android:text="@string/comprar"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/descripcionDetalleProducto" />
+
+            <Button
+                android:id="@+id/btn_mandarMensaje"
+                android:layout_width="157dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="#0B1B4E"
+                android:text="Chat"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/descripcionDetalleProducto" />
+
+            <TextView
+                android:id="@+id/textoSimilares"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="8dp"
+                android:text="Productos similares"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_mandarMensaje" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_similares"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
+                android:clipToPadding="false"
+                app:layout_constraintTop_toBottomOf="@id/textoSimilares"
+                tools:listitem="@layout/item_maqueta"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

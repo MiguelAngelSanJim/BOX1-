@@ -20,15 +20,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewinicio"
-        android:layout_width="372dp"
-        android:layout_height="433dp"
+        android:layout_width="400dp"
+        android:layout_height="575dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="140dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.41"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tabLayout"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -43,21 +46,25 @@
         app:tabTextColor="@color/black">
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/listatodos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/todos" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/listaf1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/f1" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/listawrc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/wrc" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/listaresistencia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/resistencia" />

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,7 +33,8 @@ import java.util.*;
 
 public class SubirProducto extends Fragment {
 
-    private EditText titulo, escala, precio, marca, categoria, estado, descripcion;
+    private EditText titulo, escala, precio, marca, descripcion;
+    private Spinner spinnerCategoria, spinnerEstado;
     private Button btnPublicar, btnSubirImagen;
     private RecyclerView recyclerImagenes;
     private List<Uri> imagenesSeleccionadas = new ArrayList<>();
@@ -46,7 +50,6 @@ public class SubirProducto extends Fragment {
                 }
             });
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -57,16 +60,28 @@ public class SubirProducto extends Fragment {
         escala = view.findViewById(R.id.escalaProducto);
         precio = view.findViewById(R.id.precioProducto);
         marca = view.findViewById(R.id.marcaProducto);
-        categoria = view.findViewById(R.id.categoriaProducto);
-        estado = view.findViewById(R.id.estadoProducto);
         descripcion = view.findViewById(R.id.descripcionProducto);
+        spinnerCategoria = view.findViewById(R.id.spinnerCategoria);
+        spinnerEstado = view.findViewById(R.id.spinnerEstado);
         btnPublicar = view.findViewById(R.id.btn_publicar_producto);
         btnSubirImagen = view.findViewById(R.id.btn_subir_imagenes);
         recyclerImagenes = view.findViewById(R.id.imagenesRecyclerView);
 
-        imagenesAdapter = new ImagenesAdapter(getContext(),imagenesSeleccionadas);
+        imagenesAdapter = new ImagenesAdapter(getContext(), imagenesSeleccionadas);
         recyclerImagenes.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerImagenes.setAdapter(imagenesAdapter);
+
+        // Configurar Spinner de Categoría
+        String[] categorias = {"Seleccione una opción...", "F1", "WRC", "Resistencia"};
+        ArrayAdapter<String> categoriaAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, categorias);
+        categoriaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategoria.setAdapter(categoriaAdapter);
+
+        // Configurar Spinner de Estado
+        String[] estados = {"Seleccione una opción...", "Nuevo", "Usado", "Mal estado"};
+        ArrayAdapter<String> estadoAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, estados);
+        estadoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerEstado.setAdapter(estadoAdapter);
 
         btnSubirImagen.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -74,9 +89,13 @@ public class SubirProducto extends Fragment {
             seleccionarImagen.launch(intent);
         });
 
-        btnPublicar.setOnClickListener(v -> subirProducto());
-        Log.d("SUBIR_PRODUCTO", "Fragment cargado correctamente");
+        btnPublicar.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Subiendo anuncio...", Toast.LENGTH_SHORT).show();
+            subirProducto();
+            btnPublicar.setClickable(false);
+        });
 
+        Log.d("SUBIR_PRODUCTO", "Fragment cargado correctamente");
         return view;
     }
 
@@ -85,8 +104,8 @@ public class SubirProducto extends Fragment {
         String escalaStr = escala.getText().toString().trim();
         String precioStr = precio.getText().toString().trim();
         String marcaStr = marca.getText().toString().trim();
-        String categoriaStr = categoria.getText().toString().trim();
-        String estadoStr = estado.getText().toString().trim();
+        String categoriaStr = spinnerCategoria.getSelectedItem().toString();
+        String estadoStr = spinnerEstado.getSelectedItem().toString();
         String descripcionStr = descripcion.getText().toString().trim();
 
         if (TextUtils.isEmpty(tituloStr) || TextUtils.isEmpty(precioStr)) {
@@ -98,11 +117,17 @@ public class SubirProducto extends Fragment {
             Toast.makeText(getContext(), "Debes añadir al menos una imagen", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        if (categoriaStr.equals("Seleccione una opción...") || estadoStr.equals("Seleccione una opción...")) {
+            Toast.makeText(getContext(), "Debe seleccionar categoría y/o estado válidos", Toast.LENGTH_SHORT).show();
+            return;
+        }
         subirImagenesAFirebase(imagenesSeleccionadas, urls -> {
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            String maquetaId = db.collection("maquetas").document().getId();
+
             Maqueta maqueta = new Maqueta(
-                    null,
+                    maquetaId,
                     tituloStr,
                     escalaStr,
                     descripcionStr,
@@ -116,10 +141,16 @@ public class SubirProducto extends Fragment {
                     System.currentTimeMillis()
             );
 
-            FirebaseFirestore.getInstance()
-                    .collection("maquetas")
-                    .add(maqueta)
-                    .addOnSuccessListener(doc -> Toast.makeText(getContext(), "Maqueta publicada", Toast.LENGTH_SHORT).show())
+            db.collection("maquetas")
+                    .document(maquetaId)
+                    .set(maqueta)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(getContext(), "Maqueta publicada", Toast.LENGTH_LONG).show();
+
+                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                            NavHostFragment.findNavController(SubirProducto.this).navigate(R.id.inicio);
+                        }, 2500);
+                    })
                     .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al guardar", Toast.LENGTH_SHORT).show());
         });
     }

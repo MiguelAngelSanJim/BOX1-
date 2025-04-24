@@ -1,9 +1,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
+    android:id="@+id/carta"
     android:layout_margin="8dp"
+    android:background="@color/white"
     android:elevation="4dp"
     android:radius="12dp"
     app:cardBackgroundColor="@android:color/white">
@@ -14,27 +15,49 @@
         android:orientation="vertical"
         android:padding="8dp">
 
-        <ImageView
-            android:id="@+id/imagen_maqueta"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:scaleType="centerCrop" />
+            android:layout_height="150dp">
+
+            <ImageView
+                android:id="@+id/imagen_maqueta"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/megusta"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom|end"
+                app:srcCompat="@drawable/ic_heart_white" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/titulo_maqueta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="4dp"
             android:text="Título"
-            android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:paddingTop="4dp"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/precio_maqueta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
             android:text="Precio"
-            android:textColor="@android:color/black"
-            android:paddingBottom="4dp"/>
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/subido_por"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:text="Subido por"
+            android:textColor="@android:color/black" />
+
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

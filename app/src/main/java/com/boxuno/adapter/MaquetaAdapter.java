@@ -8,21 +8,59 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.boxuno.R;
 import com.boxuno.modelo.Maqueta;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
+
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaViewHolder> {
     private List<Maqueta> maquetaList;
     private Context context;
+    private Set<String> maquetasFavoritas = new HashSet<>();
+    private String userId;
+    private OnMaquetaClickListener listener;
 
-    public MaquetaAdapter(List<Maqueta> maquetaList, Context context) {
+    public interface OnMaquetaClickListener {
+        void onMaquetaClick(Maqueta maqueta);
+    }
+
+
+
+    public MaquetaAdapter(List<Maqueta> maquetaList, Context context, OnMaquetaClickListener listener) {
         this.maquetaList = maquetaList;
         this.context = context;
+        this.listener = listener;
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        cargarFavoritosDesdeFirebase();
+    }
+
+    private void cargarFavoritosDesdeFirebase() {
+        FirebaseFirestore.getInstance()
+                .collection("favoritos")
+                .document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    List<String> favoritos = (List<String>) documentSnapshot.get("favoritos");
+                    if (favoritos != null) {
+                        maquetasFavoritas.addAll(favoritos);
+                        notifyDataSetChanged(); // Para que se pinten los corazones rojos correctamente
+                    }
+                });
     }
 
     @NonNull
@@ -32,18 +70,55 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
         return new MaquetaViewHolder(view);
     }
 
+    private void actualizarIconoCorazon(ImageView icono, String maquetaId) {
+        if (maquetasFavoritas.contains(maquetaId)) {
+            icono.setImageResource(R.drawable.ic_heart_red);
+        } else {
+            icono.setImageResource(R.drawable.ic_heart_white);
+        }
+    }
+
     @Override
     public void onBindViewHolder(@NonNull MaquetaViewHolder holder, int position) {
         Maqueta maqueta = maquetaList.get(position);
+        String maquetaID = maqueta.getId();
+
         holder.titulo.setText(maqueta.getTitulo());
         holder.precio.setText(maqueta.getPrecio() + " €");
+        holder.subidoPor.setText(maqueta.getNombreUsuario());
 
         if (maqueta.getImagenes() != null && !maqueta.getImagenes().isEmpty()) {
             Glide.with(context)
                     .load(maqueta.getImagenes().get(0))
-                    .placeholder(R.drawable.placeholder)// imagen por defecto
+                    .placeholder(R.drawable.placeholder)
                     .into(holder.imagen);
         }
+
+        actualizarIconoCorazon(holder.meGusta, maquetaID);
+
+        holder.meGusta.setOnClickListener(v -> {
+            DocumentReference docRef = FirebaseFirestore.getInstance()
+                    .collection("favoritos")
+                    .document(userId);
+
+            boolean yaEsFavorito = maquetasFavoritas.contains(maquetaID);
+
+            if (yaEsFavorito) {
+                maquetasFavoritas.remove(maquetaID);
+                holder.meGusta.setImageResource(R.drawable.ic_heart_white);
+                docRef.update("favoritos", FieldValue.arrayRemove(maquetaID));
+            } else {
+                maquetasFavoritas.add(maquetaID);
+                holder.meGusta.setImageResource(R.drawable.ic_heart_red);
+                Map<String, Object> datos = new HashMap<>();
+                datos.put("favoritos", FieldValue.arrayUnion(maquetaID));
+                docRef.set(datos, SetOptions.merge());
+            }
+        });
+
+       holder.carta.setOnClickListener(v-> {
+            listener.onMaquetaClick(maqueta);
+        });
     }
 
     @Override
@@ -52,14 +127,18 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
     }
 
     public static class MaquetaViewHolder extends RecyclerView.ViewHolder {
-        ImageView imagen;
-        TextView titulo, precio;
+        ImageView imagen, meGusta;
+        TextView titulo, precio, subidoPor;
+        CardView carta;
 
         public MaquetaViewHolder(@NonNull View itemView) {
             super(itemView);
+            carta= itemView.findViewById(R.id.carta);
             imagen = itemView.findViewById(R.id.imagen_maqueta);
             titulo = itemView.findViewById(R.id.titulo_maqueta);
             precio = itemView.findViewById(R.id.precio_maqueta);
+            subidoPor = itemView.findViewById(R.id.subido_por);
+            meGusta = itemView.findViewById(R.id.megusta);
         }
     }
 }

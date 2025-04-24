@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -139,7 +140,7 @@ public class Registro extends Fragment {
                 builder.setPositiveButton("Aceptar", (dialog, which) -> dialog.dismiss());
                 builder.show();
             } else {
-                NavController navController = Navigation.findNavController(view);
+                NavController navController = NavHostFragment.findNavController(Registro.this);
 
                 String email = emailEditText.getText().toString().trim();
                 String nombre = nombreUsuario.getText().toString();

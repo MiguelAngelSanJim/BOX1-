@@ -4,7 +4,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,31 +20,18 @@ import com.boxuno.R;
 import com.boxuno.adapter.MaquetaAdapter;
 import com.boxuno.modelo.Maqueta;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Inicio#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class Inicio extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-
     private List<Maqueta> maquetaList;
     private MaquetaAdapter maquetaAdapter;
+
     public Inicio() {
         // Required empty public constructor
     }
@@ -58,8 +48,6 @@ public class Inicio extends Fragment {
     public static Inicio newInstance(String param1, String param2) {
         Inicio fragment = new Inicio();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -83,29 +71,52 @@ public class Inicio extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerviewinicio);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2)); // 2 columnas
         maquetaList = new ArrayList<>();
-        maquetaAdapter = new MaquetaAdapter(maquetaList, getContext());
+        maquetaAdapter = new MaquetaAdapter(maquetaList, getContext(), maqueta -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("idMaqueta", maqueta.getId());
+
+            NavHostFragment.findNavController(Inicio.this).navigate(R.id.action_inicio_to_detalle_producto, bundle);
+        });
         recyclerView.setAdapter(maquetaAdapter);
 
-// Cargar datos de Firestore
-        FirebaseFirestore.getInstance().collection("maquetas")
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String uidActual = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db.collection("maquetas").whereNotEqualTo("usuarioId", uidActual).get().addOnSuccessListener(queryDocumentSnapshots -> {
                     for (DocumentSnapshot doc : queryDocumentSnapshots) {
                         Maqueta maqueta = doc.toObject(Maqueta.class);
-                        maquetaList.add(maqueta);
+                        if (maqueta == null) continue;
+
+                        String userId = maqueta.getUsuarioId();
+
+                        db.collection("usuarios").document(userId)
+                                .get()
+                                .addOnSuccessListener(userDoc -> {
+                                    if (userDoc.exists()) {
+                                        maqueta.setNombreUsuario(userDoc.getString("nombre"));
+                                    } else {
+                                        maqueta.setNombreUsuario("Desconocido");
+                                    }
+                                    maquetaList.add(maqueta);
+                                    maquetaAdapter.notifyDataSetChanged();
+                                })
+                                .addOnFailureListener(e -> {
+                                    maqueta.setNombreUsuario("Error");
+                                    maquetaList.add(maqueta);
+                                    maquetaAdapter.notifyDataSetChanged();
+                                });
                     }
-                    maquetaAdapter.notifyDataSetChanged();
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(getContext(), "Error al cargar maquetas", Toast.LENGTH_SHORT).show();
                 });
 
-        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomnavigation);
 
+
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomnavigation);
         if (bottomNavigationView != null) {
             bottomNavigationView.setVisibility(View.VISIBLE);
         }
-
     }
 
 

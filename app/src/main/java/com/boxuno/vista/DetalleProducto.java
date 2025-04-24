@@ -1,66 +1,85 @@
 package com.boxuno.vista;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.boxuno.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetalleProducto#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.boxuno.R;
+import com.boxuno.adapter.MaquetaAdapter;
+import com.boxuno.modelo.Maqueta;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DetalleProducto extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Maqueta maqueta;
 
     public DetalleProducto() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DetalleProducto.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DetalleProducto newInstance(String param1, String param2) {
-        DetalleProducto fragment = new DetalleProducto();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        // Constructor vacío requerido
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detalle_producto, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        String maquetaId = getArguments() != null ? getArguments().getString("idMaqueta") : null;
+        if (maquetaId == null) return;
+
+        FirebaseFirestore.getInstance()
+                .collection("maquetas")
+                .document(maquetaId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    maqueta = documentSnapshot.toObject(Maqueta.class);
+                    if (maqueta == null) return;
+
+                    // Aquí ya puedes llamar a cargarSimilares
+                    cargarSimilares(view);
+                });
+    }
+
+    private void cargarSimilares(View view) {
+        RecyclerView recyclerSimilares = view.findViewById(R.id.recycler_similares);
+        recyclerSimilares.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        List<Maqueta> similaresList = new ArrayList<>();
+        MaquetaAdapter similaresAdapter = new MaquetaAdapter(similaresList, getContext(), maqueta -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("idMaqueta", maqueta.getId());
+            NavHostFragment.findNavController(DetalleProducto.this).navigate(R.id.detalleProducto, bundle);
+        });
+        recyclerSimilares.setAdapter(similaresAdapter);
+
+        FirebaseFirestore.getInstance()
+                .collection("maquetas")
+                .whereEqualTo("categoria", maqueta.getCategoria())
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                        Maqueta similar = doc.toObject(Maqueta.class);
+                        if (similar != null && !similar.getId().equals(maqueta.getId())) {
+                            similaresList.add(similar);
+                        }
+                    }
+                    similaresAdapter.notifyDataSetChanged();
+                });
     }
 }

@@ -34,13 +34,21 @@
     <fragment
         android:id="@+id/inicio"
         android:name="com.boxuno.vista.Inicio"
-        android:label="Inicio" />
+        android:label="Inicio">
+
+        <action
+            android:id="@+id/action_inicio_to_detalle_producto"
+            app:destination="@id/detalleProducto" />
+    </fragment>
 
     <fragment
         android:id="@+id/detalleProducto"
         android:name="com.boxuno.vista.DetalleProducto"
-        android:label="Detalle producto" />
-
+        android:label="Detalle producto">
+        <action
+            android:id="@+id/action_detalleProducto_self"
+            app:destination="@id/detalleProducto" />
+    </fragment>
     <fragment
         android:id="@+id/comprar"
         android:name="com.boxuno.vista.Comprar"

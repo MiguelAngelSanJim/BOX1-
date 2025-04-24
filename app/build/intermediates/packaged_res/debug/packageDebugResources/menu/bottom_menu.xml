@@ -5,26 +5,26 @@
         android:id="@+id/inicio"
         android:enabled="true"
         android:icon="@drawable/home"
-        android:title="" />
+        android:title=""/>
     <item
         android:id="@+id/favoritos"
         android:enabled="true"
-        android:icon="@drawable/magnifyingglass"
+        android:icon="@drawable/megusta"
         android:title=""/>
     <item
         android:id="@+id/subirProducto"
         android:enabled="true"
-        android:icon="@drawable/user"
+        android:icon="@drawable/subirproducto"
         android:title=""/>
 
     <item
         android:id="@+id/chatLista"
         android:enabled="true"
-        android:icon="@drawable/download"
+        android:icon="@drawable/mensaje"
         android:title=""/>
     <item
         android:id="@+id/perfil"
         android:enabled="true"
-        android:icon="@drawable/download"
+        android:icon="@drawable/user"
         android:title=""/>
 </menu>

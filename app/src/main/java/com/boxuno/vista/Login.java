@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,7 +79,7 @@ public class Login extends Fragment {
                     if (querySnapshot.isEmpty()) {
                         Bundle bundle = new Bundle();
                         bundle.putString("emailNoRegistrado", email);
-                        Navigation.findNavController(view).navigate(R.id.action_login_to_registro, bundle);
+                        NavHostFragment.findNavController(Login.this).navigate(R.id.action_login_to_registro, bundle);
                     } else {
                         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
@@ -88,7 +89,7 @@ public class Login extends Fragment {
                                 SharedPreferences prefs = requireActivity().getSharedPreferences("box1_prefs", Context.MODE_PRIVATE);
                                 prefs.edit().putBoolean("recordar", checkBox.isChecked()).apply();
 
-                                Navigation.findNavController(view).navigate(R.id.action_login_to_inicio, null, navOptions);
+                                NavHostFragment.findNavController(Login.this).navigate(R.id.action_login_to_inicio, null, navOptions);
                             } else {
                                 Toast.makeText(getContext(), "Contraseña incorrecta.", Toast.LENGTH_SHORT).show();
                             }

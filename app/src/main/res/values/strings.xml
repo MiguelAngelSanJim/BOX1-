@@ -15,4 +15,7 @@
     <string name="wrc">WRC</string>
     <string name="resistencia">Resistencia</string>
     <string name="todos">Todos</string>
+    <string name="comprar">Comprar</string>
+    <string name="no_recuerdas_la_contrase_a_haz_click_aqu">¿No recuerdas la contraseña? Haz click aquí.</string>
+    <string name="mis_favoritos">Mis favoritos</string>
 </resources>
