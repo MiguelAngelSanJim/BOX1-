@@ -13,6 +13,7 @@ drawable ic_heart_red
 drawable ic_heart_white
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable imagenpordefecto
 drawable login_gradient
 drawable logopng
 drawable megusta
@@ -40,6 +41,7 @@ id checkBox
 id comprar
 id confirmpasswordRegistro
 id constraintContent
+id contenedorPerfil
 id descripcionDetalleProducto
 id descripcionProducto
 id detalleProducto
@@ -86,6 +88,7 @@ id progressBar
 id recycler_similares
 id recyclerviewinicio
 id registro
+id separadorDescripcion
 id spinnerCategoria
 id spinnerEstado
 id subidoPor
@@ -128,6 +131,7 @@ mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 mipmap placeholder
 navigation nav_graph
+raw imagenpordefecto
 string app_name
 string boton_iniciar_sesion
 string comprar

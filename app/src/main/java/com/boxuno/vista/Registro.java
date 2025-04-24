@@ -25,7 +25,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,22 +93,32 @@ public class Registro extends Fragment {
 
         String uid = user.getUid();
         String email = user.getEmail();
+        subirFotoPerfilPorDefecto(uid, new OnFotoSubidaCallback() {
+            @Override
+            public void onSubidaCorrecta(String urlFoto) {
+                Map<String, Object> usuario = new HashMap<>();
+                usuario.put("uid", uid);
+                usuario.put("email", email);
+                usuario.put("nombre", nombreDesdeEditText); // ← pásalo desde el EditText
+                usuario.put("fotoPerfilUrl", urlFoto); // o súbela y pon la URL
+                usuario.put("timestamp", FieldValue.serverTimestamp());
+                usuario.put("favoritos", new ArrayList<>());
+                usuario.put("productos", new ArrayList<>());
 
-        Map<String, Object> usuario = new HashMap<>();
-        usuario.put("uid", uid);
-        usuario.put("email", email);
-        usuario.put("nombre", nombreDesdeEditText); // ← pásalo desde el EditText
-        usuario.put("fotoPerfilUrl", ""); // o súbela y pon la URL
-        usuario.put("timestamp", FieldValue.serverTimestamp());
-        usuario.put("favoritos", new ArrayList<>());
-        usuario.put("productos", new ArrayList<>());
+                FirebaseFirestore.getInstance()
+                        .collection("usuarios")
+                        .document(uid)
+                        .set(usuario)
+                        .addOnSuccessListener(aVoid -> Log.d("FIRESTORE", "Usuario guardado correctamente"))
+                        .addOnFailureListener(e -> Log.e("FIRESTORE", "Error al guardar usuario", e));
+            }
 
-        FirebaseFirestore.getInstance()
-                .collection("usuarios")
-                .document(uid)
-                .set(usuario)
-                .addOnSuccessListener(aVoid -> Log.d("FIRESTORE", "Usuario guardado correctamente"))
-                .addOnFailureListener(e -> Log.e("FIRESTORE", "Error al guardar usuario", e));
+            @Override
+            public void onError(String error) {
+                Log.e("FOTO PERFIL", "Error al subir imagen: " + error);
+            }
+        });
+
     }
 
 
@@ -150,7 +164,7 @@ public class Registro extends Fragment {
                                 .setPopUpTo(R.id.registro, true) // Elimina 'registro' del backstack
                                 .build();
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        guardarUsuarioEnFirestore(user, nombre );
+                        guardarUsuarioEnFirestore(user, nombre);
                         navController.navigate(R.id.action_registro_to_inicio, null, navOptions);
                     } else {
 
@@ -162,9 +176,36 @@ public class Registro extends Fragment {
 
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomnavigation);
 
-        if(bottomNavigationView != null){
+        if (bottomNavigationView != null) {
             bottomNavigationView.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void subirFotoPerfilPorDefecto(String userId, OnFotoSubidaCallback callback) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference ref = storage.getReference().child("fotos_perfil/" + userId + ".jpg");
+
+        // Convertir drawable a InputStream
+        InputStream stream = getResources().openRawResource(R.raw.imagenpordefecto);
+
+        UploadTask uploadTask = ref.putStream(stream);
+        uploadTask
+                .continueWithTask(task -> {
+                    if (!task.isSuccessful()) throw task.getException();
+                    return ref.getDownloadUrl();
+                })
+                .addOnSuccessListener(uri -> {
+                    callback.onSubidaCorrecta(uri.toString());
+                })
+                .addOnFailureListener(e -> {
+                    callback.onError(e.getMessage());
+                });
+    }
+
+    interface OnFotoSubidaCallback {
+        void onSubidaCorrecta(String url);
+
+        void onError(String error);
     }
 
 

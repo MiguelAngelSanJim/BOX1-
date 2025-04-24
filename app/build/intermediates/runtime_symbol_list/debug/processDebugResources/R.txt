@@ -3133,6 +3133,7 @@ int drawable ic_other_sign_in 0x7f0700b6
 int drawable ic_passkey 0x7f0700b7
 int drawable ic_password 0x7f0700b8
 int drawable ic_search_black_24 0x7f0700b9
+int drawable imagenpordefecto 0x7f07010e
 int drawable indeterminate_static 0x7f0700ba
 int drawable login_gradient 0x7f0700bb
 int drawable logopng 0x7f0700bc
@@ -3372,6 +3373,7 @@ int id confirmpasswordRegistro 0x7f080098
 int id constraint 0x7f080099
 int id constraintContent 0x7f08009a
 int id container 0x7f08009b
+int id contenedorPerfil 0x7f080266
 int id content 0x7f08009c
 int id contentPanel 0x7f08009d
 int id contiguous 0x7f08009e
@@ -3693,6 +3695,7 @@ int id search_voice_btn 0x7f0801da
 int id select_dialog_listview 0x7f0801db
 int id selected 0x7f0801dc
 int id selection_type 0x7f0801dd
+int id separadorDescripcion 0x7f080267
 int id sharedValueSet 0x7f0801de
 int id sharedValueUnset 0x7f0801df
 int id shortcut 0x7f0801e0
@@ -4048,6 +4051,7 @@ int mipmap placeholder 0x7f0e0003
 int navigation nav_graph 0x7f0f0000
 int plurals mtrl_badge_content_description 0x7f100000
 int raw firebase_common_keep 0x7f110000
+int raw imagenpordefecto 0x7f110001
 int string abc_action_bar_home_description 0x7f120000
 int string abc_action_bar_up_description 0x7f120001
 int string abc_action_menu_overflow_description 0x7f120002

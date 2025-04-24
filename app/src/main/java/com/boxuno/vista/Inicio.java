@@ -73,7 +73,7 @@ public class Inicio extends Fragment {
         maquetaList = new ArrayList<>();
         maquetaAdapter = new MaquetaAdapter(maquetaList, getContext(), maqueta -> {
             Bundle bundle = new Bundle();
-            bundle.putString("idMaqueta", maqueta.getId());
+            bundle.putSerializable("maqueta", maqueta);
 
             NavHostFragment.findNavController(Inicio.this).navigate(R.id.action_inicio_to_detalle_producto, bundle);
         });

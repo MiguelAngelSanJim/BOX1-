@@ -1,9 +1,10 @@
 package com.boxuno.modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Maqueta {
+public class Maqueta implements Serializable {
     private String id;                  // ID del documento.
     private String titulo;
     private String escala;
@@ -19,7 +20,7 @@ public class Maqueta {
     private long timestamp;
 
 
-    public Maqueta() {
+    public Maqueta(){
         imagenes = new ArrayList<>();
     }
 

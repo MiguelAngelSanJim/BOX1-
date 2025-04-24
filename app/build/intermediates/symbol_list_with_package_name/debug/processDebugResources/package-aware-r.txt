@@ -3134,6 +3134,7 @@ drawable ic_other_sign_in
 drawable ic_passkey
 drawable ic_password
 drawable ic_search_black_24
+drawable imagenpordefecto
 drawable indeterminate_static
 drawable login_gradient
 drawable logopng
@@ -3373,6 +3374,7 @@ id confirmpasswordRegistro
 id constraint
 id constraintContent
 id container
+id contenedorPerfil
 id content
 id contentPanel
 id contiguous
@@ -3694,6 +3696,7 @@ id search_voice_btn
 id select_dialog_listview
 id selected
 id selection_type
+id separadorDescripcion
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -4049,6 +4052,7 @@ mipmap placeholder
 navigation nav_graph
 plurals mtrl_badge_content_description
 raw firebase_common_keep
+raw imagenpordefecto
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
