@@ -3495,6 +3495,7 @@ id imageView
 id imagenMisFavoritos
 id imagenPerfilUser
 id imagenProducto
+id imagenUserPerfil
 id imagen_item
 id imagen_maqueta
 id imagenesRecyclerView
@@ -3518,6 +3519,7 @@ id light
 id line1
 id line3
 id linear
+id linearLayout
 id listMode
 id list_item
 id listaf1
@@ -3661,6 +3663,7 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+id recyclerView
 id recycler_similares
 id recyclerviewinicio
 id registro
@@ -3774,6 +3777,7 @@ id textView2
 id textView3
 id textView4
 id textView5
+id textView6
 id textView7
 id text_input_end_icon
 id text_input_error_icon

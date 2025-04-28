@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#D0D4E4"
@@ -13,7 +14,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Botón para añadir imágenes -->
         <Button
             android:id="@+id/btn_subir_imagenes"
             android:layout_width="wrap_content"
@@ -21,75 +21,68 @@
             android:layout_gravity="end"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/blue"
-            android:text="Añadir imágenes"
+            android:text="@string/a_adir_im_genes"
             android:textColor="@color/white" />
 
-        <!-- RecyclerView de imágenes -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/imagenesRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginTop="8dp" />
 
-        <!-- Campo: Título -->
         <EditText
             android:id="@+id/tituloProducto"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/edittext_style"
-            android:hint="Título"
+            android:hint="@string/t_tulo"
             android:inputType="text"
             android:textColor="@color/black"
             android:padding="10dp" />
 
-        <!-- Campo: Escala -->
         <EditText
             android:id="@+id/escalaProducto"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/edittext_style"
-            android:hint="Escala (ej. 1:18)"
+            android:hint="@string/escala_ej_1_18"
             android:inputType="text"
             android:textColor="@color/black"
             android:padding="10dp" />
 
-        <!-- Campo: Precio -->
         <EditText
             android:id="@+id/precioProducto"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/edittext_style"
-            android:hint="Precio (€)"
+            android:hint="@string/precio"
             android:textColor="@color/black"
             android:inputType="numberDecimal"
             android:padding="10dp" />
 
-        <!-- Campo: Marca -->
         <EditText
             android:id="@+id/marcaProducto"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/edittext_style"
-            android:hint="Marca"
+            android:hint="@string/marca"
             android:textColor="@color/black"
             android:inputType="text"
             android:padding="10dp" />
 
-        <!-- Etiqueta: Categoría -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Categoría (Seleccione una opción)"
+            android:text="@string/categor_a_seleccione_una_opci_n"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:layout_marginTop="12dp"
             android:paddingStart="4dp" />
 
-        <!-- Spinner: Categoría -->
         <Spinner
             android:id="@+id/spinnerCategoria"
             android:layout_width="match_parent"
@@ -97,17 +90,16 @@
             android:background="@drawable/spinner_background"
             android:padding="10dp" />
 
-        <!-- Etiqueta: Estado -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Estado (Seleccione una opción)"
+            android:text="@string/estado_seleccione_una_opci_n"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:layout_marginTop="12dp"
-            android:paddingStart="4dp" />
+            android:paddingStart="4dp"
+            tools:ignore="RtlSymmetry" />
 
-        <!-- Spinner: Estado -->
         <Spinner
             android:id="@+id/spinnerEstado"
             android:layout_width="match_parent"
@@ -115,7 +107,6 @@
             android:background="@drawable/spinner_background"
             android:padding="10dp" />
 
-        <!-- Campo: Descripción -->
         <EditText
             android:id="@+id/descripcionProducto"
             android:layout_width="match_parent"
@@ -123,12 +114,11 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/edittext_style"
             android:gravity="top"
-            android:hint="Descripción"
+            android:hint="@string/descripci_n"
             android:textColor="@color/black"
             android:inputType="textMultiLine"
             android:padding="10dp" />
 
-        <!-- Botón Publicar -->
         <Button
             android:id="@+id/btn_publicar_producto"
             android:layout_width="wrap_content"
@@ -136,7 +126,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/blue"
-            android:text="Publicar"
+            android:text="@string/publicar"
             android:textColor="@color/white" />
 
         <View

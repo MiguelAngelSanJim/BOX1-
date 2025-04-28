@@ -3494,6 +3494,7 @@ int id imageView 0x7f080111
 int id imagenMisFavoritos 0x7f080112
 int id imagenPerfilUser 0x7f080113
 int id imagenProducto 0x7f080114
+int id imagenUserPerfil 0x7f08026c
 int id imagen_item 0x7f080115
 int id imagen_maqueta 0x7f080116
 int id imagenesRecyclerView 0x7f080117
@@ -3517,6 +3518,7 @@ int id light 0x7f080128
 int id line1 0x7f080129
 int id line3 0x7f08012a
 int id linear 0x7f08012b
+int id linearLayout 0x7f080269
 int id listMode 0x7f08012c
 int id list_item 0x7f08012d
 int id listaf1 0x7f08012e
@@ -3660,6 +3662,7 @@ int id progress_horizontal 0x7f0801b7
 int id radio 0x7f0801b8
 int id ratio 0x7f0801b9
 int id rectangles 0x7f0801ba
+int id recyclerView 0x7f08026a
 int id recycler_similares 0x7f0801bb
 int id recyclerviewinicio 0x7f0801bc
 int id registro 0x7f0801bd
@@ -3773,6 +3776,7 @@ int id textView2 0x7f080225
 int id textView3 0x7f080226
 int id textView4 0x7f080227
 int id textView5 0x7f080228
+int id textView6 0x7f08026b
 int id textView7 0x7f080229
 int id text_input_end_icon 0x7f08022a
 int id text_input_error_icon 0x7f08022b

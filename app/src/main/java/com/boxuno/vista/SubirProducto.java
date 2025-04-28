@@ -71,13 +71,13 @@ public class SubirProducto extends Fragment {
         recyclerImagenes.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerImagenes.setAdapter(imagenesAdapter);
 
-        // Configurar Spinner de Categoría
+        // Configurar el Spinner de Categoría.
         String[] categorias = {"Seleccione una opción...", "F1", "WRC", "Resistencia"};
         ArrayAdapter<String> categoriaAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, categorias);
         categoriaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategoria.setAdapter(categoriaAdapter);
 
-        // Configurar Spinner de Estado
+        // Configurar el Spinner de Estado.
         String[] estados = {"Seleccione una opción...", "Nuevo", "Usado", "Mal estado"};
         ArrayAdapter<String> estadoAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, estados);
         estadoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Maqueta implements Serializable {
-    private String id;                  // ID del documento.
+    private String id;
     private String titulo;
     private String escala;
     private String descripcion;
     private double precio;
     private String marca;
     private String categoria;
-    private String estado;             // "Nuevo", "Usado", etc.
-    private List<String> imagenes; // URLs a Firebase Storage.
+    private String estado;
+    private List<String> imagenes;
     private String nombreUsuario;
-    private String usuarioId;          // UID del usuario que publica.
+    private String usuarioId;
     private boolean vendido;
     private long timestamp;
 

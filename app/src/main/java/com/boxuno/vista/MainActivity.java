@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // Asegúrate de que aquí esté el FragmentContainerView con ID nav_host_fragment
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.blue)); // o cualquier otro color
+        setContentView(R.layout.activity_main);
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.blue));
 
         // Encuentra el NavController del NavHostFragment
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()

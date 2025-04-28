@@ -1,10 +1,10 @@
 package com.boxuno.modelo;
 
 public class Mensaje {
-    private String remitenteId;       // UID del que envía el mensaje.
-    private String destinatarioId;    // UID del que recibe el mensaje.
-    private String contenido;         // Texto del mensaje.
-    private long timestamp;           // Fecha de envío del mensaje.
+    private String remitenteId;
+    private String destinatarioId;
+    private String contenido;
+    private long timestamp;
 
     public Mensaje() {}
 

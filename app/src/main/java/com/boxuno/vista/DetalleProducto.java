@@ -57,7 +57,7 @@ public class DetalleProducto extends Fragment {
         btnComprar = view.findViewById(R.id.btn_comprar);
         btnMandarMensaje = view.findViewById(R.id.btn_mandarMensaje);
 
-        // Recuperar la maqueta desde el bundle
+        // Recuperar la maqueta desde el bundle.
         if (getArguments() != null && getArguments().containsKey("maqueta")) {
             maqueta = (Maqueta) getArguments().getSerializable("maqueta");
 
@@ -65,7 +65,7 @@ public class DetalleProducto extends Fragment {
                 tituloDetalleProducto.setText(maqueta.getTitulo());
                 precioDetalleProducto.setText(maqueta.getPrecio() + " €");
                 descripcionDetalleProducto.setText(maqueta.getDescripcion());
-                // 🔽 Aquí añades la consulta para obtener el nombre del usuario
+                // Aquí seañade la consulta para obtener el nombre del usuario.
                 FirebaseFirestore.getInstance().collection("usuarios").document(maqueta.getUsuarioId()).get().addOnSuccessListener(doc -> {
                             String nombre = doc.getString("nombre");
                             subidoPor.setText("Subido por " + (nombre != null ? nombre : "Desconocido"));
@@ -74,7 +74,7 @@ public class DetalleProducto extends Fragment {
                             subidoPor.setText("Subido por Desconocido");
                         });
 
-                // Imagen del producto
+                // Imagen del producto.
                 if (maqueta.getImagenes() != null && !maqueta.getImagenes().isEmpty()) {
                     Glide.with(this)
                             .load(maqueta.getImagenes().get(0))
@@ -82,13 +82,12 @@ public class DetalleProducto extends Fragment {
                             .into(imagenProducto);
                 }
 
-                // Imagen de perfil por defecto
+                // Imagen de perfil por defecto.
                 Glide.with(this)
                         .load(R.drawable.imagenpordefecto)
                         .circleCrop()
                         .into(imagenPerfilUser);
 
-                // Cargar productos similares
                 cargarSimilares(view);
             }
         }
@@ -147,7 +146,7 @@ public class DetalleProducto extends Fragment {
                     similaresAdapter.notifyDataSetChanged();
                 })
                 .addOnFailureListener(e -> {
-                    Log.e("SIMILARES", "❌ Error al cargar maquetas similares", e);
+                    Log.e("SIMILARES", "ERROR: Error al cargar maquetas similares", e);
                 });
     }
 
