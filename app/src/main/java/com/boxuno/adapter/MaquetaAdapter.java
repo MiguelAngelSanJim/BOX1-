@@ -33,17 +33,18 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
     private Set<String> maquetasFavoritas = new HashSet<>();
     private String userId;
     private OnMaquetaClickListener listener;
+    private boolean mostrarMeGusta;
 
     public interface OnMaquetaClickListener {
         void onMaquetaClick(Maqueta maqueta);
     }
 
 
-
-    public MaquetaAdapter(List<Maqueta> maquetaList, Context context, OnMaquetaClickListener listener) {
+    public MaquetaAdapter(List<Maqueta> maquetaList, Context context, OnMaquetaClickListener listener, boolean mostrarMeGusta) {
         this.maquetaList = maquetaList;
         this.context = context;
         this.listener = listener;
+        this.mostrarMeGusta = mostrarMeGusta;
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         cargarFavoritosDesdeFirebase();
     }
@@ -57,7 +58,7 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
                     List<String> favoritos = (List<String>) documentSnapshot.get("favoritos");
                     if (favoritos != null) {
                         maquetasFavoritas.addAll(favoritos);
-                        notifyDataSetChanged(); // Para que se pinten los corazones rojos correctamente
+                        notifyDataSetChanged();
                     }
                 });
     }
@@ -114,8 +115,15 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
                 docRef.set(datos, SetOptions.merge());
             }
         });
+        if (mostrarMeGusta) {
+            holder.meGusta.setVisibility(View.VISIBLE);
+            actualizarIconoCorazon(holder.meGusta, maquetaID);
+            
+        } else {
+            holder.meGusta.setVisibility(View.GONE); // <- OCULTA EL ICONO
+        }
 
-       holder.carta.setOnClickListener(v-> {
+        holder.carta.setOnClickListener(v -> {
             listener.onMaquetaClick(maqueta);
         });
     }
@@ -132,7 +140,7 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
 
         public MaquetaViewHolder(@NonNull View itemView) {
             super(itemView);
-            carta= itemView.findViewById(R.id.carta);
+            carta = itemView.findViewById(R.id.carta);
             imagen = itemView.findViewById(R.id.imagen_maqueta);
             titulo = itemView.findViewById(R.id.titulo_maqueta);
             precio = itemView.findViewById(R.id.precio_maqueta);

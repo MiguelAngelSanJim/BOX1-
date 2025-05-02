@@ -3334,12 +3334,14 @@ id browser_actions_menu_item_icon
 id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
+id btnCerrarCarrusel
 id btn_comprar
 id btn_inicioSesion
 id btn_mandarMensaje
 id btn_publicar_producto
 id btn_registro
 id btn_subir_imagenes
+id buscador
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3355,7 +3357,10 @@ id chain
 id chain2
 id chains
 id chatConversacion
+id chatImagenUsuario
 id chatLista
+id chatNombreUsuario
+id chatUltimoMensaje
 id checkBox
 id checkbox
 id checked
@@ -3403,6 +3408,7 @@ id design_menu_item_action_area_stub
 id design_menu_item_text
 id design_navigation_view
 id detalleProducto
+id dialogViewPager
 id dialog_button
 id dimensions
 id direct
@@ -3432,6 +3438,8 @@ id elastic
 id email
 id emailRegistro
 id embed
+id encabezadochat
+id encabezadotextofav
 id end
 id endToStart
 id enterAlways
@@ -3460,7 +3468,6 @@ id fragment_container_view_tag
 id frameLayout
 id frameLayout2
 id frameLayout3
-id frameLayout4
 id frameLayout5
 id frameLayout6
 id frameLayout7
@@ -3492,13 +3499,13 @@ id ignore
 id ignoreRequest
 id image
 id imageView
+id imageViewCarrusel
 id imagenMisFavoritos
 id imagenPerfilUser
-id imagenProducto
 id imagenUserPerfil
 id imagen_item
 id imagen_maqueta
-id imagenesRecyclerView
+id imagenesViewPager
 id immediateStop
 id included
 id indeterminate
@@ -3523,6 +3530,7 @@ id linearLayout
 id listMode
 id list_item
 id listaf1
+id listaotros
 id listaresistencia
 id listatodos
 id listawrc
@@ -3663,6 +3671,8 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+id recyclerFavoritos
+id recyclerListaChats
 id recyclerView
 id recycler_similares
 id recyclerviewinicio
@@ -3745,8 +3755,7 @@ id subirProducto
 id submenuarrow
 id submit_area
 id supportScrollUp
-id tabLayout
-id tabLayoutFavoritos
+id tabLayoutCategorias
 id tabMode
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
@@ -3775,7 +3784,6 @@ id textTop
 id textView
 id textView2
 id textView3
-id textView4
 id textView5
 id textView6
 id textView7
@@ -3972,6 +3980,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout dialog_ampliar_imagen
 layout fragment_chat_conversacion
 layout fragment_chat_lista
 layout fragment_comprar
@@ -3984,6 +3993,8 @@ layout fragment_registro
 layout fragment_subir_producto
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout item_carrusel_imagen
+layout item_chat
 layout item_imagen
 layout item_maqueta
 layout m3_alert_dialog
@@ -4057,6 +4068,7 @@ navigation nav_graph
 plurals mtrl_badge_content_description
 raw firebase_common_keep
 raw imagenpordefecto
+string a_adir_im_genes
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -4103,6 +4115,7 @@ string call_notification_hang_up_action
 string call_notification_incoming_text
 string call_notification_ongoing_text
 string call_notification_screening_text
+string categor_a_seleccione_una_opci_n
 string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
@@ -4128,10 +4141,13 @@ string common_signin_button_text_long
 string comprar
 string contrasenia
 string copy_toast_msg
+string descripci_n
 string dest_title
 string email
 string error_a11y_label
 string error_icon_content_description
+string escala_ej_1_18
+string estado_seleccione_una_opci_n
 string exposed_dropdown_menu_content_description
 string f1
 string fab_transformation_scrim_behavior
@@ -4166,6 +4182,7 @@ string m3_sys_motion_easing_linear
 string m3_sys_motion_easing_standard
 string m3_sys_motion_easing_standard_accelerate
 string m3_sys_motion_easing_standard_decelerate
+string marca
 string material_clock_display_divider
 string material_clock_toggle_content_description
 string material_hour_24h_suffix
@@ -4255,12 +4272,15 @@ string nav_app_bar_navigate_up_description
 string nav_app_bar_open_drawer_description
 string no_recuerdas_la_contrase_a_haz_click_aqu
 string nombre
+string otros
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string precio
 string project_id
+string publicar
 string recuerdame
 string registrarse
 string repita_la_contrase_a
@@ -4272,7 +4292,9 @@ string searchview_navigation_content_description
 string side_sheet_accessibility_pane_title
 string side_sheet_behavior
 string status_bar_notification_info_overflow
+string t_tulo
 string todos
+string wec
 string wrc
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light

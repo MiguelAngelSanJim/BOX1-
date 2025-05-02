@@ -9,39 +9,26 @@
     tools:context=".vista.Inicio">
 
     <SearchView
-        android:layout_width="352dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="56dp"
+        android:id="@+id/buscador"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:background="@drawable/edittext_style"
+        android:iconifiedByDefault="false"
+        android:queryHint="¿Qué buscamos hoy?"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerviewinicio"
-        android:layout_width="400dp"
-        android:layout_height="575dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="140dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tabLayout"
-        app:layout_constraintVertical_bias="0.0" />
-
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="409dp"
+        android:id="@+id/tabLayoutCategorias"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="8dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buscador"
         app:tabIndicatorColor="@color/blue"
         app:tabTextColor="@color/black">
 
@@ -67,6 +54,26 @@
             android:id="@+id/listaresistencia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/resistencia" />
+            android:text="@string/wec" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/listaotros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/otros" />
     </com.google.android.material.tabs.TabLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewinicio"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayoutCategorias" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,10 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\ic_heart_red.png"
     },
     {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_item_chat.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\item_chat.xml"
+    },
+    {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\mipmap-mdpi_ic_launcher.webp.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-mdpi\\ic_launcher.webp"
     },
@@ -92,10 +96,6 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\item_maqueta.xml"
     },
     {
-        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_download.png.flat",
-        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\download.png"
-    },
-    {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\mipmap-xxxhdpi_placeholder.png.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-xxxhdpi\\placeholder.png"
     },
@@ -128,6 +128,10 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_dialog_ampliar_imagen.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\dialog_ampliar_imagen.xml"
+    },
+    {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_fragment_favoritos.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\fragment_favoritos.xml"
     },
@@ -142,6 +146,10 @@
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_mensaje.png.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\mensaje.png"
+    },
+    {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_item_carrusel_imagen.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\item_carrusel_imagen.xml"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\raw_imagenpordefecto.png.flat",
@@ -162,10 +170,6 @@
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_placeholder.jpg.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\placeholder.jpg"
-    },
-    {
-        "merged": "com.boxuno.app-debug-53:/layout_fragment_perfil.xml.flat",
-        "source": "com.boxuno.app-main-55:/layout/fragment_perfil.xml"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_custon_spinner.xml.flat",
@@ -192,12 +196,12 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\menu_bottom_menu.xml.flat",
-        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\menu\\bottom_menu.xml"
-    },
-    {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\mipmap-hdpi_ic_launcher_round.webp.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\menu_bottom_menu.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\menu\\bottom_menu.xml"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_user.png.flat",
@@ -220,12 +224,16 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-xhdpi\\placeholder.png"
     },
     {
-        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_subirproducto.png.flat",
-        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\subirproducto.png"
+        "merged": "com.boxuno.app-debug-53:/layout_fragment_inicio.xml.flat",
+        "source": "com.boxuno.app-main-55:/layout/fragment_inicio.xml"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\xml_backup_rules.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_subirproducto.png.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\subirproducto.png"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_ic_launcher_background.xml.flat",
@@ -242,9 +250,5 @@
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_splash_screen.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\splash_screen.xml"
-    },
-    {
-        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_magnifyingglass.png.flat",
-        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\magnifyingglass.png"
     }
 ]

@@ -4,7 +4,7 @@
             "outputFile": "com.boxuno.app-mergeDebugResources-51:/values-h720dp-v13/values-h720dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\947c985c697ee1137c6de3df51955c68\\transformed\\appcompat-1.7.0\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
+                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\2768a5b1c2ae4b8137a1bc0eff2850f7\\transformed\\appcompat-1.7.0\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

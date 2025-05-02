@@ -23,40 +23,36 @@
             android:background="@drawable/edittext_style"
             android:padding="16dp">
 
-            <ImageView
-                android:id="@+id/imagenProducto"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/imagenesViewPager"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/placeholder"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/tituloDetalleProducto"
-                android:layout_width="117dp"
-                android:layout_height="25dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Título"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imagenProducto" />
+                app:layout_constraintTop_toBottomOf="@id/imagenesViewPager" />
 
             <TextView
                 android:id="@+id/precioDetalleProducto"
-                android:layout_width="75dp"
-                android:layout_height="27dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Precio"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tituloDetalleProducto" />
 
@@ -105,7 +101,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- View para crear espacio -->
             <View
                 android:id="@+id/separadorDescripcion"
                 android:layout_width="0dp"

@@ -2,6 +2,10 @@ package com.boxuno.vista;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -66,6 +70,22 @@ public class Login extends Fragment {
                         NavHostFragment.findNavController(Login.this).navigate(R.id.action_login_to_registro, bundle);
                     } else {
                         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                            //Problema descubierto con el apagón, si no se controla el no tener conexión, te mostraba que la contraseña es incorrecta.
+                            ConnectivityManager connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                            if (connectivityManager != null) {
+                                Network network = connectivityManager.getActiveNetwork();
+                                NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+
+                                if (capabilities == null ||
+                                        (!capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) &&
+                                                !capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) &&
+                                                !capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))) {
+
+                                    Toast.makeText(getContext(), "No tienes conexión a internet.", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+
                             if (task.isSuccessful()) {
                                 NavOptions navOptions = new NavOptions.Builder()
                                         .setPopUpTo(R.id.login, true) // Elimina 'login' del backstack
@@ -74,7 +94,7 @@ public class Login extends Fragment {
                                 prefs.edit().putBoolean("recordar", checkBox.isChecked()).apply();
 
                                 NavHostFragment.findNavController(Login.this).navigate(R.id.action_login_to_inicio, null, navOptions);
-                            } else {
+                            }else {
                                 Toast.makeText(getContext(), "Contraseña incorrecta.", Toast.LENGTH_SHORT).show();
                             }
                         });

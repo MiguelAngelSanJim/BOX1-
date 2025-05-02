@@ -8,74 +8,62 @@
     android:background="#D0D4E4"
     tools:context=".vista.Favoritos">
 
-    <TextView
-        android:id="@+id/textoFavoritos"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/encabezadotextofav"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/mis_favoritos"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/imagenMisFavoritos"
-        app:layout_constraintHorizontal_bias="0.125"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imagenMisFavoritos"
-        android:layout_width="66dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_heart_red"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.899"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayoutFavoritos"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/edittext_style"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorColor="@color/blue"
-        app:tabTextColor="@color/black">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/listatodos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/todos" />
+        <TextView
+            android:id="@+id/textoFavoritos"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="12dp"
+            android:text="@string/mis_favoritos"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imagenMisFavoritos" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/listaf1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/f1" />
+        <ImageView
+            android:id="@+id/imagenMisFavoritos"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_heart_red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.941" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/listawrc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/wrc" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/listaresistencia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/resistencia" />
-    </com.google.android.material.tabs.TabLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="409dp"
-        android:layout_height="573dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="157dp" />
+        android:id="@+id/recyclerFavoritos"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/encabezadotextofav" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

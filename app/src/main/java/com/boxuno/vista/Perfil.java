@@ -56,7 +56,7 @@ public class Perfil extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putSerializable("maqueta", maqueta);
             NavHostFragment.findNavController(Perfil.this).navigate(R.id.detalleProducto, bundle);
-        });
+        }, false);
         recyclerView.setAdapter(adapter);
 
         Glide.with(this)
@@ -78,7 +78,5 @@ public class Perfil extends Fragment {
                 .addOnFailureListener(e -> {
                     Toast.makeText(getContext(), "Error al cargar maquetas", Toast.LENGTH_SHORT).show();
                 });
-
-
     }
 }

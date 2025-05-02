@@ -16,8 +16,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.boxuno.R;
+import com.boxuno.adapter.ImagenCarruselAdapter;
 import com.boxuno.adapter.MaquetaAdapter;
 import com.boxuno.modelo.Maqueta;
 import com.bumptech.glide.Glide;
@@ -31,7 +33,8 @@ import java.util.List;
 public class DetalleProducto extends Fragment {
 
     private Maqueta maqueta;
-    private ImageView imagenProducto, imagenPerfilUser;
+    private ViewPager2 viewPagerImagenes;
+    private ImageView imagenPerfilUser;
     private TextView tituloDetalleProducto, precioDetalleProducto, descripcionDetalleProducto, subidoPor;
     private Button btnComprar, btnMandarMensaje;
 
@@ -48,7 +51,7 @@ public class DetalleProducto extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        imagenProducto = view.findViewById(R.id.imagenProducto);
+        viewPagerImagenes = view.findViewById(R.id.imagenesViewPager);
         imagenPerfilUser = view.findViewById(R.id.imagenPerfilUser);
         tituloDetalleProducto = view.findViewById(R.id.tituloDetalleProducto);
         precioDetalleProducto = view.findViewById(R.id.precioDetalleProducto);
@@ -65,24 +68,23 @@ public class DetalleProducto extends Fragment {
                 tituloDetalleProducto.setText(maqueta.getTitulo());
                 precioDetalleProducto.setText(maqueta.getPrecio() + " €");
                 descripcionDetalleProducto.setText(maqueta.getDescripcion());
-                // Aquí seañade la consulta para obtener el nombre del usuario.
+
+                // Cargar nombre del usuario
                 FirebaseFirestore.getInstance().collection("usuarios").document(maqueta.getUsuarioId()).get().addOnSuccessListener(doc -> {
                             String nombre = doc.getString("nombre");
                             subidoPor.setText("Subido por " + (nombre != null ? nombre : "Desconocido"));
                         })
-                        .addOnFailureListener(e -> {
-                            subidoPor.setText("Subido por Desconocido");
-                        });
+                        .addOnFailureListener(e -> subidoPor.setText("Subido por Desconocido"));
 
-                // Imagen del producto.
+
+                // Cargar carrusel de imágenes
                 if (maqueta.getImagenes() != null && !maqueta.getImagenes().isEmpty()) {
-                    Glide.with(this)
-                            .load(maqueta.getImagenes().get(0))
-                            .placeholder(R.drawable.placeholder)
-                            .into(imagenProducto);
+                   ImagenCarruselAdapter carruselAdapter = new ImagenCarruselAdapter(getContext(), new ArrayList<>(maqueta.getImagenes()));
+                    viewPagerImagenes.setAdapter(carruselAdapter);
+
                 }
 
-                // Imagen de perfil por defecto.
+                // Imagen de perfil por defecto
                 Glide.with(this)
                         .load(R.drawable.imagenpordefecto)
                         .circleCrop()
@@ -98,7 +100,7 @@ public class DetalleProducto extends Fragment {
         });
 
         btnMandarMensaje.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Abrir chat con el usuario", Toast.LENGTH_SHORT).show();
+            NavHostFragment.findNavController(DetalleProducto.this).navigate(R.id.chatConversacion);
         });
     }
 
@@ -111,43 +113,30 @@ public class DetalleProducto extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putSerializable("maqueta", maqueta);
             NavHostFragment.findNavController(DetalleProducto.this).navigate(R.id.detalleProducto, bundle);
-        });
+        }, false);
         recyclerSimilares.setAdapter(similaresAdapter);
         String uidActual = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        // 🔍 Log del usuario actual de la maqueta
-        Log.d("SIMILARES", "Usuario de la maqueta actual: " + maqueta.getUsuarioId());
-        Log.d("SIMILARES", "Categoría actual: " + maqueta.getCategoria());
 
         FirebaseFirestore.getInstance()
                 .collection("maquetas")
                 .whereEqualTo("categoria", maqueta.getCategoria())
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    Log.d("SIMILARES", "Maquetas encontradas en misma categoría: " + queryDocumentSnapshots.size());
-
                     for (DocumentSnapshot doc : queryDocumentSnapshots) {
                         Maqueta similar = doc.toObject(Maqueta.class);
 
-                        if (similar == null) {
-                            continue;
-                        }
+                        if (similar == null) continue;
 
                         if (similar.getId() != null &&
                                 similar.getUsuarioId() != null &&
                                 !similar.getId().equals(maqueta.getId()) &&
-                                !similar.getUsuarioId().equals(uidActual)){
-
-
+                                !similar.getUsuarioId().equals(uidActual)) {
                             similaresList.add(similar);
                         }
                     }
 
                     similaresAdapter.notifyDataSetChanged();
                 })
-                .addOnFailureListener(e -> {
-                    Log.e("SIMILARES", "ERROR: Error al cargar maquetas similares", e);
-                });
+                .addOnFailureListener(e -> Log.e("SIMILARES", "ERROR: Error al cargar maquetas similares", e));
     }
-
 }

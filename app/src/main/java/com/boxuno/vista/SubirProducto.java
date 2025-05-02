@@ -1,6 +1,7 @@
 package com.boxuno.vista;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,11 +20,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.boxuno.R;
-import com.boxuno.adapter.ImagenesAdapter;
+import com.boxuno.adapter.ImagenCarruselAdapter;
 import com.boxuno.modelo.Maqueta;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,17 +36,28 @@ public class SubirProducto extends Fragment {
     private EditText titulo, escala, precio, marca, descripcion;
     private Spinner spinnerCategoria, spinnerEstado;
     private Button btnPublicar, btnSubirImagen;
-    private RecyclerView recyclerImagenes;
+    private ViewPager2 viewPagerImagenes;
     private List<Uri> imagenesSeleccionadas = new ArrayList<>();
-    private ImagenesAdapter imagenesAdapter;
+    private ImagenCarruselAdapter carruselAdapter;
 
     private final ActivityResultLauncher<Intent> seleccionarImagen = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                    Uri imagen = result.getData().getData();
-                    imagenesSeleccionadas.add(imagen);
-                    imagenesAdapter.notifyDataSetChanged();
+                    if (result.getData().getClipData() != null) {
+                        int count = result.getData().getClipData().getItemCount();
+                        count = Math.min(count, 4);
+                        for (int i = 0; i < count; i++) {
+                            if (imagenesSeleccionadas.size() >= 4) break;
+                            Uri imagenUri = result.getData().getClipData().getItemAt(i).getUri();
+                            imagenesSeleccionadas.add(imagenUri);
+                        }
+                    } else if (result.getData().getData() != null) {
+                        if (imagenesSeleccionadas.size() < 4) {
+                            imagenesSeleccionadas.add(result.getData().getData());
+                        }
+                    }
+                    carruselAdapter.notifyDataSetChanged();
                 }
             });
 
@@ -65,14 +76,14 @@ public class SubirProducto extends Fragment {
         spinnerEstado = view.findViewById(R.id.spinnerEstado);
         btnPublicar = view.findViewById(R.id.btn_publicar_producto);
         btnSubirImagen = view.findViewById(R.id.btn_subir_imagenes);
-        recyclerImagenes = view.findViewById(R.id.imagenesRecyclerView);
+        viewPagerImagenes = view.findViewById(R.id.imagenesViewPager);
 
-        imagenesAdapter = new ImagenesAdapter(getContext(), imagenesSeleccionadas);
-        recyclerImagenes.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerImagenes.setAdapter(imagenesAdapter);
+        carruselAdapter = new ImagenCarruselAdapter(getContext(), new ArrayList<>(imagenesSeleccionadas));
+        viewPagerImagenes.setAdapter(carruselAdapter);
+
 
         // Configurar el Spinner de Categoría.
-        String[] categorias = {"Seleccione una opción...", "F1", "WRC", "Resistencia"};
+        String[] categorias = {"Seleccione una opción...", "F1", "WRC", "Resistencia", "Otros"};
         ArrayAdapter<String> categoriaAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, categorias);
         categoriaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategoria.setAdapter(categoriaAdapter);
@@ -86,7 +97,8 @@ public class SubirProducto extends Fragment {
         btnSubirImagen.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
-            seleccionarImagen.launch(intent);
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            seleccionarImagen.launch(Intent.createChooser(intent, "Selecciona hasta 4 imágenes"));
         });
 
         btnPublicar.setOnClickListener(v -> {

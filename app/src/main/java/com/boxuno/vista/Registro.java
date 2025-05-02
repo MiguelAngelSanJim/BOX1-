@@ -1,6 +1,10 @@
 package com.boxuno.vista;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -117,6 +121,21 @@ public class Registro extends Fragment {
                 String email = emailEditText.getText().toString().trim();
                 String nombre = nombreUsuario.getText().toString();
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, contrasenia).addOnCompleteListener(task -> {
+                    ConnectivityManager connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    if (connectivityManager != null) {
+                        Network network = connectivityManager.getActiveNetwork();
+                        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+
+                        if (capabilities == null ||
+                                (!capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) &&
+                                        !capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) &&
+                                        !capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))) {
+
+                            Toast.makeText(getContext(), "No tienes conexión a internet.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+
                     if (task.isSuccessful()) {
                         NavOptions navOptions = new NavOptions.Builder()
                                 .setPopUpTo(R.id.registro, true) // Elimina 'registro' del backstack

@@ -24,10 +24,10 @@
             android:text="@string/a_adir_im_genes"
             android:textColor="@color/white" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/imagenesRecyclerView"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/imagenesViewPager"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="200dp"
             android:layout_marginTop="8dp" />
 
         <EditText

@@ -27,4 +27,6 @@
     <string name="estado_seleccione_una_opci_n">Estado (Seleccione una opción)</string>
     <string name="descripci_n">Descripción</string>
     <string name="publicar">Publicar</string>
+    <string name="otros">Otros</string>
+    <string name="wec">WEC</string>
 </resources>
