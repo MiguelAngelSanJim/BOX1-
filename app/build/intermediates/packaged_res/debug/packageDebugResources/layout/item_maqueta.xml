@@ -31,6 +31,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="bottom|end"
                 app:srcCompat="@drawable/ic_heart_white" />
+
         </FrameLayout>
 
         <TextView
@@ -58,6 +59,11 @@
             android:text="Subido por"
             android:textColor="@android:color/black" />
 
-
+        <ImageView
+            android:id="@+id/eliminar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom|end"
+            app:srcCompat="@drawable/eliminar" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

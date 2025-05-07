@@ -3070,6 +3070,7 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable bg_input_mensaje
 drawable borde_redondeado_blanco
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
@@ -3105,6 +3106,7 @@ drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
 drawable edittext_style
+drawable eliminar
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable home
@@ -3118,6 +3120,7 @@ drawable ic_call_decline_low
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_empty
+drawable ic_enviar
 drawable ic_heart_red
 drawable ic_heart_white
 drawable ic_keyboard_black_24dp
@@ -3285,6 +3288,7 @@ id action_divider
 id action_image
 id action_inicio_to_detalle_producto
 id action_login_to_inicio
+id action_login_to_recuperar_contrasenia
 id action_login_to_registro
 id action_menu_divider
 id action_menu_presenter
@@ -3335,6 +3339,9 @@ id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
 id btnCerrarCarrusel
+id btnEditarDireccion
+id btnEnviarMensaje
+id btnGuardarDireccion
 id btn_comprar
 id btn_inicioSesion
 id btn_mandarMensaje
@@ -3342,6 +3349,7 @@ id btn_publicar_producto
 id btn_registro
 id btn_subir_imagenes
 id buscador
+id buttonEnviarCorreo
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3353,6 +3361,7 @@ id centerCrop
 id centerInside
 id center_horizontal
 id center_vertical
+id cerrarSesion
 id chain
 id chain2
 id chains
@@ -3379,6 +3388,7 @@ id confirmpasswordRegistro
 id constraint
 id constraintContent
 id container
+id contenedorMensaje
 id contenedorPerfil
 id content
 id contentPanel
@@ -3411,6 +3421,8 @@ id detalleProducto
 id dialogViewPager
 id dialog_button
 id dimensions
+id direccion
+id direcciones
 id direct
 id disableHome
 id disableIntraAutoTransition
@@ -3431,10 +3443,20 @@ id easeInOut
 id easeOut
 id east
 id edge
-id editTextText
+id editTextCalle
+id editTextCiudad
+id editTextCodigoPostal
+id editTextCorreo
+id editTextPortal
+id editTextProvincia
+id editTextRecuperarContrasenia
+id editTextoMensaje
 id edit_query
 id edit_text_id
+id editarPerfil
+id editarPerfil2
 id elastic
+id eliminar
 id email
 id emailRegistro
 id embed
@@ -3467,7 +3489,6 @@ id forever
 id fragment_container_view_tag
 id frameLayout
 id frameLayout2
-id frameLayout3
 id frameLayout5
 id frameLayout6
 id frameLayout7
@@ -3483,6 +3504,7 @@ id graph_wrap
 id group_divider
 id grouping
 id groups
+id headerUsuario
 id header_title
 id hide_ime_id
 id hideable
@@ -3499,8 +3521,10 @@ id ignore
 id ignoreRequest
 id image
 id imageView
+id imageView2
 id imageViewCarrusel
 id imagenMisFavoritos
+id imagenPerfilOtroUsuario
 id imagenPerfilUser
 id imagenUserPerfil
 id imagen_item
@@ -3519,6 +3543,7 @@ id jumpToEnd
 id jumpToStart
 id labeled
 id layout
+id layoutFormulario
 id left
 id leftToRight
 id legacy
@@ -3617,6 +3642,7 @@ id neverCompleteToEnd
 id neverCompleteToStart
 id noScroll
 id noState
+id nombreOtroUsuario
 id nombreRegistro
 id none
 id normal
@@ -3671,8 +3697,10 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+id recuperar_contrasenia
 id recyclerFavoritos
 id recyclerListaChats
+id recyclerMensajes
 id recyclerView
 id recycler_similares
 id recyclerviewinicio
@@ -3756,6 +3784,7 @@ id submenuarrow
 id submit_area
 id supportScrollUp
 id tabLayoutCategorias
+id tabLayoutPerfil
 id tabMode
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
@@ -3783,10 +3812,10 @@ id textStart
 id textTop
 id textView
 id textView2
-id textView3
 id textView5
 id textView6
 id textView7
+id textViewTitulo
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3985,10 +4014,13 @@ layout fragment_chat_conversacion
 layout fragment_chat_lista
 layout fragment_comprar
 layout fragment_detalle_producto
+layout fragment_direccion
+layout fragment_editar_perfil
 layout fragment_favoritos
 layout fragment_inicio
 layout fragment_login
 layout fragment_perfil
+layout fragment_recuperar_contrasenia
 layout fragment_registro
 layout fragment_subir_producto
 layout ime_base_split_test_activity
@@ -4116,6 +4148,7 @@ string call_notification_incoming_text
 string call_notification_ongoing_text
 string call_notification_screening_text
 string categor_a_seleccione_una_opci_n
+string cerrar_sesi_n
 string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
@@ -4143,6 +4176,7 @@ string contrasenia
 string copy_toast_msg
 string descripci_n
 string dest_title
+string editar_perfil
 string email
 string error_a11y_label
 string error_icon_content_description
@@ -4205,6 +4239,7 @@ string material_timepicker_minute
 string material_timepicker_pm
 string material_timepicker_select_time
 string material_timepicker_text_input_mode_description
+string mis_direcciones
 string mis_favoritos
 string mtrl_badge_numberless_content_description
 string mtrl_checkbox_button_icon_path_checked
@@ -4272,6 +4307,7 @@ string nav_app_bar_navigate_up_description
 string nav_app_bar_open_drawer_description
 string no_recuerdas_la_contrase_a_haz_click_aqu
 string nombre
+string nombre_usuario
 string otros
 string password_toggle_content_description
 string path_password_eye

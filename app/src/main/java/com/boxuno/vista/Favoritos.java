@@ -53,7 +53,7 @@ public class Favoritos extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putSerializable("maqueta", maqueta);
             NavHostFragment.findNavController(Favoritos.this).navigate(R.id.action_inicio_to_detalle_producto, bundle);
-        }, false);
+        }, false, false);
 
         recyclerView.setAdapter(maquetaAdapter);
 

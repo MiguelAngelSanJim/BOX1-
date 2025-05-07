@@ -79,7 +79,7 @@ public class Inicio extends Fragment {
             bundle.putSerializable("maqueta", maqueta);
 
             NavHostFragment.findNavController(Inicio.this).navigate(R.id.action_inicio_to_detalle_producto, bundle);
-        }, true);
+        }, true, false);
         recyclerView.setAdapter(maquetaAdapter);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();

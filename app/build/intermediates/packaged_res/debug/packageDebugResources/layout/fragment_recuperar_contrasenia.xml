@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/login_gradient"
+    android:gravity="top|center">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="179dp"
+        android:layout_height="151dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="top|center"
+        android:src="@drawable/logopng"
+        />
+
+    <TextView
+        android:id="@+id/textViewTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recuperar contraseña"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp"/>
+
+
+        <EditText
+            android:id="@+id/editTextCorreo"
+            android:layout_width="204dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edittext_style"
+            android:hint=" Introduce tu correo"
+            android:textColor="@color/black"
+            android:inputType="textEmailAddress" />
+
+        <Button
+            android:id="@+id/buttonEnviarCorreo"
+            android:layout_width="188dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#0B1B4E"
+            android:text="Enviar correo de recuperación"
+            android:textColor="@color/white" />
+
+
+
+</LinearLayout>

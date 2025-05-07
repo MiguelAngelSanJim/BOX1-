@@ -113,7 +113,7 @@ public class DetalleProducto extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putSerializable("maqueta", maqueta);
             NavHostFragment.findNavController(DetalleProducto.this).navigate(R.id.detalleProducto, bundle);
-        }, false);
+        }, false, false);
         recyclerSimilares.setAdapter(similaresAdapter);
         String uidActual = FirebaseAuth.getInstance().getCurrentUser().getUid();
 

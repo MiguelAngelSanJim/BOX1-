@@ -112,7 +112,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/editTextText"
+        android:id="@+id/editTextRecuperarContrasenia"
         android:layout_width="311dp"
         android:layout_height="32dp"
         android:layout_marginStart="40dp"

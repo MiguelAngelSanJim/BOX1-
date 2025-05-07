@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boxuno.R;
@@ -90,7 +92,7 @@ public class Login extends Fragment {
                                 NavOptions navOptions = new NavOptions.Builder()
                                         .setPopUpTo(R.id.login, true) // Elimina 'login' del backstack
                                         .build();
-                                SharedPreferences prefs = requireActivity().getSharedPreferences("box1_prefs", Context.MODE_PRIVATE);
+                                SharedPreferences prefs = requireActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
                                 prefs.edit().putBoolean("recordar", checkBox.isChecked()).apply();
 
                                 NavHostFragment.findNavController(Login.this).navigate(R.id.action_login_to_inicio, null, navOptions);
@@ -113,5 +115,12 @@ public class Login extends Fragment {
         if (bottomNavigationView != null) {
             bottomNavigationView.setVisibility(View.INVISIBLE);
         }
+
+        TextView textViewOlvideContrasena = view.findViewById(R.id.editTextRecuperarContrasenia);
+        textViewOlvideContrasena.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_login_to_recuperar_contrasenia);
+        });
+
     }
 }

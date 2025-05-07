@@ -8,9 +8,11 @@
     <string name="app_name">Box1</string>
     <string name="boton_iniciar_sesion">Iniciar sesión</string>
     <string name="categor_a_seleccione_una_opci_n">Categoría (Seleccione una opción)</string>
+    <string name="cerrar_sesi_n">Cerrar sesión</string>
     <string name="comprar">Comprar</string>
     <string name="contrasenia">Contraseña</string>
     <string name="descripci_n">Descripción</string>
+    <string name="editar_perfil">Editar perfil</string>
     <string name="email">Email</string>
     <string name="escala_ej_1_18">Escala (ej. 1:18)</string>
     <string name="estado_seleccione_una_opci_n">Estado (Seleccione una opción)</string>
@@ -24,9 +26,11 @@
     <string name="hint_contrasenia">contraseña</string>
     <string name="hint_usuario_email_com">usuario@email.com</string>
     <string name="marca">Marca</string>
+    <string name="mis_direcciones">Mis direcciones</string>
     <string name="mis_favoritos">Mis favoritos</string>
     <string name="no_recuerdas_la_contrase_a_haz_click_aqu">¿No recuerdas la contraseña? Haz click aquí.</string>
     <string name="nombre">Nombre</string>
+    <string name="nombre_usuario">Nombre Usuario</string>
     <string name="otros">Otros</string>
     <string name="precio">Precio (€)</string>
     <string name="project_id" translatable="false">boxuno-9b593</string>

@@ -43,6 +43,9 @@
         android:testOnly="true"
         android:theme="@style/Theme.Box1" >
         <activity
+            android:name="com.boxuno.vista.Inicio"
+            android:exported="false" />
+        <activity
             android:name="com.boxuno.vista.Registro"
             android:exported="false" />
         <activity

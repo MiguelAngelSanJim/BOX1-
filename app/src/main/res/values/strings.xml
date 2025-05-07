@@ -29,4 +29,8 @@
     <string name="publicar">Publicar</string>
     <string name="otros">Otros</string>
     <string name="wec">WEC</string>
+    <string name="nombre_usuario">Nombre Usuario</string>
+    <string name="cerrar_sesi_n">Cerrar sesión</string>
+    <string name="editar_perfil">Editar perfil</string>
+    <string name="mis_direcciones">Mis direcciones</string>
 </resources>

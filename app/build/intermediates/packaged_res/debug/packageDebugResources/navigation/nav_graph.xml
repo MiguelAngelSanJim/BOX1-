@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@+id/login">
 
@@ -15,6 +16,9 @@
         <action
             android:id="@+id/action_login_to_inicio"
             app:destination="@id/inicio" />
+        <action
+            android:id="@+id/action_login_to_recuperar_contrasenia"
+            app:destination="@+id/recuperar_contrasenia"/>
     </fragment>
 
     <fragment
@@ -78,5 +82,19 @@
         android:id="@+id/chatConversacion"
         android:name="com.boxuno.vista.ChatConversacion"
         android:label="Chat privado" />
+    <fragment
+        android:id="@+id/editarPerfil2"
+        android:name="com.boxuno.vista.EditarPerfil"
+        android:label="fragment_editar_perfil"
+        tools:layout="@layout/fragment_editar_perfil" />
+    <fragment
+        android:id="@+id/direccion"
+        android:name="com.boxuno.vista.Direccion"
+        android:label="fragment_direccion"
+        tools:layout="@layout/fragment_direccion" />
+    <fragment
+        android:id="@+id/recuperar_contrasenia"
+        android:name="com.boxuno.vista.recuperar_contrasenia"
+        android:label="recuperar_contrasenia" />
 
 </navigation>

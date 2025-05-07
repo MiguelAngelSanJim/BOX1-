@@ -3069,6 +3069,7 @@ int drawable abc_textfield_search_material 0x7f070076
 int drawable abc_vector_test 0x7f070077
 int drawable avd_hide_password 0x7f070078
 int drawable avd_show_password 0x7f070079
+int drawable bg_input_mensaje 0x7f07010f
 int drawable borde_redondeado_blanco 0x7f07007a
 int drawable btn_checkbox_checked_mtrl 0x7f07007b
 int drawable btn_checkbox_checked_to_unchecked_mtrl_animation 0x7f07007c
@@ -3104,6 +3105,7 @@ int drawable design_ic_visibility_off 0x7f070099
 int drawable design_password_eye 0x7f07009a
 int drawable design_snackbar_background 0x7f07009b
 int drawable edittext_style 0x7f07009c
+int drawable eliminar 0x7f070111
 int drawable googleg_disabled_color_18 0x7f07009d
 int drawable googleg_standard_color_18 0x7f07009e
 int drawable home 0x7f07009f
@@ -3117,6 +3119,7 @@ int drawable ic_call_decline_low 0x7f0700a6
 int drawable ic_clear_black_24 0x7f0700a7
 int drawable ic_clock_black_24dp 0x7f0700a8
 int drawable ic_empty 0x7f0700a9
+int drawable ic_enviar 0x7f070110
 int drawable ic_heart_red 0x7f0700aa
 int drawable ic_heart_white 0x7f0700ab
 int drawable ic_keyboard_black_24dp 0x7f0700ac
@@ -3284,6 +3287,7 @@ int id action_divider 0x7f08003e
 int id action_image 0x7f08003f
 int id action_inicio_to_detalle_producto 0x7f080040
 int id action_login_to_inicio 0x7f080041
+int id action_login_to_recuperar_contrasenia 0x7f080287
 int id action_login_to_registro 0x7f080042
 int id action_menu_divider 0x7f080043
 int id action_menu_presenter 0x7f080044
@@ -3334,6 +3338,9 @@ int id browser_actions_menu_item_text 0x7f080070
 int id browser_actions_menu_items 0x7f080071
 int id browser_actions_menu_view 0x7f080072
 int id btnCerrarCarrusel 0x7f080270
+int id btnEditarDireccion 0x7f08028e
+int id btnEnviarMensaje 0x7f080272
+int id btnGuardarDireccion 0x7f080280
 int id btn_comprar 0x7f080073
 int id btn_inicioSesion 0x7f080074
 int id btn_mandarMensaje 0x7f080075
@@ -3341,6 +3348,7 @@ int id btn_publicar_producto 0x7f080076
 int id btn_registro 0x7f080077
 int id btn_subir_imagenes 0x7f080078
 int id buscador 0x7f080079
+int id buttonEnviarCorreo 0x7f080288
 int id buttonPanel 0x7f08007a
 int id cache_measures 0x7f08007b
 int id callMeasure 0x7f08007c
@@ -3352,6 +3360,7 @@ int id centerCrop 0x7f080081
 int id centerInside 0x7f080082
 int id center_horizontal 0x7f080083
 int id center_vertical 0x7f080084
+int id cerrarSesion 0x7f080279
 int id chain 0x7f080085
 int id chain2 0x7f080086
 int id chains 0x7f080087
@@ -3378,6 +3387,7 @@ int id confirmpasswordRegistro 0x7f08009b
 int id constraint 0x7f08009c
 int id constraintContent 0x7f08009d
 int id container 0x7f08009e
+int id contenedorMensaje 0x7f080273
 int id contenedorPerfil 0x7f08009f
 int id content 0x7f0800a0
 int id contentPanel 0x7f0800a1
@@ -3410,6 +3420,8 @@ int id detalleProducto 0x7f0800bb
 int id dialogViewPager 0x7f0800bc
 int id dialog_button 0x7f0800bd
 int id dimensions 0x7f0800be
+int id direccion 0x7f08027d
+int id direcciones 0x7f08027a
 int id direct 0x7f0800bf
 int id disableHome 0x7f0800c0
 int id disableIntraAutoTransition 0x7f0800c1
@@ -3430,10 +3442,20 @@ int id easeInOut 0x7f0800cf
 int id easeOut 0x7f0800d0
 int id east 0x7f0800d1
 int id edge 0x7f0800d2
-int id editTextText 0x7f0800d3
+int id editTextCalle 0x7f080281
+int id editTextCiudad 0x7f080282
+int id editTextCodigoPostal 0x7f080283
+int id editTextCorreo 0x7f080289
+int id editTextPortal 0x7f080284
+int id editTextProvincia 0x7f080285
+int id editTextRecuperarContrasenia 0x7f08028a
+int id editTextoMensaje 0x7f080274
 int id edit_query 0x7f0800d4
 int id edit_text_id 0x7f0800d5
+int id editarPerfil 0x7f08027b
+int id editarPerfil2 0x7f08027e
 int id elastic 0x7f0800d6
+int id eliminar 0x7f08027f
 int id email 0x7f0800d7
 int id emailRegistro 0x7f0800d8
 int id embed 0x7f0800d9
@@ -3466,7 +3488,6 @@ int id forever 0x7f0800f3
 int id fragment_container_view_tag 0x7f0800f4
 int id frameLayout 0x7f0800f5
 int id frameLayout2 0x7f0800f6
-int id frameLayout3 0x7f0800f7
 int id frameLayout5 0x7f0800f8
 int id frameLayout6 0x7f0800f9
 int id frameLayout7 0x7f0800fa
@@ -3482,6 +3503,7 @@ int id graph_wrap 0x7f080103
 int id group_divider 0x7f080104
 int id grouping 0x7f080105
 int id groups 0x7f080106
+int id headerUsuario 0x7f080275
 int id header_title 0x7f080107
 int id hide_ime_id 0x7f080108
 int id hideable 0x7f080109
@@ -3498,8 +3520,10 @@ int id ignore 0x7f080113
 int id ignoreRequest 0x7f080114
 int id image 0x7f080115
 int id imageView 0x7f080116
+int id imageView2 0x7f08028d
 int id imageViewCarrusel 0x7f080117
 int id imagenMisFavoritos 0x7f080118
+int id imagenPerfilOtroUsuario 0x7f080276
 int id imagenPerfilUser 0x7f080119
 int id imagenUserPerfil 0x7f08011a
 int id imagen_item 0x7f08011b
@@ -3518,6 +3542,7 @@ int id jumpToEnd 0x7f080127
 int id jumpToStart 0x7f080128
 int id labeled 0x7f080129
 int id layout 0x7f08012a
+int id layoutFormulario 0x7f080286
 int id left 0x7f08012b
 int id leftToRight 0x7f08012c
 int id legacy 0x7f08012d
@@ -3616,6 +3641,7 @@ int id neverCompleteToEnd 0x7f080188
 int id neverCompleteToStart 0x7f080189
 int id noScroll 0x7f08018a
 int id noState 0x7f08018b
+int id nombreOtroUsuario 0x7f080277
 int id nombreRegistro 0x7f08018c
 int id none 0x7f08018d
 int id normal 0x7f08018e
@@ -3670,8 +3696,10 @@ int id progress_horizontal 0x7f0801be
 int id radio 0x7f0801bf
 int id ratio 0x7f0801c0
 int id rectangles 0x7f0801c1
+int id recuperar_contrasenia 0x7f08028b
 int id recyclerFavoritos 0x7f0801c2
 int id recyclerListaChats 0x7f0801c3
+int id recyclerMensajes 0x7f080278
 int id recyclerView 0x7f0801c4
 int id recycler_similares 0x7f0801c5
 int id recyclerviewinicio 0x7f0801c6
@@ -3755,6 +3783,7 @@ int id submenuarrow 0x7f080213
 int id submit_area 0x7f080214
 int id supportScrollUp 0x7f080215
 int id tabLayoutCategorias 0x7f080216
+int id tabLayoutPerfil 0x7f08027c
 int id tabMode 0x7f080217
 int id tag_accessibility_actions 0x7f080218
 int id tag_accessibility_clickable_spans 0x7f080219
@@ -3782,10 +3811,10 @@ int id textStart 0x7f08022e
 int id textTop 0x7f08022f
 int id textView 0x7f080230
 int id textView2 0x7f080231
-int id textView3 0x7f080232
 int id textView5 0x7f080233
 int id textView6 0x7f080234
 int id textView7 0x7f080235
+int id textViewTitulo 0x7f08028c
 int id text_input_end_icon 0x7f080236
 int id text_input_error_icon 0x7f080237
 int id text_input_start_icon 0x7f080238
@@ -3984,10 +4013,13 @@ int layout fragment_chat_conversacion 0x7f0b0030
 int layout fragment_chat_lista 0x7f0b0031
 int layout fragment_comprar 0x7f0b0032
 int layout fragment_detalle_producto 0x7f0b0033
+int layout fragment_direccion 0x7f0b007e
+int layout fragment_editar_perfil 0x7f0b007f
 int layout fragment_favoritos 0x7f0b0034
 int layout fragment_inicio 0x7f0b0035
 int layout fragment_login 0x7f0b0036
 int layout fragment_perfil 0x7f0b0037
+int layout fragment_recuperar_contrasenia 0x7f0b0080
 int layout fragment_registro 0x7f0b0038
 int layout fragment_subir_producto 0x7f0b0039
 int layout ime_base_split_test_activity 0x7f0b003a
@@ -4115,6 +4147,7 @@ int string call_notification_incoming_text 0x7f12002c
 int string call_notification_ongoing_text 0x7f12002d
 int string call_notification_screening_text 0x7f12002e
 int string categor_a_seleccione_una_opci_n 0x7f12002f
+int string cerrar_sesi_n 0x7f1200e5
 int string character_counter_content_description 0x7f120030
 int string character_counter_overflowed_content_description 0x7f120031
 int string character_counter_pattern 0x7f120032
@@ -4142,6 +4175,7 @@ int string contrasenia 0x7f120047
 int string copy_toast_msg 0x7f120048
 int string descripci_n 0x7f120049
 int string dest_title 0x7f12004a
+int string editar_perfil 0x7f1200e6
 int string email 0x7f12004b
 int string error_a11y_label 0x7f12004c
 int string error_icon_content_description 0x7f12004d
@@ -4204,6 +4238,7 @@ int string material_timepicker_minute 0x7f120085
 int string material_timepicker_pm 0x7f120086
 int string material_timepicker_select_time 0x7f120087
 int string material_timepicker_text_input_mode_description 0x7f120088
+int string mis_direcciones 0x7f1200e7
 int string mis_favoritos 0x7f120089
 int string mtrl_badge_numberless_content_description 0x7f12008a
 int string mtrl_checkbox_button_icon_path_checked 0x7f12008b
@@ -4271,6 +4306,7 @@ int string nav_app_bar_navigate_up_description 0x7f1200c8
 int string nav_app_bar_open_drawer_description 0x7f1200c9
 int string no_recuerdas_la_contrase_a_haz_click_aqu 0x7f1200ca
 int string nombre 0x7f1200cb
+int string nombre_usuario 0x7f1200e4
 int string otros 0x7f1200e2
 int string password_toggle_content_description 0x7f1200cc
 int string path_password_eye 0x7f1200cd

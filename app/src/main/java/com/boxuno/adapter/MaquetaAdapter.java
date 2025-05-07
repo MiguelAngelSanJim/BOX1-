@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.boxuno.R;
 import com.boxuno.modelo.Maqueta;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,20 +35,30 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
     private String userId;
     private OnMaquetaClickListener listener;
     private boolean mostrarMeGusta;
+    private boolean mostrarEliminar;
 
     public interface OnMaquetaClickListener {
         void onMaquetaClick(Maqueta maqueta);
     }
 
 
-    public MaquetaAdapter(List<Maqueta> maquetaList, Context context, OnMaquetaClickListener listener, boolean mostrarMeGusta) {
+    public MaquetaAdapter(List<Maqueta> maquetaList, Context context, OnMaquetaClickListener listener, boolean mostrarMeGusta, boolean mostrarEliminar) {
         this.maquetaList = maquetaList;
         this.context = context;
         this.listener = listener;
         this.mostrarMeGusta = mostrarMeGusta;
-        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        cargarFavoritosDesdeFirebase();
+        this.mostrarEliminar = mostrarEliminar;
+
+        FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+        if (usuario != null) {
+            userId = usuario.getUid();
+            cargarFavoritosDesdeFirebase();
+        } else {
+            userId = null; // o una cadena vacía, si prefieres
+            // No cargar favoritos porque no hay sesión activa
+        }
     }
+
 
     private void cargarFavoritosDesdeFirebase() {
         FirebaseFirestore.getInstance()
@@ -118,14 +129,19 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
         if (mostrarMeGusta) {
             holder.meGusta.setVisibility(View.VISIBLE);
             actualizarIconoCorazon(holder.meGusta, maquetaID);
-            
+
         } else {
             holder.meGusta.setVisibility(View.GONE); // <- OCULTA EL ICONO
         }
-
         holder.carta.setOnClickListener(v -> {
             listener.onMaquetaClick(maqueta);
         });
+        if (mostrarEliminar) {
+            holder.eliminar.setVisibility(View.VISIBLE);
+        } else {
+            holder.eliminar.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -134,7 +150,7 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
     }
 
     public static class MaquetaViewHolder extends RecyclerView.ViewHolder {
-        ImageView imagen, meGusta;
+        ImageView imagen, meGusta, eliminar;
         TextView titulo, precio, subidoPor;
         CardView carta;
 
@@ -146,6 +162,7 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
             precio = itemView.findViewById(R.id.precio_maqueta);
             subidoPor = itemView.findViewById(R.id.subido_por);
             meGusta = itemView.findViewById(R.id.megusta);
+            eliminar = itemView.findViewById(R.id.eliminar);
         }
     }
 }
