@@ -65,7 +65,7 @@ public class Perfil extends Fragment {
                     FirebaseAuth.getInstance().signOut();
 
                     SharedPreferences prefs = requireActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
-                    prefs.edit().putBoolean("recordar", false).apply();
+                    prefs.edit().clear().apply();
 
                     NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
                     navController.navigate(R.id.login);

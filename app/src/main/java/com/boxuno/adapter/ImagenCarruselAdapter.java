@@ -22,7 +22,7 @@ import java.util.List;
 public class ImagenCarruselAdapter extends RecyclerView.Adapter<ImagenCarruselAdapter.ImagenViewHolder> {
 
     private Context context;
-    private List<Object> imagenes; // Puede ser Uri o String.
+    private List<Object> imagenes;
 
     public ImagenCarruselAdapter(Context context, List<Object> imagenes) {
         this.context = context;
@@ -42,9 +42,17 @@ public class ImagenCarruselAdapter extends RecyclerView.Adapter<ImagenCarruselAd
 
         if (imagen instanceof Uri) {
             Glide.with(context).load((Uri) imagen).into(holder.imageView);
+            holder.btnEliminar.setVisibility(View.VISIBLE); // Mostrar botón solo para nuevas
         } else if (imagen instanceof String) {
             Glide.with(context).load((String) imagen).into(holder.imageView);
+            holder.btnEliminar.setVisibility(View.GONE); // Ocultar si es imagen ya subida
         }
+
+        holder.btnEliminar.setOnClickListener(v -> {
+            imagenes.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, imagenes.size());
+        });
 
         holder.imageView.setOnClickListener(v -> {
             Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
@@ -57,7 +65,6 @@ public class ImagenCarruselAdapter extends RecyclerView.Adapter<ImagenCarruselAd
             dialogViewPager.setCurrentItem(position, false);
 
             btnCerrar.setOnClickListener(v1 -> dialog.dismiss());
-
             dialog.show();
         });
     }
@@ -69,10 +76,13 @@ public class ImagenCarruselAdapter extends RecyclerView.Adapter<ImagenCarruselAd
 
     public static class ImagenViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
+        ImageButton btnEliminar;
 
         public ImagenViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageViewCarrusel);
+            btnEliminar = itemView.findViewById(R.id.btnEliminarImagen);
         }
     }
 }
+

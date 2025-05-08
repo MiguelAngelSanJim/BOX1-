@@ -9,7 +9,8 @@
     <fragment
         android:id="@+id/login"
         android:name="com.boxuno.vista.Login"
-        android:label="Login">
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_login_to_registro"
             app:destination="@id/registro" />
@@ -18,13 +19,14 @@
             app:destination="@id/inicio" />
         <action
             android:id="@+id/action_login_to_recuperar_contrasenia"
-            app:destination="@+id/recuperar_contrasenia"/>
+            app:destination="@+id/recuperar_contrasenia" />
     </fragment>
 
     <fragment
         android:id="@+id/registro"
         android:name="com.boxuno.vista.Registro"
-        android:label="Registro">
+        android:label="Registro"
+        tools:layout="@layout/fragment_registro">
         <argument
             android:name="emailNoRegistrado"
             android:defaultValue=""
@@ -38,7 +40,8 @@
     <fragment
         android:id="@+id/inicio"
         android:name="com.boxuno.vista.Inicio"
-        android:label="Inicio">
+        android:label="Inicio"
+        tools:layout="@layout/fragment_inicio">
 
         <action
             android:id="@+id/action_inicio_to_detalle_producto"
@@ -48,40 +51,57 @@
     <fragment
         android:id="@+id/detalleProducto"
         android:name="com.boxuno.vista.DetalleProducto"
-        android:label="Detalle producto">
+        android:label="Detalle producto"
+        tools:layout="@layout/fragment_detalle_producto">
         <action
             android:id="@+id/action_detalleProducto_self"
             app:destination="@id/detalleProducto" />
+        <action
+            android:id="@+id/action_detalle_to_comprar"
+            app:destination ="@+id/comprar"/>
+        <action
+            android:id="@+id/action_detalle_to_chat"
+            app:destination ="@+id/chatConversacion"/>
     </fragment>
     <fragment
         android:id="@+id/comprar"
         android:name="com.boxuno.vista.Comprar"
-        android:label="Comprar" />
+        android:label="Comprar"
+        tools:layout="@layout/fragment_comprar" />
 
     <fragment
         android:id="@+id/subirProducto"
         android:name="com.boxuno.vista.SubirProducto"
-        android:label="Subir producto" />
+        android:label="Subir producto"
+        tools:layout="@layout/fragment_subir_producto">
+        <action
+            android:id="@+id/action_subir_producto_to_inicio"
+            app:destination ="@+id/inicio"/>
+    </fragment>
 
     <fragment
         android:id="@+id/perfil"
         android:name="com.boxuno.vista.Perfil"
-        android:label="Perfil" />
+        android:label="Perfil"
+        tools:layout="@layout/fragment_perfil" />
 
     <fragment
         android:id="@+id/favoritos"
         android:name="com.boxuno.vista.Favoritos"
-        android:label="Favoritos" />
+        android:label="Favoritos"
+        tools:layout="@layout/fragment_favoritos" />
 
     <fragment
         android:id="@+id/chatLista"
         android:name="com.boxuno.vista.ChatLista"
-        android:label="Lista de chats" />
+        android:label="Lista de chats"
+        tools:layout="@layout/fragment_chat_lista" />
 
     <fragment
         android:id="@+id/chatConversacion"
         android:name="com.boxuno.vista.ChatConversacion"
-        android:label="Chat privado" />
+        android:label="Chat privado"
+        tools:layout="@layout/fragment_chat_conversacion" />
     <fragment
         android:id="@+id/editarPerfil2"
         android:name="com.boxuno.vista.EditarPerfil"
@@ -95,6 +115,7 @@
     <fragment
         android:id="@+id/recuperar_contrasenia"
         android:name="com.boxuno.vista.recuperar_contrasenia"
-        android:label="recuperar_contrasenia" />
+        android:label="recuperar_contrasenia"
+        tools:layout="@layout/fragment_recuperar_contrasenia" />
 
 </navigation>

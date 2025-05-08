@@ -3284,6 +3284,8 @@ id action_bar_title
 id action_container
 id action_context_bar
 id action_detalleProducto_self
+id action_detalle_to_chat
+id action_detalle_to_comprar
 id action_divider
 id action_image
 id action_inicio_to_detalle_producto
@@ -3296,6 +3298,7 @@ id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
 id action_registro_to_inicio
+id action_subir_producto_to_inicio
 id action_text
 id actions
 id activity_chooser_view_content
@@ -3340,8 +3343,12 @@ id browser_actions_menu_items
 id browser_actions_menu_view
 id btnCerrarCarrusel
 id btnEditarDireccion
+id btnEditarPerfil
+id btnEliminarImagen
 id btnEnviarMensaje
 id btnGuardarDireccion
+id btnGuardarPerfil
+id btnModificarEmail
 id btn_comprar
 id btn_inicioSesion
 id btn_mandarMensaje
@@ -3447,9 +3454,11 @@ id editTextCalle
 id editTextCiudad
 id editTextCodigoPostal
 id editTextCorreo
+id editTextNombre
 id editTextPortal
 id editTextProvincia
 id editTextRecuperarContrasenia
+id editTextTelefono
 id editTextoMensaje
 id edit_query
 id edit_text_id
@@ -3544,6 +3553,7 @@ id jumpToStart
 id labeled
 id layout
 id layoutFormulario
+id layoutFormularioPerfil
 id left
 id leftToRight
 id legacy
@@ -3815,6 +3825,7 @@ id textView2
 id textView5
 id textView6
 id textView7
+id textViewEmail
 id textViewTitulo
 id text_input_end_icon
 id text_input_error_icon
@@ -3832,6 +3843,7 @@ id title
 id titleDividerNoCustom
 id title_template
 id tituloDetalleProducto
+id tituloEditarPerfil
 id tituloProducto
 id titulo_maqueta
 id toggle

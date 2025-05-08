@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Registro extends Fragment {
 
     public Registro() {
@@ -80,14 +79,11 @@ public class Registro extends Fragment {
                 Log.e("FOTO PERFIL", "Error al subir imagen: " + error);
             }
         });
-
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         String emailRecibido = getArguments().getString("emailNoRegistrado");
 
@@ -99,8 +95,8 @@ public class Registro extends Fragment {
         EditText campoContrasenia = view.findViewById(R.id.passwordRegistro);
         EditText campoConfirmacionContrasenia = view.findViewById(R.id.confirmpasswordRegistro);
 
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
         registrarse.setOnClickListener(v -> {
             String contrasenia = campoContrasenia.getText().toString().trim();
             String contraseniaConfirmada = campoConfirmacionContrasenia.getText().toString().trim();
@@ -120,6 +116,7 @@ public class Registro extends Fragment {
 
                 String email = emailEditText.getText().toString().trim();
                 String nombre = nombreUsuario.getText().toString();
+
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, contrasenia).addOnCompleteListener(task -> {
                     ConnectivityManager connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                     if (connectivityManager != null) {
@@ -137,14 +134,31 @@ public class Registro extends Fragment {
                     }
 
                     if (task.isSuccessful()) {
-                        NavOptions navOptions = new NavOptions.Builder()
-                                .setPopUpTo(R.id.registro, true) // Elimina 'registro' del backstack
-                                .build();
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        guardarUsuarioEnFirestore(user, nombre);
-                        navController.navigate(R.id.action_registro_to_inicio, null, navOptions);
-                    } else {
+                        if (user != null) {
+                            user.sendEmailVerification()
+                                    .addOnSuccessListener(aVoid -> {
+                                        guardarUsuarioEnFirestore(user, nombre);
 
+                                        new AlertDialog.Builder(getContext())
+                                                .setTitle("Verificación de correo")
+                                                .setMessage("Se ha enviado un correo de verificación a " + user.getEmail() + ". Por favor, verifica tu correo antes de iniciar sesión.")
+                                                .setPositiveButton("Aceptar", (dialog, which) -> {
+                                                    FirebaseAuth.getInstance().signOut();
+
+                                                    NavOptions navOptions = new NavOptions.Builder()
+                                                            .setPopUpTo(R.id.registro, true)
+                                                            .build();
+                                                    navController.navigate(R.id.login, null, navOptions);
+                                                })
+                                                .setCancelable(false)
+                                                .show();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Toast.makeText(getContext(), "Error al enviar verificación: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    });
+                        }
+                    } else {
                         Toast.makeText(getContext(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -162,7 +176,6 @@ public class Registro extends Fragment {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference ref = storage.getReference().child("fotos_perfil/" + userId + ".jpg");
 
-        // Convertir drawable a InputStream
         InputStream stream = getResources().openRawResource(R.raw.imagenpordefecto);
 
         UploadTask uploadTask = ref.putStream(stream);
@@ -171,12 +184,8 @@ public class Registro extends Fragment {
                     if (!task.isSuccessful()) throw task.getException();
                     return ref.getDownloadUrl();
                 })
-                .addOnSuccessListener(uri -> {
-                    callback.onSubidaCorrecta(uri.toString());
-                })
-                .addOnFailureListener(e -> {
-                    callback.onError(e.getMessage());
-                });
+                .addOnSuccessListener(uri -> callback.onSubidaCorrecta(uri.toString()))
+                .addOnFailureListener(e -> callback.onError(e.getMessage()));
     }
 
     interface OnFotoSubidaCallback {
@@ -184,6 +193,4 @@ public class Registro extends Fragment {
 
         void onError(String error);
     }
-
-
 }

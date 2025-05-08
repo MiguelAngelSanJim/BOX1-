@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.boxuno.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Login extends Fragment {
@@ -72,7 +73,6 @@ public class Login extends Fragment {
                         NavHostFragment.findNavController(Login.this).navigate(R.id.action_login_to_registro, bundle);
                     } else {
                         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                            //Problema descubierto con el apagón, si no se controla el no tener conexión, te mostraba que la contraseña es incorrecta.
                             ConnectivityManager connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                             if (connectivityManager != null) {
                                 Network network = connectivityManager.getActiveNetwork();
@@ -89,14 +89,24 @@ public class Login extends Fragment {
                             }
 
                             if (task.isSuccessful()) {
+                                FirebaseAuth auth = FirebaseAuth.getInstance();
+                                FirebaseUser user = auth.getCurrentUser();
+
+                                if (user != null && !user.isEmailVerified()) {
+                                    auth.signOut();
+                                    Toast.makeText(getContext(), "Debes verificar tu correo electrónico antes de iniciar sesión.", Toast.LENGTH_LONG).show();
+                                    return;
+                                }
+
                                 NavOptions navOptions = new NavOptions.Builder()
-                                        .setPopUpTo(R.id.login, true) // Elimina 'login' del backstack
+                                        .setPopUpTo(R.id.login, true)
                                         .build();
+
                                 SharedPreferences prefs = requireActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
                                 prefs.edit().putBoolean("recordar", checkBox.isChecked()).apply();
 
                                 NavHostFragment.findNavController(Login.this).navigate(R.id.action_login_to_inicio, null, navOptions);
-                            }else {
+                            } else {
                                 Toast.makeText(getContext(), "Contraseña incorrecta.", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -109,9 +119,7 @@ public class Login extends Fragment {
             Navigation.findNavController(view).navigate(R.id.action_login_to_registro);
         });
 
-
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomnavigation);
-
         if (bottomNavigationView != null) {
             bottomNavigationView.setVisibility(View.INVISIBLE);
         }
@@ -121,6 +129,5 @@ public class Login extends Fragment {
             NavController navController = Navigation.findNavController(view);
             navController.navigate(R.id.action_login_to_recuperar_contrasenia);
         });
-
     }
 }

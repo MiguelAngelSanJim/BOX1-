@@ -37,7 +37,7 @@ public class SubirProducto extends Fragment {
     private Spinner spinnerCategoria, spinnerEstado;
     private Button btnPublicar, btnSubirImagen;
     private ViewPager2 viewPagerImagenes;
-    private List<Uri> imagenesSeleccionadas = new ArrayList<>();
+    private List<Object> imagenesSeleccionadas = new ArrayList<>();
     private ImagenCarruselAdapter carruselAdapter;
 
     private final ActivityResultLauncher<Intent> seleccionarImagen = registerForActivityResult(
@@ -78,7 +78,7 @@ public class SubirProducto extends Fragment {
         btnSubirImagen = view.findViewById(R.id.btn_subir_imagenes);
         viewPagerImagenes = view.findViewById(R.id.imagenesViewPager);
 
-        carruselAdapter = new ImagenCarruselAdapter(getContext(), new ArrayList<>(imagenesSeleccionadas));
+        carruselAdapter = new ImagenCarruselAdapter(getContext(), imagenesSeleccionadas);
         viewPagerImagenes.setAdapter(carruselAdapter);
 
 
@@ -167,25 +167,28 @@ public class SubirProducto extends Fragment {
         });
     }
 
-    private void subirImagenesAFirebase(List<Uri> imagenes, ImagenesSubidasCallback callback) {
+    private void subirImagenesAFirebase(List<Object> imagenes, ImagenesSubidasCallback callback) {
         List<String> urls = new ArrayList<>();
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
-        for (Uri imagenUri : imagenes) {
-            String nombreArchivo = "imagenes/" + UUID.randomUUID().toString();
-            StorageReference ref = storage.getReference().child(nombreArchivo);
+        for (Object imagenObj : imagenes) {
+            if(imagenObj instanceof Uri) {
+                Uri imagenUri = (Uri) imagenObj;
+                String nombreArchivo = "imagenes/" + UUID.randomUUID().toString();
+                StorageReference ref = storage.getReference().child(nombreArchivo);
 
-            ref.putFile(imagenUri)
-                    .continueWithTask(task -> {
-                        if (!task.isSuccessful()) throw task.getException();
-                        return ref.getDownloadUrl();
-                    })
-                    .addOnSuccessListener(uri -> {
-                        urls.add(uri.toString());
-                        if (urls.size() == imagenes.size()) {
-                            callback.onFinalizado(urls);
-                        }
-                    });
+                ref.putFile(imagenUri)
+                        .continueWithTask(task -> {
+                            if (!task.isSuccessful()) throw task.getException();
+                            return ref.getDownloadUrl();
+                        })
+                        .addOnSuccessListener(uri -> {
+                            urls.add(uri.toString());
+                            if (urls.size() == imagenes.size()) {
+                                callback.onFinalizado(urls);
+                            }
+                        });
+            }
         }
     }
 
