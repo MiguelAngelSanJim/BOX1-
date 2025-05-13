@@ -3071,6 +3071,8 @@ drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
 drawable bg_input_mensaje
+drawable bg_mensaje_enviado
+drawable bg_mensaje_recibido
 drawable borde_redondeado_blanco
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
@@ -3513,6 +3515,7 @@ id graph_wrap
 id group_divider
 id grouping
 id groups
+id headerProducto
 id headerUsuario
 id header_title
 id hide_ime_id
@@ -3533,6 +3536,7 @@ id imageView
 id imageView2
 id imageViewCarrusel
 id imagenMisFavoritos
+id imagenPerfilChat
 id imagenPerfilOtroUsuario
 id imagenPerfilUser
 id imagenUserPerfil
@@ -3654,6 +3658,7 @@ id noScroll
 id noState
 id nombreOtroUsuario
 id nombreRegistro
+id nombreUsuarioChat
 id none
 id normal
 id north
@@ -3837,7 +3842,10 @@ id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
 id textoFavoritos
+id textoMensaje
+id textoPrecioProductoChat
 id textoSimilares
+id textoTituloProductoChat
 id time
 id title
 id titleDividerNoCustom
@@ -4039,8 +4047,11 @@ layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_carrusel_imagen
 layout item_chat
+layout item_chat_lista
 layout item_imagen
 layout item_maqueta
+layout item_mensaje_enviado
+layout item_mensaje_recibido
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
@@ -4201,6 +4212,7 @@ string fab_transformation_sheet_behavior
 string fallback_menu_item_copy_link
 string fallback_menu_item_open_in_browser
 string fallback_menu_item_share_link
+string firebase_database_url
 string gcm_defaultSenderId
 string google_api_key
 string google_app_id

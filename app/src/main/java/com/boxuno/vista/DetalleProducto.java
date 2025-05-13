@@ -69,27 +69,42 @@ public class DetalleProducto extends Fragment {
                 precioDetalleProducto.setText(maqueta.getPrecio() + " €");
                 descripcionDetalleProducto.setText(maqueta.getDescripcion());
 
-                // Cargar nombre del usuario
-                FirebaseFirestore.getInstance().collection("usuarios").document(maqueta.getUsuarioId()).get().addOnSuccessListener(doc -> {
+                // Cargar nombre e imagen de perfil del usuario.
+                FirebaseFirestore.getInstance()
+                        .collection("usuarios")
+                        .document(maqueta.getUsuarioId())
+                        .get()
+                        .addOnSuccessListener(doc -> {
                             String nombre = doc.getString("nombre");
                             subidoPor.setText("Subido por " + (nombre != null ? nombre : "Desconocido"));
-                        })
-                        .addOnFailureListener(e -> subidoPor.setText("Subido por Desconocido"));
 
+                            String urlFoto = doc.getString("fotoPerfilUrl");
+                            if (urlFoto != null && !urlFoto.isEmpty()) {
+                                Glide.with(requireContext())
+                                        .load(urlFoto)
+                                        .circleCrop()
+                                        .into(imagenPerfilUser);
+                            } else {
+                                Glide.with(requireContext())
+                                        .load(R.drawable.imagenpordefecto)
+                                        .circleCrop()
+                                        .into(imagenPerfilUser);
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            subidoPor.setText("Subido por Desconocido");
+                            Glide.with(requireContext())
+                                    .load(R.drawable.imagenpordefecto)
+                                    .circleCrop()
+                                    .into(imagenPerfilUser);
+                        });
 
                 // Cargar carrusel de imágenes
                 if (maqueta.getImagenes() != null && !maqueta.getImagenes().isEmpty()) {
-                   ImagenCarruselAdapter carruselAdapter = new ImagenCarruselAdapter(getContext(), new ArrayList<>(maqueta.getImagenes()));
+                    ImagenCarruselAdapter carruselAdapter = new ImagenCarruselAdapter(getContext(), new ArrayList<>(maqueta.getImagenes()));
                     viewPagerImagenes.setAdapter(carruselAdapter);
 
                 }
-
-                // Imagen de perfil por defecto
-                Glide.with(this)
-                        .load(R.drawable.imagenpordefecto)
-                        .circleCrop()
-                        .into(imagenPerfilUser);
-
                 cargarSimilares(view);
             }
         }
@@ -100,8 +115,33 @@ public class DetalleProducto extends Fragment {
         });
 
         btnMandarMensaje.setOnClickListener(v -> {
-            NavHostFragment.findNavController(DetalleProducto.this).navigate(R.id.chatConversacion);
+            if (maqueta == null) return;
+
+            FirebaseFirestore.getInstance()
+                    .collection("usuarios")
+                    .document(maqueta.getUsuarioId())
+                    .get()
+                    .addOnSuccessListener(doc -> {
+                        String nombre = doc.getString("nombre");
+                        String fotoUrl = doc.getString("fotoPerfilUrl");
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("uidDestino", maqueta.getUsuarioId());
+                        bundle.putString("nombreDestino", nombre != null ? nombre : "Usuario");
+                        bundle.putString("fotoDestino", fotoUrl != null ? fotoUrl : "");
+
+                        bundle.putString("productoId", maqueta.getId());
+                        bundle.putString("productoTitulo", maqueta.getTitulo());
+                        bundle.putDouble("productoPrecio", maqueta.getPrecio());
+
+
+                        NavHostFragment.findNavController(DetalleProducto.this).navigate(R.id.chatConversacion, bundle);
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(getContext(), "No se pudo iniciar el chat", Toast.LENGTH_SHORT).show();
+                    });
         });
+
     }
 
     private void cargarSimilares(View view) {

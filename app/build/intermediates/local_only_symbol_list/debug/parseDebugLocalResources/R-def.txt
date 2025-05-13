@@ -5,6 +5,8 @@ color blue
 color ic_launcher_background
 color white
 drawable bg_input_mensaje
+drawable bg_mensaje_enviado
+drawable bg_mensaje_recibido
 drawable borde_redondeado_blanco
 drawable custon_spinner
 drawable edittext_style
@@ -95,11 +97,13 @@ id frameLayout5
 id frameLayout6
 id frameLayout7
 id frameLayout9
+id headerProducto
 id headerUsuario
 id imageView
 id imageView2
 id imageViewCarrusel
 id imagenMisFavoritos
+id imagenPerfilChat
 id imagenPerfilOtroUsuario
 id imagenPerfilUser
 id imagenUserPerfil
@@ -124,6 +128,7 @@ id nav_graph
 id nav_host_fragment
 id nombreOtroUsuario
 id nombreRegistro
+id nombreUsuarioChat
 id password
 id passwordRegistro
 id perfil
@@ -159,7 +164,10 @@ id textView7
 id textViewEmail
 id textViewTitulo
 id textoFavoritos
+id textoMensaje
+id textoPrecioProductoChat
 id textoSimilares
+id textoTituloProductoChat
 id tituloDetalleProducto
 id tituloEditarPerfil
 id tituloProducto
@@ -181,8 +189,11 @@ layout fragment_registro
 layout fragment_subir_producto
 layout item_carrusel_imagen
 layout item_chat
+layout item_chat_lista
 layout item_imagen
 layout item_maqueta
+layout item_mensaje_enviado
+layout item_mensaje_recibido
 layout splash_screen
 menu bottom_menu
 mipmap ic_launcher
@@ -204,6 +215,7 @@ string email
 string escala_ej_1_18
 string estado_seleccione_una_opci_n
 string f1
+string firebase_database_url
 string gcm_defaultSenderId
 string google_api_key
 string google_app_id
