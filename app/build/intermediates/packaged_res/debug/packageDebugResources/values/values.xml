@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="blue">#0B1B4E</color>
+    <color name="gray">#464647</color>
     <color name="ic_launcher_background">#F1F5F2</color>
     <color name="white">#FFFFFFFF</color>
     <string name="a_adir_im_genes">Añadir imágenes</string>

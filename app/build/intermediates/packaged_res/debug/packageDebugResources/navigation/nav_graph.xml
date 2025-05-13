@@ -58,16 +58,20 @@
             app:destination="@id/detalleProducto" />
         <action
             android:id="@+id/action_detalle_to_comprar"
-            app:destination ="@+id/comprar"/>
+            app:destination="@+id/comprar" />
         <action
             android:id="@+id/action_detalle_to_chat"
-            app:destination ="@+id/chatConversacion"/>
+            app:destination="@+id/chatConversacion" />
     </fragment>
     <fragment
         android:id="@+id/comprar"
         android:name="com.boxuno.vista.Comprar"
         android:label="Comprar"
-        tools:layout="@layout/fragment_comprar" />
+        tools:layout="@layout/fragment_comprar">
+        <action
+            android:id="@+id/action_comprar_to_inicio"
+            app:destination="@+id/inicio" />
+    </fragment>
 
     <fragment
         android:id="@+id/subirProducto"
@@ -76,7 +80,7 @@
         tools:layout="@layout/fragment_subir_producto">
         <action
             android:id="@+id/action_subir_producto_to_inicio"
-            app:destination ="@+id/inicio"/>
+            app:destination="@+id/inicio" />
     </fragment>
 
     <fragment

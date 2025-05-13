@@ -1501,6 +1501,7 @@ color error_color_material_dark
 color error_color_material_light
 color foreground_material_dark
 color foreground_material_light
+color gray
 color highlighted_text_material_dark
 color highlighted_text_material_light
 color ic_launcher_background
@@ -3283,6 +3284,7 @@ id action_bar_root
 id action_bar_spinner
 id action_bar_subtitle
 id action_bar_title
+id action_comprar_to_inicio
 id action_container
 id action_context_bar
 id action_detalleProducto_self
@@ -3344,6 +3346,7 @@ id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
 id btnCerrarCarrusel
+id btnConfirmarCompra
 id btnEditarDireccion
 id btnEditarPerfil
 id btnEliminarImagen
@@ -3381,6 +3384,8 @@ id chatNombreUsuario
 id chatUltimoMensaje
 id checkBox
 id checkbox
+id checkboxCorreos
+id checkboxExpress
 id checked
 id chronometer
 id circle_center
@@ -3500,7 +3505,6 @@ id forever
 id fragment_container_view_tag
 id frameLayout
 id frameLayout2
-id frameLayout5
 id frameLayout6
 id frameLayout7
 id frameLayout9
@@ -3556,6 +3560,8 @@ id jumpToEnd
 id jumpToStart
 id labeled
 id layout
+id layoutCompra
+id layoutDesglosePrecio
 id layoutFormulario
 id layoutFormularioPerfil
 id left
@@ -3710,6 +3716,9 @@ id progressBar
 id progress_circular
 id progress_horizontal
 id radio
+id radioContraReembolso
+id radioGooglePay
+id radioGroupPago
 id ratio
 id rectangles
 id recuperar_contrasenia
@@ -3798,7 +3807,10 @@ id subirProducto
 id submenuarrow
 id submit_area
 id supportScrollUp
+id tabFavoritos
+id tabHistorial
 id tabLayoutCategorias
+id tabLayoutFavoritos
 id tabLayoutPerfil
 id tabMode
 id tag_accessibility_actions
@@ -3821,13 +3833,15 @@ id textContraseniaRegistro
 id textEmailRegistro
 id textEnd
 id textNombreRegistro
+id textPrecioEnvio
+id textPrecioProducto
+id textPrecioTotal
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textTop
 id textView
 id textView2
-id textView5
 id textView6
 id textView7
 id textViewEmail
@@ -3841,6 +3855,7 @@ id textinput_helper_text
 id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
+id textoComprar
 id textoFavoritos
 id textoMensaje
 id textoPrecioProductoChat

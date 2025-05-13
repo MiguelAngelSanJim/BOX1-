@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -106,13 +107,26 @@ public class DetalleProducto extends Fragment {
 
                 }
                 cargarSimilares(view);
+
+                if (maqueta.isVendido()) {
+                    btnComprar.setEnabled(false);
+                    btnComprar.setText("Vendido");
+                    btnComprar.setBackgroundTintList(getResources().getColorStateList(R.color.gray, null)); // Opcional
+                }
+
             }
         }
 
         btnComprar.setOnClickListener(v -> {
-            if (maqueta != null)
-                Toast.makeText(getContext(), "Comprar: " + maqueta.getTitulo(), Toast.LENGTH_SHORT).show();
+            if (maqueta != null) {
+                Bundle bundle = new Bundle();
+                bundle.putDouble("precio", maqueta.getPrecio());
+                bundle.putString("id", maqueta.getId());
+
+                Navigation.findNavController(v).navigate(R.id.action_detalle_to_comprar, bundle);
+            }
         });
+
 
         btnMandarMensaje.setOnClickListener(v -> {
             if (maqueta == null) return;
