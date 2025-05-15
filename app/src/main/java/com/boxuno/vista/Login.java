@@ -30,7 +30,12 @@ import com.boxuno.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Login extends Fragment {
 
@@ -63,57 +68,69 @@ public class Login extends Fragment {
             String email = campoEmail.getText().toString().trim();
             String password = contrasenia.getText().toString();
 
-            if (email.isEmpty() && password.isEmpty()) {
+            if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(getContext(), "Email o contraseña no pueden estar en blanco.", Toast.LENGTH_SHORT).show();
-            } else {
-                FirebaseFirestore.getInstance().collection("usuarios").whereEqualTo("email", email).get().addOnSuccessListener(querySnapshot -> {
-                    if (querySnapshot.isEmpty()) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("emailNoRegistrado", email);
-                        NavHostFragment.findNavController(Login.this).navigate(R.id.action_login_to_registro, bundle);
-                    } else {
-                        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                            ConnectivityManager connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                            if (connectivityManager != null) {
-                                Network network = connectivityManager.getActiveNetwork();
-                                NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
-
-                                if (capabilities == null ||
-                                        (!capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) &&
-                                                !capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) &&
-                                                !capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))) {
-
-                                    Toast.makeText(getContext(), "No tienes conexión a internet.", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                            }
-
-                            if (task.isSuccessful()) {
-                                FirebaseAuth auth = FirebaseAuth.getInstance();
-                                FirebaseUser user = auth.getCurrentUser();
-
-                                if (user != null && !user.isEmailVerified()) {
-                                    auth.signOut();
-                                    Toast.makeText(getContext(), "Debes verificar tu correo electrónico antes de iniciar sesión.", Toast.LENGTH_LONG).show();
-                                    return;
-                                }
-
-                                NavOptions navOptions = new NavOptions.Builder()
-                                        .setPopUpTo(R.id.login, true)
-                                        .build();
-
-                                SharedPreferences prefs = requireActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
-                                prefs.edit().putBoolean("recordar", checkBox.isChecked()).apply();
-
-                                NavHostFragment.findNavController(Login.this).navigate(R.id.action_login_to_inicio, null, navOptions);
-                            } else {
-                                Toast.makeText(getContext(), "Contraseña incorrecta.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
+                return;
             }
+
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    if (user != null && !user.isEmailVerified()) {
+                        FirebaseAuth.getInstance().signOut();
+                        Toast.makeText(getContext(), "Debes verificar tu correo electrónico antes de iniciar sesión.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    ConnectivityManager connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    if (connectivityManager != null) {
+                        Network network = connectivityManager.getActiveNetwork();
+                        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+
+                        if (capabilities == null ||
+                                (!capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) &&
+                                        !capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) &&
+                                        !capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))) {
+
+                            Toast.makeText(getContext(), "No tienes conexión a internet.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+
+                    FirebaseFirestore.getInstance().collection("usuarios")
+                            .document(user.getUid())
+                            .get()
+                            .addOnSuccessListener(documentSnapshot -> {
+                                if (!documentSnapshot.exists()) {
+                                    Map<String, Object> usuario = new HashMap<>();
+                                    usuario.put("uid", user.getUid());
+                                    usuario.put("email", user.getEmail());
+                                    usuario.put("nombre", "");
+                                    usuario.put("fotoPerfilUrl", "");
+                                    usuario.put("timestamp", FieldValue.serverTimestamp());
+                                    usuario.put("favoritos", new ArrayList<>());
+                                    usuario.put("productos", new ArrayList<>());
+
+                                    FirebaseFirestore.getInstance().collection("usuarios")
+                                            .document(user.getUid())
+                                            .set(usuario)
+                                            .addOnSuccessListener(unused -> {
+                                                continuarLogin(checkBox.isChecked());
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(getContext(), "Error al guardar datos del usuario.", Toast.LENGTH_SHORT).show();
+                                            });
+                                } else {
+                                    continuarLogin(checkBox.isChecked());
+                                }
+                            });
+                } else {
+                    Toast.makeText(getContext(), "Contraseña incorrecta o usuario inexistente.", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
+
 
         botonRegistro.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(R.id.action_login_to_registro);
@@ -130,4 +147,16 @@ public class Login extends Fragment {
             navController.navigate(R.id.action_login_to_recuperar_contrasenia);
         });
     }
+
+    private void continuarLogin(boolean recordar) {
+        SharedPreferences prefs = requireActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        prefs.edit().putBoolean("recordar", recordar).apply();
+
+        NavOptions navOptions = new NavOptions.Builder()
+                .setPopUpTo(R.id.login, true)
+                .build();
+
+        NavHostFragment.findNavController(Login.this).navigate(R.id.action_login_to_inicio, null, navOptions);
+    }
+
 }
