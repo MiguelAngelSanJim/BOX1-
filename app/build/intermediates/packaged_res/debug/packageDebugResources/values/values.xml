@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="azul_claro">#50ACFA</color>
     <color name="black">#FF000000</color>
     <color name="blue">#0B1B4E</color>
     <color name="gray">#464647</color>
@@ -57,6 +58,15 @@
     </style>
     <style name="BottomNavText" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textSize">10sp</item>
+    </style>
+    <style name="Box1DialogEstilo" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="backgroundColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonBox1</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonBox1</item>
+    </style>
+    <style name="DialogButtonBox1" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">#0B1B4E</item> 
     </style>
     <style name="Theme.Box1" parent="Base.Theme.Box1"/>
 </resources>

@@ -20,7 +20,7 @@ public class SplashScreen extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.splash_screen);
 
-        // Espera 3,5 segundos antes de comprobar si debe ir a Inicio o Login
+        // Espera 3,5 segundos antes de comprobar si debe ir a Inicio o Login.
         new Handler().postDelayed(() -> {
             SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
             boolean recordar = prefs.getBoolean("recordar", false);

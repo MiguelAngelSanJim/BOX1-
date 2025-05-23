@@ -52,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="16dp"
+                android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
                 android:hint=" C/ Fernando Alonso Díaz 33" />
 
@@ -67,6 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="16dp"
+                android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
                 android:hint=" 3ºC" />
 
@@ -82,6 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="16dp"
+                android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
                 android:hint=" Mérida" />
 
@@ -97,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="16dp"
+                android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
                 android:hint=" Badajoz" />
 
@@ -112,6 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="24dp"
+                android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
                 android:hint=" 06700" />
 

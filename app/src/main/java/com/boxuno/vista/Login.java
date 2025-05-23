@@ -2,10 +2,11 @@ package com.boxuno.vista;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -30,22 +31,11 @@ import com.boxuno.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Login extends Fragment {
 
     public Login() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -63,6 +53,19 @@ public class Login extends Fragment {
         EditText campoEmail = view.findViewById(R.id.email);
         EditText contrasenia = view.findViewById(R.id.password);
         CheckBox checkBox = view.findViewById(R.id.checkBox);
+        int[][] estados = new int[][]{
+                new int[]{android.R.attr.state_checked},   // Marcado
+                new int[]{-android.R.attr.state_checked}   // No marcado
+        };
+
+        int[] colores = new int[]{
+                Color.parseColor("#0B1B4E"), // Check azul oscuro
+                Color.parseColor("#FFFFFF")  // Cuadro blanco
+        };
+
+        ColorStateList colorStateList = new ColorStateList(estados, colores);
+        checkBox.setButtonTintList(colorStateList);
+
 
         botonInicioSesion.setOnClickListener(v -> {
             String email = campoEmail.getText().toString().trim();
@@ -83,54 +86,30 @@ public class Login extends Fragment {
                         return;
                     }
 
-                    ConnectivityManager connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                    if (connectivityManager != null) {
-                        Network network = connectivityManager.getActiveNetwork();
-                        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
-
-                        if (capabilities == null ||
-                                (!capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) &&
-                                        !capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) &&
-                                        !capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))) {
-
-                            Toast.makeText(getContext(), "No tienes conexión a internet.", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-
                     FirebaseFirestore.getInstance().collection("usuarios")
                             .document(user.getUid())
                             .get()
                             .addOnSuccessListener(documentSnapshot -> {
-                                if (!documentSnapshot.exists()) {
-                                    Map<String, Object> usuario = new HashMap<>();
-                                    usuario.put("uid", user.getUid());
-                                    usuario.put("email", user.getEmail());
-                                    usuario.put("nombre", "");
-                                    usuario.put("fotoPerfilUrl", "");
-                                    usuario.put("timestamp", FieldValue.serverTimestamp());
-                                    usuario.put("favoritos", new ArrayList<>());
-                                    usuario.put("productos", new ArrayList<>());
+                                if (documentSnapshot.exists()) {
+                                    SharedPreferences prefs = requireActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+                                    prefs.edit().putBoolean("recordar", checkBox.isChecked()).apply();
 
-                                    FirebaseFirestore.getInstance().collection("usuarios")
-                                            .document(user.getUid())
-                                            .set(usuario)
-                                            .addOnSuccessListener(unused -> {
-                                                continuarLogin(checkBox.isChecked());
-                                            })
-                                            .addOnFailureListener(e -> {
-                                                Toast.makeText(getContext(), "Error al guardar datos del usuario.", Toast.LENGTH_SHORT).show();
-                                            });
+                                    NavOptions navOptions = new NavOptions.Builder()
+                                            .setPopUpTo(R.id.login, true)
+                                            .build();
+
+                                    NavHostFragment.findNavController(Login.this).navigate(R.id.action_login_to_inicio, null, navOptions);
                                 } else {
-                                    continuarLogin(checkBox.isChecked());
+                                    FirebaseAuth.getInstance().signOut();
+                                    Toast.makeText(getContext(), "Tu perfil no está configurado. Vuelve a registrarte.", Toast.LENGTH_LONG).show();
                                 }
                             });
+
                 } else {
-                    Toast.makeText(getContext(), "Contraseña incorrecta o usuario inexistente.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Email o contraseña incorrectos.", Toast.LENGTH_SHORT).show();
                 }
             });
         });
-
 
         botonRegistro.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(R.id.action_login_to_registro);
@@ -147,16 +126,4 @@ public class Login extends Fragment {
             navController.navigate(R.id.action_login_to_recuperar_contrasenia);
         });
     }
-
-    private void continuarLogin(boolean recordar) {
-        SharedPreferences prefs = requireActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
-        prefs.edit().putBoolean("recordar", recordar).apply();
-
-        NavOptions navOptions = new NavOptions.Builder()
-                .setPopUpTo(R.id.login, true)
-                .build();
-
-        NavHostFragment.findNavController(Login.this).navigate(R.id.action_login_to_inicio, null, navOptions);
-    }
-
 }

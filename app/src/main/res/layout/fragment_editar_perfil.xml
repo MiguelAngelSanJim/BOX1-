@@ -49,6 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="16dp"
+                android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
                 android:hint=" Tu nombre" />
 
@@ -94,6 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="24dp"
+                android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
                 android:hint=" 600123456"
                 android:inputType="phone" />

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="¿Por qué denuncias este producto?"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupMotivos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/radioPrecio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precio especulativo"
+                android:textColor="@color/black"
+                android:buttonTint="@color/blue" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/radioNoRelacionado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="El producto no está relacionado"
+                android:textColor="@color/black"
+                android:buttonTint="@color/blue" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/radioOtros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Otros"
+                android:textColor="@color/black"
+                android:buttonTint="@color/blue" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/editTextOtros"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:hint="Especifica el motivo"
+            android:inputType="text"
+            android:visibility="gone"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/btnEnviarDenuncia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white"
+            android:text="Enviar"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

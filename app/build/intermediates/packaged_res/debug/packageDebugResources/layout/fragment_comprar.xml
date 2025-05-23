@@ -53,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="16dp"
+                android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
                 android:hint=" C/ Fernando Alonso Díaz 33" />
 
@@ -61,6 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="16dp"
+                android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
                 android:hint=" 3ºC" />
 
@@ -69,6 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="16dp"
+                android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
                 android:hint=" Mérida" />
 
@@ -77,6 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="16dp"
+                android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
                 android:hint=" Badajoz" />
 
@@ -85,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="24dp"
+                android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
                 android:hint=" 06700" />
 
@@ -102,6 +107,7 @@
                 android:id="@+id/checkboxCorreos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/blue"
                 android:text="Correos estándar (3-5 días) Gratis"
                 android:textColor="@color/black"
                 android:layout_marginBottom="4dp" />
@@ -110,6 +116,7 @@
                 android:id="@+id/checkboxExpress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/blue"
                 android:text="Envío express 24h  +5,00€"
                 android:textColor="@color/black"
                 android:layout_marginBottom="24dp" />

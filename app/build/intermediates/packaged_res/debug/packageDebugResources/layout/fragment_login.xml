@@ -26,6 +26,7 @@
         android:layout_width="204dp"
         android:layout_height="48dp"
         android:layout_marginTop="276dp"
+        android:paddingLeft="12dp"
         android:background="@drawable/edittext_style"
         android:textColor="@color/black"
         android:ems="10"
@@ -40,6 +41,7 @@
         android:layout_width="204dp"
         android:layout_height="48dp"
         android:layout_marginTop="352dp"
+        android:paddingLeft="12dp"
         android:background="@drawable/edittext_style"
         android:textColor="@color/black"
         android:ems="10"
@@ -73,17 +75,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
+    <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
+        android:text="Recuérdame"
         android:textColor="@color/black"
-        android:text="@string/recuerdame"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.336"
+        android:layout_marginTop="400dp"
+        android:buttonTint="@color/blue"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.336"/>
+
+
 
     <TextView
         android:id="@+id/textView"

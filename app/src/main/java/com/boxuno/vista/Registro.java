@@ -2,6 +2,7 @@ package com.boxuno.vista;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -39,46 +40,12 @@ import java.util.Map;
 
 public class Registro extends Fragment {
 
-    public Registro() {
-        // Required empty public constructor
-    }
+    public Registro() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_registro, container, false);
-    }
-
-    private void guardarUsuarioEnFirestore(FirebaseUser user, String nombreDesdeEditText) {
-        if (user == null) return;
-
-        String uid = user.getUid();
-        String email = user.getEmail();
-        subirFotoPerfilPorDefecto(uid, new OnFotoSubidaCallback() {
-            @Override
-            public void onSubidaCorrecta(String urlFoto) {
-                Map<String, Object> usuario = new HashMap<>();
-                usuario.put("uid", uid);
-                usuario.put("email", email);
-                usuario.put("nombre", nombreDesdeEditText);
-                usuario.put("fotoPerfilUrl", urlFoto);
-                usuario.put("timestamp", FieldValue.serverTimestamp());
-                usuario.put("favoritos", new ArrayList<>());
-                usuario.put("productos", new ArrayList<>());
-
-                FirebaseFirestore.getInstance()
-                        .collection("usuarios")
-                        .document(uid)
-                        .set(usuario)
-                        .addOnSuccessListener(aVoid -> Log.d("FIRESTORE", "Usuario guardado correctamente"))
-                        .addOnFailureListener(e -> Log.e("FIRESTORE", "Error al guardar usuario", e));
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.e("FOTO PERFIL", "Error al subir imagen: " + error);
-            }
-        });
     }
 
     @Override
@@ -95,7 +62,7 @@ public class Registro extends Fragment {
         EditText campoContrasenia = view.findViewById(R.id.passwordRegistro);
         EditText campoConfirmacionContrasenia = view.findViewById(R.id.confirmpasswordRegistro);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Box1DialogEstilo);
 
         registrarse.setOnClickListener(v -> {
             String contrasenia = campoContrasenia.getText().toString().trim();
@@ -105,12 +72,16 @@ public class Registro extends Fragment {
                 builder.setTitle("Campos vacíos");
                 builder.setMessage("Por favor, completa todos los campos antes de continuar.");
                 builder.setPositiveButton("Aceptar", (dialog, which) -> dialog.dismiss());
-                builder.show();
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#0B1B4E"));
             } else if (!contrasenia.equals(contraseniaConfirmada)) {
                 builder.setTitle("Error");
                 builder.setMessage("Las contraseñas no coinciden.");
                 builder.setPositiveButton("Aceptar", (dialog, which) -> dialog.dismiss());
-                builder.show();
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#0B1B4E"));
             } else {
                 NavController navController = NavHostFragment.findNavController(Registro.this);
 
@@ -138,21 +109,49 @@ public class Registro extends Fragment {
                         if (user != null) {
                             user.sendEmailVerification()
                                     .addOnSuccessListener(aVoid -> {
-                                        guardarUsuarioEnFirestore(user, nombre);
+                                        subirFotoPerfilPorDefecto(user.getUid(), new OnFotoSubidaCallback() {
+                                            @Override
+                                            public void onSubidaCorrecta(String urlFoto) {
+                                                Map<String, Object> usuario = new HashMap<>();
+                                                usuario.put("uid", user.getUid());
+                                                usuario.put("email", user.getEmail());
+                                                usuario.put("nombre", nombre);
+                                                usuario.put("fotoPerfilUrl", urlFoto);
+                                                usuario.put("timestamp", FieldValue.serverTimestamp());
+                                                usuario.put("favoritos", new ArrayList<>());
+                                                usuario.put("productos", new ArrayList<>());
 
-                                        new AlertDialog.Builder(getContext())
-                                                .setTitle("Verificación de correo")
-                                                .setMessage("Se ha enviado un correo de verificación a " + user.getEmail() + ". Por favor, verifica tu correo antes de iniciar sesión.")
-                                                .setPositiveButton("Aceptar", (dialog, which) -> {
-                                                    FirebaseAuth.getInstance().signOut();
+                                                FirebaseFirestore.getInstance()
+                                                        .collection("usuarios")
+                                                        .document(user.getUid())
+                                                        .set(usuario)
+                                                        .addOnSuccessListener(unused -> {
+                                                            AlertDialog verifDialog = new AlertDialog.Builder(getContext(), R.style.Box1DialogEstilo)
+                                                                    .setTitle("Verificación de correo")
+                                                                    .setMessage("Se ha enviado un correo de verificación a " + user.getEmail() + ". Por favor, verifica tu correo antes de iniciar sesión.")
+                                                                    .setPositiveButton("Aceptar", (dialog, which) -> {
+                                                                        FirebaseAuth.getInstance().signOut();
+                                                                        NavOptions navOptions = new NavOptions.Builder()
+                                                                                .setPopUpTo(R.id.registro, true)
+                                                                                .build();
+                                                                        navController.navigate(R.id.login, null, navOptions);
+                                                                    })
+                                                                    .setCancelable(false)
+                                                                    .create();
 
-                                                    NavOptions navOptions = new NavOptions.Builder()
-                                                            .setPopUpTo(R.id.registro, true)
-                                                            .build();
-                                                    navController.navigate(R.id.login, null, navOptions);
-                                                })
-                                                .setCancelable(false)
-                                                .show();
+                                                            verifDialog.show();
+                                                            verifDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#0B1B4E"));
+                                                        })
+                                                        .addOnFailureListener(e -> {
+                                                            Toast.makeText(getContext(), "Error al guardar usuario: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                        });
+                                            }
+
+                                            @Override
+                                            public void onError(String error) {
+                                                Toast.makeText(getContext(), "Error al subir imagen: " + error, Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                                     })
                                     .addOnFailureListener(e -> {
                                         Toast.makeText(getContext(), "Error al enviar verificación: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -190,7 +189,6 @@ public class Registro extends Fragment {
 
     interface OnFotoSubidaCallback {
         void onSubidaCorrecta(String url);
-
         void onError(String error);
     }
 }

@@ -1,8 +1,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/carta"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/carta"
     android:layout_margin="8dp"
     android:background="@color/white"
     android:elevation="4dp"
@@ -25,13 +25,26 @@
                 android:layout_height="150dp"
                 android:scaleType="centerCrop" />
 
+            <TextView
+                android:id="@+id/texto_vendido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="#D0F0D0"
+                android:gravity="center"
+                android:padding="6dp"
+                android:text="VENDIDO"
+                android:textColor="#006400"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <ImageView
                 android:id="@+id/megusta"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="bottom|end"
                 app:srcCompat="@drawable/ic_heart_white" />
-
         </FrameLayout>
 
         <TextView
@@ -52,6 +65,16 @@
             android:textColor="@android:color/black" />
 
         <TextView
+            android:id="@+id/motivo_denuncia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:text="Motivo"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/subido_por"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,6 +87,9 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="bottom|end"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             app:srcCompat="@drawable/eliminar" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -49,7 +49,6 @@ public class recuperar_contrasenia extends Fragment {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Toast.makeText(getContext(), "Correo de recuperación enviado", Toast.LENGTH_SHORT).show();
-                            // Opcional: volver al login
                             Navigation.findNavController(view).popBackStack();
                         } else {
                             Toast.makeText(getContext(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

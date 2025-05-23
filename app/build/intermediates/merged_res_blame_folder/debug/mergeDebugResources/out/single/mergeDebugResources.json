@@ -1,11 +1,11 @@
 [
     {
-        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_ic_heart_red.png.flat",
-        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\ic_heart_red.png"
-    },
-    {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_bg_mensaje_enviado.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\bg_mensaje_enviado.xml"
+    },
+    {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_ic_heart_red.png.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\ic_heart_red.png"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_item_chat.xml.flat",
@@ -60,6 +60,10 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-xxhdpi\\ic_launcher.webp"
     },
     {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_ic_alert.png.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\ic_alert.png"
+    },
+    {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_fragment_subir_producto.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\fragment_subir_producto.xml"
     },
@@ -72,8 +76,8 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-mdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.boxuno.app-debug-53:/layout_fragment_favoritos.xml.flat",
-        "source": "com.boxuno.app-main-55:/layout/fragment_favoritos.xml"
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_checkbox_custom.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\checkbox_custom.xml"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_imagenpordefecto.png.flat",
@@ -104,12 +108,16 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-mdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_eliminar.png.flat",
-        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\eliminar.png"
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_fragment_visitar_perfil.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\fragment_visitar_perfil.xml"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\xml_data_extraction_rules.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_eliminar.png.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\eliminar.png"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_item_maqueta.xml.flat",
@@ -118,6 +126,10 @@
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\mipmap-xxxhdpi_placeholder.png.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-xxxhdpi\\placeholder.png"
+    },
+    {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_dialog_valoracion.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\dialog_valoracion.xml"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
@@ -134,6 +146,10 @@
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_item_mensaje_enviado.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\item_mensaje_enviado.xml"
+    },
+    {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_dialog_denuncia.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\dialog_denuncia.xml"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_fragment_chat_lista.xml.flat",
@@ -168,8 +184,16 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\item_chat_lista.xml"
     },
     {
+        "merged": "com.boxuno.app-debug-53:/layout_fragment_comprar.xml.flat",
+        "source": "com.boxuno.app-main-55:/layout/fragment_comprar.xml"
+    },
+    {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_fragment_recuperar_contrasenia.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\fragment_recuperar_contrasenia.xml"
+    },
+    {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_garaje.png.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\garaje.png"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_item_imagen.xml.flat",
@@ -216,6 +240,10 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-hdpi\\placeholder.png"
     },
     {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_checkbox_checked.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\checkbox_checked.xml"
+    },
+    {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_ic_enviar.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\ic_enviar.xml"
     },
@@ -232,6 +260,10 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-xxhdpi\\placeholder.png"
     },
     {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_item_compra.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\item_compra.xml"
+    },
+    {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\mipmap-hdpi_ic_launcher.webp.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-hdpi\\ic_launcher.webp"
     },
@@ -244,12 +276,12 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-hdpi\\ic_launcher_round.webp"
-    },
-    {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\menu_bottom_menu.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\menu\\bottom_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-hdpi\\ic_launcher_round.webp"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_user.png.flat",
@@ -272,12 +304,12 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\mipmap-xhdpi\\placeholder.png"
     },
     {
-        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\xml_backup_rules.xml.flat",
-        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\xml\\backup_rules.xml"
-    },
-    {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_subirproducto.png.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\subirproducto.png"
+    },
+    {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\xml\\backup_rules.xml"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_ic_launcher_background.xml.flat",
@@ -294,5 +326,9 @@
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_splash_screen.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\splash_screen.xml"
+    },
+    {
+        "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_checkbox_unchecked.xml.flat",
+        "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\checkbox_unchecked.xml"
     }
 ]

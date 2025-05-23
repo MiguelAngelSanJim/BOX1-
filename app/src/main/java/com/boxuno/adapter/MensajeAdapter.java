@@ -29,8 +29,12 @@ public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MensajeV
 
     @Override
     public int getItemViewType(int position) {
-        // Diferenciar entre mensajes propios y ajenos
-        return listaMensajes.get(position).getAutorId().equals(uidActual) ? 1 : 0;
+        String autorId = listaMensajes.get(position).getAutorId();
+        if (autorId != null && autorId.equals(uidActual)) {
+            return 1; // Mensaje enviado por el usuario actual
+        } else {
+            return 0; // Mensaje recibido
+        }
     }
 
     @NonNull

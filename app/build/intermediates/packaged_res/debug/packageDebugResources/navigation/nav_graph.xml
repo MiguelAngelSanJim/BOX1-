@@ -54,6 +54,9 @@
         android:label="Detalle producto"
         tools:layout="@layout/fragment_detalle_producto">
         <action
+            android:id="@+id/action_visitar_perfil"
+            app:destination="@id/visitarPerfil" />
+        <action
             android:id="@+id/action_detalleProducto_self"
             app:destination="@id/detalleProducto" />
         <action
@@ -93,7 +96,11 @@
         android:id="@+id/favoritos"
         android:name="com.boxuno.vista.Favoritos"
         android:label="Favoritos"
-        tools:layout="@layout/fragment_favoritos" />
+        tools:layout="@layout/fragment_favoritos">
+        <action
+            android:id="@+id/action_favoritos_to_detalle_producto"
+            app:destination="@id/detalleProducto"/>
+    </fragment>
 
     <fragment
         android:id="@+id/chatLista"
@@ -121,5 +128,10 @@
         android:name="com.boxuno.vista.recuperar_contrasenia"
         android:label="recuperar_contrasenia"
         tools:layout="@layout/fragment_recuperar_contrasenia" />
+    <fragment
+        android:id="@+id/visitarPerfil"
+        android:name="com.boxuno.vista.VisitarPerfil"
+        android:label="VisitarPerfil"
+        tools:layout="@layout/fragment_visitar_perfil" />
 
 </navigation>

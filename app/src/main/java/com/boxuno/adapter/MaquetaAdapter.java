@@ -21,7 +21,6 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -29,6 +28,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaViewHolder> {
+
     private List<Maqueta> maquetaList;
     private Context context;
     private Set<String> maquetasFavoritas = new HashSet<>();
@@ -37,10 +37,21 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
     private boolean mostrarMeGusta;
     private boolean mostrarEliminar;
 
+    private Map<String, String> motivosMap = new HashMap<>();
+
+    public interface OnEliminarClickListener {
+        void onEliminarClick(Maqueta maqueta);
+    }
+
+    private OnEliminarClickListener eliminarClickListener;
+
+    public void setOnEliminarClickListener(OnEliminarClickListener listener) {
+        this.eliminarClickListener = listener;
+    }
+
     public interface OnMaquetaClickListener {
         void onMaquetaClick(Maqueta maqueta);
     }
-
 
     public MaquetaAdapter(List<Maqueta> maquetaList, Context context, OnMaquetaClickListener listener, boolean mostrarMeGusta, boolean mostrarEliminar) {
         this.maquetaList = maquetaList;
@@ -54,11 +65,13 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
             userId = usuario.getUid();
             cargarFavoritosDesdeFirebase();
         } else {
-            userId = null; // o una cadena vacía, si prefieres
-            // No cargar favoritos porque no hay sesión activa
+            userId = null;
         }
     }
 
+    public void setMotivosMap(Map<String, String> motivosMap) {
+        this.motivosMap = motivosMap;
+    }
 
     private void cargarFavoritosDesdeFirebase() {
         FirebaseFirestore.getInstance()
@@ -105,7 +118,19 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
                     .into(holder.imagen);
         }
 
-        actualizarIconoCorazon(holder.meGusta, maquetaID);
+        // NUEVO: mostrar cartel "VENDIDO"
+        if (maqueta.isVendido()) {
+            holder.textoVendido.setVisibility(View.VISIBLE);
+        } else {
+            holder.textoVendido.setVisibility(View.GONE);
+        }
+
+        if (mostrarMeGusta) {
+            holder.meGusta.setVisibility(View.VISIBLE);
+            actualizarIconoCorazon(holder.meGusta, maquetaID);
+        } else {
+            holder.meGusta.setVisibility(View.GONE);
+        }
 
         holder.meGusta.setOnClickListener(v -> {
             DocumentReference docRef = FirebaseFirestore.getInstance()
@@ -126,22 +151,29 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
                 docRef.set(datos, SetOptions.merge());
             }
         });
-        if (mostrarMeGusta) {
-            holder.meGusta.setVisibility(View.VISIBLE);
-            actualizarIconoCorazon(holder.meGusta, maquetaID);
 
-        } else {
-            holder.meGusta.setVisibility(View.GONE); // <- OCULTA EL ICONO
-        }
-        holder.carta.setOnClickListener(v -> {
-            listener.onMaquetaClick(maqueta);
-        });
         if (mostrarEliminar) {
             holder.eliminar.setVisibility(View.VISIBLE);
+            holder.eliminar.setOnClickListener(v -> {
+                if (eliminarClickListener != null) {
+                    eliminarClickListener.onEliminarClick(maqueta);
+                }
+            });
         } else {
             holder.eliminar.setVisibility(View.GONE);
         }
 
+        holder.carta.setOnClickListener(v -> {
+            listener.onMaquetaClick(maqueta);
+        });
+
+        String motivo = motivosMap.get(maquetaID);
+        if (motivo != null && !motivo.isEmpty()) {
+            holder.motivoDenuncia.setText("Motivo: " + motivo);
+            holder.motivoDenuncia.setVisibility(View.VISIBLE);
+        } else {
+            holder.motivoDenuncia.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -151,7 +183,7 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
 
     public static class MaquetaViewHolder extends RecyclerView.ViewHolder {
         ImageView imagen, meGusta, eliminar;
-        TextView titulo, precio, subidoPor;
+        TextView titulo, precio, subidoPor, motivoDenuncia, textoVendido;
         CardView carta;
 
         public MaquetaViewHolder(@NonNull View itemView) {
@@ -163,7 +195,8 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
             subidoPor = itemView.findViewById(R.id.subido_por);
             meGusta = itemView.findViewById(R.id.megusta);
             eliminar = itemView.findViewById(R.id.eliminar);
+            motivoDenuncia = itemView.findViewById(R.id.motivo_denuncia);
+            textoVendido = itemView.findViewById(R.id.texto_vendido); // NUEVO
         }
     }
 }
-

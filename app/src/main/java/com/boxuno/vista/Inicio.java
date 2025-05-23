@@ -1,6 +1,15 @@
 package com.boxuno.vista;
 
+import android.app.AlertDialog;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RatingBar;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,12 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.boxuno.R;
 import com.boxuno.adapter.MaquetaAdapter;
@@ -25,8 +28,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 public class Inicio extends Fragment {
     private List<Maqueta> maquetaList;
@@ -34,11 +38,6 @@ public class Inicio extends Fragment {
     private SearchView buscador;
 
     public Inicio() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -50,6 +49,7 @@ public class Inicio extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         buscador = view.findViewById(R.id.buscador);
         buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -60,7 +60,7 @@ public class Inicio extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(newText.isEmpty()){
+                if (newText.isEmpty()) {
                     NavHostFragment.findNavController(Inicio.this).navigate(R.id.inicio);
                 }
                 return true;
@@ -71,13 +71,13 @@ public class Inicio extends Fragment {
             NavHostFragment.findNavController(Inicio.this).navigate(R.id.inicio);
             return false;
         });
+
         RecyclerView recyclerView = view.findViewById(R.id.recyclerviewinicio);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2)); // 2 columnas
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         maquetaList = new ArrayList<>();
         maquetaAdapter = new MaquetaAdapter(maquetaList, getContext(), maqueta -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("maqueta", maqueta);
-
             NavHostFragment.findNavController(Inicio.this).navigate(R.id.action_inicio_to_detalle_producto, bundle);
         }, true, false);
         recyclerView.setAdapter(maquetaAdapter);
@@ -86,41 +86,36 @@ public class Inicio extends Fragment {
         String uidActual = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         db.collection("maquetas").whereNotEqualTo("usuarioId", uidActual).get().addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
-                        Maqueta maqueta = doc.toObject(Maqueta.class);
-                        if (maqueta == null) continue;
+            for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                Maqueta maqueta = doc.toObject(Maqueta.class);
+                if (maqueta == null) continue;
 
-                        String userId = maqueta.getUsuarioId();
+                String userId = maqueta.getUsuarioId();
 
-                        db.collection("usuarios").document(userId).get().addOnSuccessListener(userDoc -> {
-                                    if (userDoc.exists()) {
-                                        maqueta.setNombreUsuario(userDoc.getString("nombre"));
-                                    } else {
-                                        maqueta.setNombreUsuario("Desconocido");
-                                    }
-                                    maquetaList.add(maqueta);
-                                    maquetaList.sort((m1, m2) -> Long.compare(m2.getTimestamp(), m1.getTimestamp()));
-                                    maquetaAdapter.notifyDataSetChanged();
-                                })
-                                .addOnFailureListener(e -> {
-                                    maqueta.setNombreUsuario("Error");
-                                    maquetaList.add(maqueta);
-                                    maquetaAdapter.notifyDataSetChanged();
-                                });
-
+                db.collection("usuarios").document(userId).get().addOnSuccessListener(userDoc -> {
+                    if (userDoc.exists()) {
+                        maqueta.setNombreUsuario(userDoc.getString("nombre"));
+                    } else {
+                        maqueta.setNombreUsuario("Desconocido");
                     }
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getContext(), "Error al cargar maquetas", Toast.LENGTH_SHORT).show();
+                    maquetaList.add(maqueta);
+                    maquetaList.sort((m1, m2) -> Long.compare(m2.getTimestamp(), m1.getTimestamp()));
+                    maquetaAdapter.notifyDataSetChanged();
+                }).addOnFailureListener(e -> {
+                    maqueta.setNombreUsuario("Error");
+                    maquetaList.add(maqueta);
+                    maquetaAdapter.notifyDataSetChanged();
                 });
+            }
+        }).addOnFailureListener(e -> {
+            Toast.makeText(getContext(), "Error al cargar maquetas", Toast.LENGTH_SHORT).show();
+        });
 
         TabLayout categorias = view.findViewById(R.id.tabLayoutCategorias);
-
         categorias.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 String categoriaSeleccionada = null;
-
                 switch (tab.getPosition()) {
                     case 0:
                         break;
@@ -142,63 +137,54 @@ public class Inicio extends Fragment {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
-
 
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomnavigation);
         if (bottomNavigationView != null) {
             bottomNavigationView.setVisibility(View.VISIBLE);
         }
+
+        comprobarValoracionPendiente();
     }
 
     private void cargarMaquetas(@Nullable String categoria) {
         maquetaList.clear();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String uidActual = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        db.collection("maquetas")
-                .whereNotEqualTo("usuarioId", uidActual)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
-                        Maqueta maqueta = doc.toObject(Maqueta.class);
-                        if (maqueta == null) continue;
-
-                        if (categoria == null || categoria.equalsIgnoreCase(maqueta.getCategoria())) {
-                            String userId = maqueta.getUsuarioId();
-                            db.collection("usuarios").document(userId)
-                                    .get()
-                                    .addOnSuccessListener(userDoc -> {
-                                        if (userDoc.exists()) {
-                                            maqueta.setNombreUsuario(userDoc.getString("nombre"));
-                                        } else {
-                                            maqueta.setNombreUsuario("Desconocido");
-                                        }
-                                        maquetaList.add(maqueta);
-                                        maquetaAdapter.notifyDataSetChanged();
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        maqueta.setNombreUsuario("Error");
-                                        maquetaList.add(maqueta);
-                                        maquetaAdapter.notifyDataSetChanged();
-                                    });
+        db.collection("maquetas").whereNotEqualTo("usuarioId", uidActual).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                Maqueta maqueta = doc.toObject(Maqueta.class);
+                if (maqueta == null) continue;
+                if (categoria == null || categoria.equalsIgnoreCase(maqueta.getCategoria())) {
+                    String userId = maqueta.getUsuarioId();
+                    db.collection("usuarios").document(userId).get().addOnSuccessListener(userDoc -> {
+                        if (userDoc.exists()) {
+                            maqueta.setNombreUsuario(userDoc.getString("nombre"));
+                        } else {
+                            maqueta.setNombreUsuario("Desconocido");
                         }
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getContext(), "Error al cargar maquetas", Toast.LENGTH_SHORT).show();
-                });
+                        maquetaList.add(maqueta);
+                        maquetaAdapter.notifyDataSetChanged();
+                    }).addOnFailureListener(e -> {
+                        maqueta.setNombreUsuario("Error");
+                        maquetaList.add(maqueta);
+                        maquetaAdapter.notifyDataSetChanged();
+                    });
+                }
+            }
+        }).addOnFailureListener(e -> {
+            Toast.makeText(getContext(), "Error al cargar maquetas", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void buscarMaquetasOUsuarios(String query) {
         if (query.isEmpty()) {
-            cargarMaquetas(null); // Si el campo está vacío, recarga normalmente
+            cargarMaquetas(null);
             return;
         }
 
@@ -207,52 +193,97 @@ public class Inicio extends Fragment {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String uidActual = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        db.collection("maquetas")
-                .whereNotEqualTo("usuarioId", uidActual)
-                .get()
-                .addOnSuccessListener(snapshot -> {
-                    boolean encontrado = false;
-                    for (DocumentSnapshot doc : snapshot.getDocuments()) {
-                        Maqueta maqueta = doc.toObject(Maqueta.class);
-                        if (maqueta != null && maqueta.getTitulo().toLowerCase().contains(query.toLowerCase())) {
-                            maquetaList.add(maqueta);
-                            encontrado = true;
-                        }
-                    }
-                    if (encontrado) {
-                        maquetaAdapter.notifyDataSetChanged();
-                    } else {
-                        // 2. Si no encontramos en títulos, buscamos en usuarios
-                        buscarPorUsuario(query);
-                    }
-                });
+
+        db.collection("maquetas").whereNotEqualTo("usuarioId", uidActual).get().addOnSuccessListener(snapshot -> {
+            boolean encontrado = false;
+            for (DocumentSnapshot doc : snapshot.getDocuments()) {
+                Maqueta maqueta = doc.toObject(Maqueta.class);
+                if (maqueta != null && maqueta.getTitulo().toLowerCase().contains(query.toLowerCase())) {
+                    maquetaList.add(maqueta);
+                    encontrado = true;
+                }
+            }
+            if (encontrado) {
+                maquetaAdapter.notifyDataSetChanged();
+            } else {
+                buscarPorUsuario(query);
+            }
+        });
     }
 
     private void buscarPorUsuario(String nombreUsuario) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("usuarios").whereEqualTo("nombre", nombreUsuario).get().addOnSuccessListener(userSnapshot -> {
+            if (!userSnapshot.isEmpty()) {
+                String userIdBuscado = userSnapshot.getDocuments().get(0).getId();
+                db.collection("maquetas").whereEqualTo("usuarioId", userIdBuscado).get().addOnSuccessListener(maquetaSnapshot -> {
+                    maquetaList.clear();
+                    for (DocumentSnapshot doc : maquetaSnapshot) {
+                        Maqueta maqueta = doc.toObject(Maqueta.class);
+                        if (maqueta != null) {
+                            maquetaList.add(maqueta);
+                        }
+                    }
+                    maquetaAdapter.notifyDataSetChanged();
+                });
+            } else {
+                Toast.makeText(getContext(), "No se encontró ningún usuario", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
-        db.collection("usuarios")
-                .whereEqualTo("nombre", nombreUsuario)
+    private void comprobarValoracionPendiente() {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseFirestore.getInstance().collection("valoracionesPendientes")
+                .document(uid)
                 .get()
-                .addOnSuccessListener(userSnapshot -> {
-                    if (!userSnapshot.isEmpty()) {
-                        String userIdBuscado = userSnapshot.getDocuments().get(0).getId();
+                .addOnSuccessListener(doc -> {
+                    if (doc.exists()) {
+                        String vendedorId = doc.getString("vendedorId");
+                        String productoId = doc.getString("productoId"); // Por si quieres guardar esta info
+                        if (vendedorId == null) return;
 
-                        db.collection("maquetas")
-                                .whereEqualTo("usuarioId", userIdBuscado)
-                                .get()
-                                .addOnSuccessListener(maquetaSnapshot -> {
-                                    maquetaList.clear();
-                                    for (DocumentSnapshot doc : maquetaSnapshot) {
-                                        Maqueta maqueta = doc.toObject(Maqueta.class);
-                                        if (maqueta != null) {
-                                            maquetaList.add(maqueta);
-                                        }
-                                    }
-                                    maquetaAdapter.notifyDataSetChanged();
-                                });
-                    } else {
-                        Toast.makeText(getContext(), "No se encontró ningún usuario", Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.Box1DialogEstilo);
+                        builder.setTitle("Producto entregado");
+                        builder.setMessage("Valora tu experiencia con el vendedor:");
+
+                        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_valoracion, null);
+                        builder.setView(view);
+
+                        RatingBar ratingBar = view.findViewById(R.id.ratingBarValoracion);
+                        ratingBar.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#0B1B4E"))); // Color estrellas activas
+                        ratingBar.setSecondaryProgressTintList(ColorStateList.valueOf(Color.parseColor("#B0BEC5"))); // Color intermedio (opcional)
+                        ratingBar.setProgressBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#CFD8DC")));
+                        builder.setPositiveButton("Enviar", (dialogInterface, which) -> {
+                            float puntuacion = ratingBar.getRating();
+
+                            Map<String, Object> valoracion = new HashMap<>();
+                            valoracion.put("usuarioId", uid);
+                            valoracion.put("puntuacion", puntuacion);
+                            valoracion.put("timestamp", System.currentTimeMillis());
+                            if (productoId != null) {
+                                valoracion.put("productoId", productoId);
+                            }
+
+                            FirebaseFirestore.getInstance()
+                                    .collection("valoraciones")
+                                    .document(vendedorId)
+                                    .collection("usuarios")
+                                    .add(valoracion)
+                                    .addOnSuccessListener(unused ->
+                                            Toast.makeText(getContext(), "¡Gracias por tu valoración!", Toast.LENGTH_SHORT).show()
+                                    );
+
+                            FirebaseFirestore.getInstance().collection("valoracionesPendientes").document(uid).delete();
+                        });
+
+                        builder.setCancelable(false);
+
+                        AlertDialog dialogo = builder.create();
+                        dialogo.show();
+
+                        dialogo.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#0B1B4E"));
+
                     }
                 });
     }

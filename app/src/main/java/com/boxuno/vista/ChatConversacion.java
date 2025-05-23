@@ -74,7 +74,7 @@ public class ChatConversacion extends Fragment {
         db = FirebaseFirestore.getInstance();
         uidActual = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // Recoger UID y datos del otro usuario desde los argumentos
+        // Recoger UID y datos del otro usuario desde los argumentos.
         if (getArguments() != null) {
             chatId = getArguments().getString("chatId");
             uidDestino = getArguments().getString("uidDestino");

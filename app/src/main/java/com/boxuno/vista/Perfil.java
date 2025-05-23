@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -22,9 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boxuno.R;
@@ -33,14 +33,19 @@ import com.boxuno.modelo.Maqueta;
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 public class Perfil extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -51,13 +56,11 @@ public class Perfil extends Fragment {
     private String userId;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
-
     public Perfil() {
-        // Required empty public constructor
     }
 
     private void confirmar() {
-        new AlertDialog.Builder(requireContext())
+        AlertDialog dialogo = new AlertDialog.Builder(requireContext(), R.style.Box1DialogEstilo)
                 .setTitle("Cerrar sesión")
                 .setMessage("¿Estás seguro de que quieres cerrar sesión?")
                 .setIcon(R.drawable.logopng)
@@ -74,6 +77,8 @@ public class Perfil extends Fragment {
                     dialog.dismiss();
                 })
                 .show();
+        dialogo.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#0B1B4E"));
+        dialogo.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#0B1B4E"));
     }
 
     @Override
@@ -138,6 +143,7 @@ public class Perfil extends Fragment {
         imagePickerLauncher.launch(intent);
     }
 
+    // ... (resto sin cambios)
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -147,37 +153,60 @@ public class Perfil extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String userId = auth.getCurrentUser().getUid();
+        String email = auth.getCurrentUser().getEmail();
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         ImageView fotoperfil = view.findViewById(R.id.imagenUserPerfil);
+        TextView textoMisProductos = view.findViewById(R.id.textMisProductos);
         List<Maqueta> maquetaList = new ArrayList<>();
+
         MaquetaAdapter adapter = new MaquetaAdapter(maquetaList, getContext(), maqueta -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("maqueta", maqueta);
             NavHostFragment.findNavController(Perfil.this).navigate(R.id.detalleProducto, bundle);
         }, false, true);
+
         recyclerView.setAdapter(adapter);
+
+        // Listener de eliminar.
+        adapter.setOnEliminarClickListener(maqueta -> {
+            AlertDialog dialogo = new AlertDialog.Builder(requireContext(), R.style.Box1DialogEstilo)
+                    .setTitle("Eliminar producto")
+                    .setMessage("¿Seguro que quieres eliminar esta maqueta?")
+                    .setPositiveButton("Sí", (dialog, which) -> eliminarMaqueta(maqueta, maquetaList, adapter))
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+
+            dialogo.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#0B1B4E"));
+            dialogo.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#0B1B4E"));
+        });
 
         Glide.with(this)
                 .load(R.drawable.imagenpordefecto)
                 .circleCrop()
                 .into(fotoperfil);
 
-        db.collection("maquetas")
-                .whereEqualTo("usuarioId", userId)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    maquetaList.clear();
-                    for (DocumentSnapshot document : queryDocumentSnapshots) {
-                        Maqueta maqueta = document.toObject(Maqueta.class);
-                        maquetaList.add(maqueta);
-                    }
-                    adapter.notifyDataSetChanged();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getContext(), "Error al cargar maquetas", Toast.LENGTH_SHORT).show();
-                });
+        if (email != null && email.equals("box1coleccion@gmail.com")) {
+            textoMisProductos.setText("Reclamaciones");
+            cargarProductosDenunciados(adapter, maquetaList);
+        } else {
+            db.collection("maquetas")
+                    .whereEqualTo("usuarioId", userId)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        maquetaList.clear();
+                        for (DocumentSnapshot document : queryDocumentSnapshots) {
+                            Maqueta maqueta = document.toObject(Maqueta.class);
+                            maquetaList.add(maqueta);
+                        }
+                        adapter.notifyDataSetChanged();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(getContext(), "Error al cargar maquetas", Toast.LENGTH_SHORT).show();
+                    });
+        }
+
         opcionesPerfil.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -186,7 +215,6 @@ public class Perfil extends Fragment {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
@@ -194,8 +222,48 @@ public class Perfil extends Fragment {
                 handleTabAction(tab);
             }
         });
-
     }
+
+
+    private void eliminarMaqueta(Maqueta maqueta, List<Maqueta> maquetaList, MaquetaAdapter adapter) {
+        FirebaseFirestore.getInstance().collection("maquetas")
+                .document(maqueta.getId())
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    maquetaList.remove(maqueta);
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(getContext(), "Maqueta eliminada", Toast.LENGTH_SHORT).show();
+                    enviarMensajeAdmin(maqueta);
+
+                    eliminarDenunciasAsociadas(maqueta.getId());
+                    eliminarImagenesDeStorage(maqueta);
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(getContext(), "Error al eliminar la maqueta", Toast.LENGTH_SHORT).show()
+                );
+    }
+
+
+    private void eliminarDenunciasAsociadas(String productoId) {
+        FirebaseFirestore.getInstance().collection("denuncias")
+                .whereEqualTo("productoId", productoId)
+                .get()
+                .addOnSuccessListener(snapshot -> {
+                    for (DocumentSnapshot doc : snapshot) {
+                        doc.getReference().delete();
+                    }
+                });
+    }
+
+
+    private void eliminarImagenesDeStorage(Maqueta maqueta) {
+        if (maqueta.getImagenes() != null) {
+            for (String url : maqueta.getImagenes()) {
+                FirebaseStorage.getInstance().getReferenceFromUrl(url).delete();
+            }
+        }
+    }
+
 
     private void handleTabAction(TabLayout.Tab tab) {
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
@@ -224,4 +292,128 @@ public class Perfil extends Fragment {
                         Toast.makeText(getContext(), "Error al cargar foto de perfil", Toast.LENGTH_SHORT).show()
                 );
     }
+
+    private void cargarProductosDenunciados(MaquetaAdapter adapter, List<Maqueta> maquetaList) {
+        db.collection("denuncias")
+                .get()
+                .addOnSuccessListener(denuncias -> {
+                    maquetaList.clear();
+                    for (DocumentSnapshot denuncia : denuncias) {
+                        String productoId = denuncia.getString("productoId");
+                        String motivo = denuncia.getString("motivo");
+                        String otros = denuncia.getString("otros");
+
+                        db.collection("maquetas").document(productoId)
+                                .get()
+                                .addOnSuccessListener(producto -> {
+                                    if (producto.exists()) {
+                                        Maqueta maqueta = producto.toObject(Maqueta.class);
+
+                                        // Mostrar el motivo de la denuncia en la descripción temporalmente.
+                                        if (motivo != null) {
+                                            if (motivo.equals("Otros") && otros != null && !otros.isEmpty()) {
+                                                maqueta.setDescripcion("Motivo: " + otros);
+                                            } else {
+                                                maqueta.setDescripcion("Motivo: " + motivo);
+                                            }
+                                        }
+
+                                        // Evitar duplicados
+                                        if (!maquetaList.contains(maqueta)) {
+                                            maquetaList.add(maqueta);
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    }
+                                });
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Error al cargar productos denunciados", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
+    private void enviarMensajeAdmin(Maqueta maqueta) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseDatabase realtimeDB = FirebaseDatabase.getInstance();
+        String adminId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String usuarioId = maqueta.getUsuarioId();
+
+        db.collection("denuncias")
+                .whereEqualTo("productoId", maqueta.getId())
+                .get()
+                .addOnSuccessListener(denuncias -> {
+                    String motivo = "sin especificar";
+                    if (!denuncias.isEmpty()) {
+                        motivo = denuncias.getDocuments().get(0).getString("motivo");
+                    }
+
+                    String mensaje = "Hola, hemos eliminado tu maqueta \"" + maqueta.getTitulo() +
+                            "\" tras revisar una denuncia. \nMotivo: " + motivo +
+                            "\n   " +
+                            "\nPara cualquier consulta o reclamación, envíe un email a: box1coleccion@gmail.com";
+
+                    String chatId = generarChatId(adminId, usuarioId);
+
+                    // Guardar mensaje en Firestore
+                    Map<String, Object> mensajeData = new HashMap<>();
+                    mensajeData.put("remitenteId", adminId);
+                    mensajeData.put("texto", mensaje);
+                    mensajeData.put("timestamp", System.currentTimeMillis());
+
+                    db.collection("chats")
+                            .document(chatId)
+                            .collection("mensajes")
+                            .add(mensajeData);
+
+                    // Crear resumen del chat en Firestore
+                    Map<String, Object> chatResumen = new HashMap<>();
+                    chatResumen.put("usuarios", Arrays.asList(adminId, usuarioId));
+                    chatResumen.put("ultimoMensaje", mensaje);
+                    chatResumen.put("timestamp", System.currentTimeMillis());
+
+                    db.collection("chats").document(chatId)
+                            .set(chatResumen, SetOptions.merge());
+
+                    // Obtener datos del usuario
+                    db.collection("usuarios").document(usuarioId).get()
+                            .addOnSuccessListener(usuarioDoc -> {
+                                final String fotoUsuario = usuarioDoc.getString("fotoPerfilUrl");
+                                final String nombreUsuario = usuarioDoc.getString("nombre");
+
+                                db.collection("usuarios").document(adminId).get()
+                                        .addOnSuccessListener(adminDoc -> {
+                                            String fotoAdmin = adminDoc.getString("fotoPerfilUrl");
+                                            String nombreAdmin = adminDoc.getString("nombre");
+
+                                            if (fotoAdmin == null) fotoAdmin = "";
+                                            if (nombreAdmin == null) nombreAdmin = "Administrador";
+
+                                            DatabaseReference realtimeRef = realtimeDB.getReference("chats");
+
+                                            Map<String, Object> chatDataAdmin = new HashMap<>();
+                                            chatDataAdmin.put("nombre", nombreUsuario != null ? nombreUsuario : "Usuario");
+                                            chatDataAdmin.put("fotoPerfilUrl", fotoUsuario != null ? fotoUsuario : "");
+                                            chatDataAdmin.put("productoId", maqueta.getId());
+                                            chatDataAdmin.put("productoTitulo", maqueta.getTitulo());
+                                            chatDataAdmin.put("productoPrecio", maqueta.getPrecio());
+
+                                            Map<String, Object> chatDataUsuario = new HashMap<>();
+                                            chatDataUsuario.put("nombre", nombreAdmin);
+                                            chatDataUsuario.put("fotoPerfilUrl", fotoAdmin);
+                                            chatDataUsuario.put("productoId", maqueta.getId());
+                                            chatDataUsuario.put("productoTitulo", maqueta.getTitulo());
+                                            chatDataUsuario.put("productoPrecio", maqueta.getPrecio());
+
+                                            realtimeRef.child(adminId).child(chatId).setValue(chatDataAdmin);
+                                            realtimeRef.child(usuarioId).child(chatId).setValue(chatDataUsuario);
+                                        });
+                            });
+                });
+    }
+
+    private String generarChatId(String uid1, String uid2) {
+        return uid1.compareTo(uid2) < 0 ? uid1 + "_" + uid2 : uid2 + "_" + uid1;
+    }
+
 }

@@ -41,6 +41,15 @@
                             <option name="y" value="499" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_comprar_to_inicio">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -66,6 +75,11 @@
                               </value>
                             </entry>
                             <entry key="action_detalle_to_comprar">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_visitar_perfil">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -225,6 +239,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="visitarPerfil">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="782" />
+                            <option name="y" value="1171" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

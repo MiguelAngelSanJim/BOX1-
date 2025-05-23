@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -16,8 +17,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.boxuno.R;
+import com.boxuno.adapter.CompraAdapter;
 import com.boxuno.adapter.MaquetaAdapter;
+import com.boxuno.modelo.Compra;
 import com.boxuno.modelo.Maqueta;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -52,7 +56,7 @@ public class Favoritos extends Fragment {
         maquetaAdapter = new MaquetaAdapter(maquetaList, getContext(), maqueta -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("maqueta", maqueta);
-            NavHostFragment.findNavController(Favoritos.this).navigate(R.id.action_inicio_to_detalle_producto, bundle);
+            NavHostFragment.findNavController(Favoritos.this).navigate(R.id.action_favoritos_to_detalle_producto, bundle);
         }, false, false);
 
         recyclerView.setAdapter(maquetaAdapter);
@@ -107,6 +111,54 @@ public class Favoritos extends Fragment {
                     Toast.makeText(getContext(), "Error al cargar favoritos", Toast.LENGTH_SHORT).show();
                     Log.e("FAVORITOS", "Error Firestore", e);
                 });
+
+        TabLayout tabLayout = view.findViewById(R.id.tabLayoutFavoritos);
+        RecyclerView recycler = view.findViewById(R.id.recyclerFavoritos);
+
+        List<Compra> compraList = new ArrayList<>();
+        CompraAdapter compraAdapter = new CompraAdapter(compraList);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    // Mostrar favoritos
+                    recycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                    recycler.setAdapter(maquetaAdapter);
+                } else {
+                    // Mostrar historial
+                    recycler.setLayoutManager(new LinearLayoutManager(getContext()));
+                    recycler.setAdapter(compraAdapter);
+                    cargarHistorial(compraList, compraAdapter);
+                }
+            }
+
+            @Override public void onTabUnselected(TabLayout.Tab tab) {}
+            @Override public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
     }
+
+    private void cargarHistorial(List<Compra> lista, CompraAdapter adapter) {
+        lista.clear();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        FirebaseFirestore.getInstance().collection("compras")
+                .whereEqualTo("compradorId", uid)
+                .get()
+                .addOnSuccessListener(snapshot -> {
+                    for (DocumentSnapshot doc : snapshot) {
+                        String nombre = doc.getString("productoNombre");
+                        Double precio = doc.getDouble("productoPrecio");
+                        String fecha = doc.getString("fecha");
+
+                        if (nombre != null && precio != null && fecha != null) {
+                            lista.add(new Compra(nombre, precio, fecha));
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                });
+    }
+
 
 }

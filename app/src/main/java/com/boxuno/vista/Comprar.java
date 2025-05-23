@@ -1,15 +1,17 @@
 package com.boxuno.vista;
 
 import android.app.AlertDialog;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +27,11 @@ import com.boxuno.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
-
 
 public class Comprar extends Fragment {
 
@@ -54,7 +58,6 @@ public class Comprar extends Fragment {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String uid = auth.getCurrentUser().getUid();
 
-        // --- Referencias UI ---
         calle = view.findViewById(R.id.editTextCalle);
         portal = view.findViewById(R.id.editTextPortal);
         ciudad = view.findViewById(R.id.editTextCiudad);
@@ -69,9 +72,25 @@ public class Comprar extends Fragment {
 
         checkCorreos = view.findViewById(R.id.checkboxCorreos);
         checkExpress = view.findViewById(R.id.checkboxExpress);
-
         rbReembolso = view.findViewById(R.id.radioContraReembolso);
         rbGooglePay = view.findViewById(R.id.radioGooglePay);
+
+        int[][] estados = new int[][]{
+                new int[]{android.R.attr.state_checked},   // Marcado
+                new int[]{-android.R.attr.state_checked}   // No marcado
+        };
+
+        int[] colores = new int[]{
+                Color.parseColor("#FFFFFF"), // Check azul oscuro
+                Color.parseColor("#FFFFFF")  // Cuadro blanco
+        };
+
+        ColorStateList colorStateList = new ColorStateList(estados, colores);
+        checkCorreos.setButtonTintList(colorStateList);
+        checkExpress.setButtonTintList(colorStateList);
+        rbReembolso.setButtonTintList(ColorStateList.valueOf(Color.parseColor("#0B1B4E")));
+        rbGooglePay.setButtonTintList(ColorStateList.valueOf(Color.parseColor("#0B1B4E")));
+
 
         textPrecioProducto = view.findViewById(R.id.textPrecioProducto);
         textPrecioEnvio = view.findViewById(R.id.textPrecioEnvio);
@@ -79,7 +98,6 @@ public class Comprar extends Fragment {
 
         btnConfirmar = view.findViewById(R.id.btnConfirmarCompra);
 
-        // --- Precio recibido por argumentos ---
         if (getArguments() != null) {
             precioBase = getArguments().getDouble("precio", 0.0);
         }
@@ -88,11 +106,9 @@ public class Comprar extends Fragment {
         textPrecioEnvio.setText("Envío: 0€");
         textPrecioTotal.setText("Total: " + precioBase + "€");
 
-        // --- Cargar dirección si existe ---
         db.collection("usuarios").document(uid).get().addOnSuccessListener(document -> {
             if (document.exists()) {
                 Map<String, Object> direccion = (Map<String, Object>) document.get("direccion");
-
                 if (direccion != null) {
                     calle.setText((String) direccion.get("calle"));
                     portal.setText((String) direccion.get("portal"));
@@ -103,7 +119,6 @@ public class Comprar extends Fragment {
             }
         });
 
-        // --- Lógica de selección única para envío ---
         CompoundButton.OnCheckedChangeListener envioChangeListener = (buttonView, isChecked) -> {
             if (isChecked) {
                 if (buttonView.getId() == R.id.checkboxCorreos) checkExpress.setChecked(false);
@@ -118,7 +133,6 @@ public class Comprar extends Fragment {
         checkCorreos.setOnCheckedChangeListener(envioChangeListener);
         checkExpress.setOnCheckedChangeListener(envioChangeListener);
 
-        // --- Confirmar compra ---
         btnConfirmar.setOnClickListener(v -> {
             String direccionCompleta = calle.getText().toString() + ", " + portal.getText().toString() +
                     ", " + ciudad.getText().toString() + ", " + provincia.getText().toString() +
@@ -135,35 +149,52 @@ public class Comprar extends Fragment {
             double precioFinal = checkExpress.isChecked() ? precioBase + 5.0 : precioBase;
 
             String idMaqueta = getArguments() != null ? getArguments().getString("id") : null;
-            Log.d("Debug", "ID recibido: " + idMaqueta);
+            String vendedorId = getArguments() != null ? getArguments().getString("vendedorId") : null;
+            String tituloMaqueta = getArguments() != null ? getArguments().getString("titulo") : "Producto";
 
             if (idMaqueta != null) {
+                // Marcar como vendido
                 FirebaseFirestore.getInstance().collection("maquetas").document(idMaqueta)
-                        .update("vendido", true)
-                        .addOnSuccessListener(aVoid -> Log.d("Firestore", "Marcado como vendido"))
-                        .addOnFailureListener(e -> Log.e("Firestore", "Error al actualizar", e));
-            }
+                        .update("vendido", true);
 
+                // Registrar compra
+                Map<String, Object> compra = new HashMap<>();
+                compra.put("productoId", idMaqueta);
+                compra.put("productoNombre", tituloMaqueta);
+                compra.put("productoPrecio", precioFinal);
+                compra.put("fecha", new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date()));
+                compra.put("compradorId", uid);
+
+                FirebaseFirestore.getInstance()
+                        .collection("compras")
+                        .add(compra);
+            }
 
             btnConfirmar.setEnabled(false);
             btnConfirmar.setText("Comprado");
 
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.Box1DialogEstilo);
             builder.setTitle("Compra confirmada");
-
             String mensaje = "Dirección:\n" + direccionCompleta +
                     "\n\nEnvío: " + metodoEnvio +
                     "\nPago: " + metodoPago +
                     "\n\nTotal: " + precioFinal + "€";
 
             builder.setMessage(mensaje);
-
             builder.setPositiveButton("Aceptar", (dialog, which) -> {
-                // Opcional: volver al inicio o cerrar fragmento
+                if (idMaqueta != null && vendedorId != null) {
+                    Map<String, Object> valoracionPendiente = new HashMap<>();
+                    valoracionPendiente.put("vendedorId", vendedorId);
+                    valoracionPendiente.put("productoId", idMaqueta);
+                    valoracionPendiente.put("timestamp", System.currentTimeMillis());
+
+                    FirebaseFirestore.getInstance()
+                            .collection("valoracionesPendientes")
+                            .document(uid)
+                            .set(valoracionPendiente);
+                }
                 Navigation.findNavController(v).navigate(R.id.action_comprar_to_inicio);
             });
-
             builder.setCancelable(false);
             builder.show();
         });

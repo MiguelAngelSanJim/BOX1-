@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:background="@drawable/edittext_style"
+    android:layout_marginTop="8dp">
+
+    <TextView
+        android:id="@+id/textNombreCompra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Nombre del producto"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textPrecioCompra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="15.0 €"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textFechaCompra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="20 de mayo de 2025"
+        android:textSize="12sp"
+        android:textColor="#888888"/>
+</LinearLayout>

@@ -1420,6 +1420,7 @@ color accent_material_dark
 color accent_material_light
 color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
+color azul_claro
 color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
@@ -3110,9 +3111,11 @@ drawable design_password_eye
 drawable design_snackbar_background
 drawable edittext_style
 drawable eliminar
+drawable garaje
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable home
+drawable ic_alert
 drawable ic_arrow_back_black_24
 drawable ic_call_answer
 drawable ic_call_answer_low
@@ -3291,6 +3294,7 @@ id action_detalleProducto_self
 id action_detalle_to_chat
 id action_detalle_to_comprar
 id action_divider
+id action_favoritos_to_detalle_producto
 id action_image
 id action_inicio_to_detalle_producto
 id action_login_to_inicio
@@ -3304,6 +3308,7 @@ id action_mode_close_button
 id action_registro_to_inicio
 id action_subir_producto_to_inicio
 id action_text
+id action_visitar_perfil
 id actions
 id activity_chooser_view_content
 id add
@@ -3350,6 +3355,7 @@ id btnConfirmarCompra
 id btnEditarDireccion
 id btnEditarPerfil
 id btnEliminarImagen
+id btnEnviarDenuncia
 id btnEnviarMensaje
 id btnGuardarDireccion
 id btnGuardarPerfil
@@ -3423,6 +3429,7 @@ id decelerateAndComplete
 id decor_content_parent
 id default_activity_button
 id deltaRelative
+id denunciarTexto
 id dependency_ordering
 id descripcionDetalleProducto
 id descripcionProducto
@@ -3462,6 +3469,7 @@ id editTextCiudad
 id editTextCodigoPostal
 id editTextCorreo
 id editTextNombre
+id editTextOtros
 id editTextPortal
 id editTextProvincia
 id editTextRecuperarContrasenia
@@ -3508,6 +3516,7 @@ id frameLayout2
 id frameLayout6
 id frameLayout7
 id frameLayout9
+id frameLayoutPerfilUsuario
 id frost
 id fullscreen_header
 id ghost_view
@@ -3532,6 +3541,7 @@ id horizontal_only
 id icon
 id icon_group
 id icon_only
+id iconoAlerta
 id ifRoom
 id ignore
 id ignoreRequest
@@ -3543,6 +3553,7 @@ id imagenMisFavoritos
 id imagenPerfilChat
 id imagenPerfilOtroUsuario
 id imagenPerfilUser
+id imagenPerfilUsuario
 id imagenUserPerfil
 id imagen_item
 id imagen_maqueta
@@ -3561,6 +3572,7 @@ id jumpToStart
 id labeled
 id layout
 id layoutCompra
+id layoutDenunciar
 id layoutDesglosePrecio
 id layoutFormulario
 id layoutFormularioPerfil
@@ -3622,6 +3634,7 @@ id month_navigation_next
 id month_navigation_previous
 id month_title
 id motion_base
+id motivo_denuncia
 id mtrl_anchor_parent
 id mtrl_calendar_day_selector_frame
 id mtrl_calendar_days_of_week
@@ -3718,13 +3731,20 @@ id progress_horizontal
 id radio
 id radioContraReembolso
 id radioGooglePay
+id radioGroupMotivos
 id radioGroupPago
+id radioNoRelacionado
+id radioOtros
+id radioPrecio
+id ratingBarUsuario
+id ratingBarValoracion
 id ratio
 id rectangles
 id recuperar_contrasenia
 id recyclerFavoritos
 id recyclerListaChats
 id recyclerMensajes
+id recyclerProductosUsuario
 id recyclerView
 id recycler_similares
 id recyclerviewinicio
@@ -3832,7 +3852,12 @@ id textConfirmacionContraseniaRegistro
 id textContraseniaRegistro
 id textEmailRegistro
 id textEnd
+id textFechaCompra
+id textMisProductos
+id textNombreCompra
 id textNombreRegistro
+id textNombreUsuario
+id textPrecioCompra
 id textPrecioEnvio
 id textPrecioProducto
 id textPrecioTotal
@@ -3843,7 +3868,6 @@ id textTop
 id textView
 id textView2
 id textView6
-id textView7
 id textViewEmail
 id textViewTitulo
 id text_input_end_icon
@@ -3861,6 +3885,7 @@ id textoMensaje
 id textoPrecioProductoChat
 id textoSimilares
 id textoTituloProductoChat
+id texto_vendido
 id time
 id title
 id titleDividerNoCustom
@@ -3899,6 +3924,7 @@ id view_tree_saved_state_registry_owner
 id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
+id visitarPerfil
 id west
 id wide
 id withText
@@ -4045,6 +4071,8 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout dialog_ampliar_imagen
+layout dialog_denuncia
+layout dialog_valoracion
 layout fragment_chat_conversacion
 layout fragment_chat_lista
 layout fragment_comprar
@@ -4058,11 +4086,13 @@ layout fragment_perfil
 layout fragment_recuperar_contrasenia
 layout fragment_registro
 layout fragment_subir_producto
+layout fragment_visitar_perfil
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_carrusel_imagen
 layout item_chat
 layout item_chat_lista
+layout item_compra
 layout item_imagen
 layout item_maqueta
 layout item_mensaje_enviado
@@ -4661,9 +4691,11 @@ style Base_Widget_MaterialComponents_TextInputLayout
 style Base_Widget_MaterialComponents_TextView
 style BottomNavStyle
 style BottomNavText
+style Box1DialogEstilo
 style CardView
 style CardView_Dark
 style CardView_Light
+style DialogButtonBox1
 style MaterialAlertDialog_Material3
 style MaterialAlertDialog_Material3_Animation
 style MaterialAlertDialog_Material3_Body_Text

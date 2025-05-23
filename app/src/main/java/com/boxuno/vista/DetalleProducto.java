@@ -1,12 +1,20 @@
 package com.boxuno.vista;
 
+import android.app.AlertDialog;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,10 +34,13 @@ import com.boxuno.modelo.Maqueta;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DetalleProducto extends Fragment {
 
@@ -38,6 +49,7 @@ public class DetalleProducto extends Fragment {
     private ImageView imagenPerfilUser;
     private TextView tituloDetalleProducto, precioDetalleProducto, descripcionDetalleProducto, subidoPor;
     private Button btnComprar, btnMandarMensaje;
+    private RatingBar ratingBarUsuario;
 
     public DetalleProducto() {
         // Constructor vacío requerido
@@ -58,6 +70,7 @@ public class DetalleProducto extends Fragment {
         precioDetalleProducto = view.findViewById(R.id.precioDetalleProducto);
         descripcionDetalleProducto = view.findViewById(R.id.descripcionDetalleProducto);
         subidoPor = view.findViewById(R.id.subidoPor);
+        ratingBarUsuario = view.findViewById(R.id.ratingBarUsuario);
         btnComprar = view.findViewById(R.id.btn_comprar);
         btnMandarMensaje = view.findViewById(R.id.btn_mandarMensaje);
 
@@ -91,6 +104,40 @@ public class DetalleProducto extends Fragment {
                                         .circleCrop()
                                         .into(imagenPerfilUser);
                             }
+                            // Obtener la valoración media del vendedor desde Firebase
+                            FirebaseFirestore.getInstance()
+                                    .collection("valoraciones")
+                                    .document(maqueta.getUsuarioId())
+                                    .collection("usuarios")
+                                    .get()
+                                    .addOnSuccessListener(snapshot -> {
+                                        double suma = 0;
+                                        int total = 0;
+
+                                        for (DocumentSnapshot docVal : snapshot.getDocuments()) {
+                                            Double puntuacion = docVal.getDouble("puntuacion");
+                                            if (puntuacion != null) {
+                                                suma += puntuacion;
+                                                total++;
+                                            }
+                                        }
+
+                                        if (total > 0) {
+                                            float media = (float) (suma / total);
+                                            ratingBarUsuario.setRating(media);
+                                            ratingBarUsuario.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#0B1B4E")));
+                                            ratingBarUsuario.setSecondaryProgressTintList(ColorStateList.valueOf(Color.parseColor("#0B1B4E")));
+                                            ratingBarUsuario.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BBDEFB")));
+                                        } else {
+                                            ratingBarUsuario.setRating(0);
+                                        }
+
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        ratingBarUsuario.setRating(0);
+                                    });
+
+
                         })
                         .addOnFailureListener(e -> {
                             subidoPor.setText("Subido por Desconocido");
@@ -100,7 +147,7 @@ public class DetalleProducto extends Fragment {
                                     .into(imagenPerfilUser);
                         });
 
-                // Cargar carrusel de imágenes
+                // Cargar carrusel de imágenes.
                 if (maqueta.getImagenes() != null && !maqueta.getImagenes().isEmpty()) {
                     ImagenCarruselAdapter carruselAdapter = new ImagenCarruselAdapter(getContext(), new ArrayList<>(maqueta.getImagenes()));
                     viewPagerImagenes.setAdapter(carruselAdapter);
@@ -122,6 +169,8 @@ public class DetalleProducto extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putDouble("precio", maqueta.getPrecio());
                 bundle.putString("id", maqueta.getId());
+                bundle.putString("vendedorId", maqueta.getUsuarioId());
+                bundle.putString("titulo", maqueta.getTitulo());
 
                 Navigation.findNavController(v).navigate(R.id.action_detalle_to_comprar, bundle);
             }
@@ -154,6 +203,16 @@ public class DetalleProducto extends Fragment {
                     .addOnFailureListener(e -> {
                         Toast.makeText(getContext(), "No se pudo iniciar el chat", Toast.LENGTH_SHORT).show();
                     });
+        });
+
+        LinearLayout layoutDenunciar = view.findViewById(R.id.layoutDenunciar);
+        layoutDenunciar.setOnClickListener(v -> mostrarDialogoDenuncia());
+
+        imagenPerfilUser.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("usuarioId", maqueta.getUsuarioId());
+            NavHostFragment.findNavController(DetalleProducto.this)
+                    .navigate(R.id.visitarPerfil, bundle); // cambia el ID al correcto
         });
 
     }
@@ -193,4 +252,76 @@ public class DetalleProducto extends Fragment {
                 })
                 .addOnFailureListener(e -> Log.e("SIMILARES", "ERROR: Error al cargar maquetas similares", e));
     }
+
+    private void mostrarDialogoDenuncia() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.Box1DialogEstilo);
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_denuncia, null);
+
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+
+        RadioGroup radioGroup = view.findViewById(R.id.radioGroupMotivos);
+        EditText otrosTexto = view.findViewById(R.id.editTextOtros);
+        Button btnEnviar = view.findViewById(R.id.btnEnviarDenuncia);
+
+        // Forzar color azul al círculo seleccionado
+        ColorStateList azul = ColorStateList.valueOf(Color.parseColor("#0B1B4E"));
+        RadioButton radioPrecio = view.findViewById(R.id.radioPrecio);
+        RadioButton radioNoRelacionado = view.findViewById(R.id.radioNoRelacionado);
+        RadioButton radioOtros = view.findViewById(R.id.radioOtros);
+        radioPrecio.setButtonTintList(azul);
+        radioNoRelacionado.setButtonTintList(azul);
+        radioOtros.setButtonTintList(azul);
+
+        otrosTexto.setVisibility(View.GONE); // Ocultar hasta que seleccione "Otros".
+
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.radioOtros) {
+                otrosTexto.setVisibility(View.VISIBLE);
+            } else {
+                otrosTexto.setVisibility(View.GONE);
+            }
+        });
+
+        btnEnviar.setOnClickListener(v -> {
+            int selectedId = radioGroup.getCheckedRadioButtonId();
+            String motivo = "";
+            if (selectedId == R.id.radioPrecio) motivo = "Precio especulativo";
+            else if (selectedId == R.id.radioNoRelacionado) motivo = "El producto no está relacionado";
+            else if (selectedId == R.id.radioOtros) motivo = "Otros: " + otrosTexto.getText().toString().trim();
+
+            if (!motivo.isEmpty()) {
+                enviarDenuncia(motivo);
+                dialog.dismiss();
+            } else {
+                Toast.makeText(requireContext(), "Selecciona un motivo", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.show();
+    }
+
+
+    private void enviarDenuncia(String motivo) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String productoId = maqueta.getId();
+        String usuarioId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        Map<String, Object> denuncia = new HashMap<>();
+        denuncia.put("productoId", productoId);
+        denuncia.put("usuarioId", usuarioId);
+        denuncia.put("motivo", motivo);
+        denuncia.put("timestamp", FieldValue.serverTimestamp());
+
+        db.collection("denuncias")
+                .add(denuncia)
+                .addOnSuccessListener(doc -> {
+                    Toast.makeText(requireContext(), "Denuncia enviada", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(requireContext(), "Error al enviar la denuncia", Toast.LENGTH_SHORT).show();
+                });
+    }
+
 }
