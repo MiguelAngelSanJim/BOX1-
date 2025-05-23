@@ -103,23 +103,24 @@
                 android:textSize="18sp"
                 android:layout_marginBottom="12dp" />
 
-            <CheckBox
+            <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkboxCorreos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/blue"
                 android:text="Correos estándar (3-5 días) Gratis"
                 android:textColor="@color/black"
+                app:buttonTint="@color/blue"
                 android:layout_marginBottom="4dp" />
 
-            <CheckBox
+            <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkboxExpress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/blue"
                 android:text="Envío express 24h  +5,00€"
                 android:textColor="@color/black"
+                app:buttonTint="@color/blue"
                 android:layout_marginBottom="24dp" />
+
 
             <!-- Pago -->
             <TextView

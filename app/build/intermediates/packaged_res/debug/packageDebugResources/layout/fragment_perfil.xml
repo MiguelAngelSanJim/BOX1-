@@ -8,6 +8,7 @@
     android:background="#D0D4E4"
     tools:context=".vista.Perfil">
 
+    <!-- Cabecera de perfil con nombre y valoración dentro del recuadro blanco -->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -20,16 +21,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView6"
+        <!-- Columna con título, nombre y valoración -->
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="Mi perfil"
-            android:textSize="18sp" />
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mi perfil"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textViewNombrePerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre de usuario"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginTop="4dp"/>
+
+            <RatingBar
+                android:id="@+id/ratingBarValoraciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:rating="4.5"
+                android:progressTint="@color/blue"
+                android:secondaryProgressTint="@color/blue"
+                android:progressBackgroundTint="@color/azul_claro"
+                style="?android:attr/ratingBarStyleSmall"
+                android:isIndicator="true"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+        <!-- Imagen de usuario -->
         <ImageView
             android:id="@+id/imagenUserPerfil"
             android:layout_width="100dp"
@@ -38,6 +70,7 @@
             android:src="@drawable/imagenpordefecto" />
     </LinearLayout>
 
+    <!-- Pestañas -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutPerfil"
         android:layout_width="0dp"
@@ -67,9 +100,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cerrar_sesi_n" />
-
     </com.google.android.material.tabs.TabLayout>
 
+    <!-- Título "Mis productos" -->
     <TextView
         android:id="@+id/textMisProductos"
         android:layout_width="360dp"
@@ -83,6 +116,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tabLayoutPerfil" />
 
+    <!-- RecyclerView para productos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"

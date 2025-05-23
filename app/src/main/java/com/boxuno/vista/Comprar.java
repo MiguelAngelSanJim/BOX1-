@@ -81,8 +81,8 @@ public class Comprar extends Fragment {
         };
 
         int[] colores = new int[]{
-                Color.parseColor("#FFFFFF"), // Check azul oscuro
-                Color.parseColor("#FFFFFF")  // Cuadro blanco
+                Color.parseColor("#0B1B4E"), // Check azul oscuro
+                Color.parseColor("#000000")  // Cuadro blanco
         };
 
         ColorStateList colorStateList = new ColorStateList(estados, colores);

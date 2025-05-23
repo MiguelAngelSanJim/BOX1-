@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +58,9 @@ public class Perfil extends Fragment {
     private String userId;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
+    private TextView textViewNombrePerfil;
+    private RatingBar ratingBarValoraciones;
+
     public Perfil() {
     }
 
@@ -73,9 +78,7 @@ public class Perfil extends Fragment {
                     NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
                     navController.navigate(R.id.login);
                 })
-                .setNegativeButton("Cancelar", (dialog, which) -> {
-                    dialog.dismiss();
-                })
+                .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
                 .show();
         dialogo.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#0B1B4E"));
         dialogo.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#0B1B4E"));
@@ -143,8 +146,6 @@ public class Perfil extends Fragment {
         imagePickerLauncher.launch(intent);
     }
 
-    // ... (resto sin cambios)
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -154,6 +155,39 @@ public class Perfil extends Fragment {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String userId = auth.getCurrentUser().getUid();
         String email = auth.getCurrentUser().getEmail();
+
+        textViewNombrePerfil = view.findViewById(R.id.textViewNombrePerfil);
+        ratingBarValoraciones = view.findViewById(R.id.ratingBarValoraciones);
+
+
+        db.collection("usuarios").document(userId).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String nombre = documentSnapshot.getString("nombre");
+                        if (nombre != null) {
+                            textViewNombrePerfil.setText(nombre);
+                        }
+
+                        db.collection("valoraciones").document(userId).collection("usuarios")
+                                .get()
+                                .addOnSuccessListener(valoraciones -> {
+                                    double suma = 0;
+                                    int total = valoraciones.size();
+
+                                    for (DocumentSnapshot v : valoraciones) {
+                                        Double estrellas = v.getDouble("estrellas");
+                                        if (estrellas != null) suma += estrellas;
+                                    }
+
+                                    if (total > 0) {
+                                        float media = (float) (suma / total);
+                                        ratingBarValoraciones.setRating(media);
+                                    } else {
+                                        ratingBarValoraciones.setRating(0f);
+                                    }
+                                });
+                    }
+                });
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -169,7 +203,6 @@ public class Perfil extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        // Listener de eliminar.
         adapter.setOnEliminarClickListener(maqueta -> {
             AlertDialog dialogo = new AlertDialog.Builder(requireContext(), R.style.Box1DialogEstilo)
                     .setTitle("Eliminar producto")
@@ -224,7 +257,6 @@ public class Perfil extends Fragment {
         });
     }
 
-
     private void eliminarMaqueta(Maqueta maqueta, List<Maqueta> maquetaList, MaquetaAdapter adapter) {
         FirebaseFirestore.getInstance().collection("maquetas")
                 .document(maqueta.getId())
@@ -243,7 +275,6 @@ public class Perfil extends Fragment {
                 );
     }
 
-
     private void eliminarDenunciasAsociadas(String productoId) {
         FirebaseFirestore.getInstance().collection("denuncias")
                 .whereEqualTo("productoId", productoId)
@@ -255,7 +286,6 @@ public class Perfil extends Fragment {
                 });
     }
 
-
     private void eliminarImagenesDeStorage(Maqueta maqueta) {
         if (maqueta.getImagenes() != null) {
             for (String url : maqueta.getImagenes()) {
@@ -263,7 +293,6 @@ public class Perfil extends Fragment {
             }
         }
     }
-
 
     private void handleTabAction(TabLayout.Tab tab) {
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
@@ -309,7 +338,6 @@ public class Perfil extends Fragment {
                                     if (producto.exists()) {
                                         Maqueta maqueta = producto.toObject(Maqueta.class);
 
-                                        // Mostrar el motivo de la denuncia en la descripción temporalmente.
                                         if (motivo != null) {
                                             if (motivo.equals("Otros") && otros != null && !otros.isEmpty()) {
                                                 maqueta.setDescripcion("Motivo: " + otros);
@@ -318,7 +346,6 @@ public class Perfil extends Fragment {
                                             }
                                         }
 
-                                        // Evitar duplicados
                                         if (!maquetaList.contains(maqueta)) {
                                             maquetaList.add(maqueta);
                                             adapter.notifyDataSetChanged();
@@ -331,7 +358,6 @@ public class Perfil extends Fragment {
                     Toast.makeText(getContext(), "Error al cargar productos denunciados", Toast.LENGTH_SHORT).show();
                 });
     }
-
 
     private void enviarMensajeAdmin(Maqueta maqueta) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -355,7 +381,6 @@ public class Perfil extends Fragment {
 
                     String chatId = generarChatId(adminId, usuarioId);
 
-                    // Guardar mensaje en Firestore
                     Map<String, Object> mensajeData = new HashMap<>();
                     mensajeData.put("remitenteId", adminId);
                     mensajeData.put("texto", mensaje);
@@ -366,7 +391,6 @@ public class Perfil extends Fragment {
                             .collection("mensajes")
                             .add(mensajeData);
 
-                    // Crear resumen del chat en Firestore
                     Map<String, Object> chatResumen = new HashMap<>();
                     chatResumen.put("usuarios", Arrays.asList(adminId, usuarioId));
                     chatResumen.put("ultimoMensaje", mensaje);
@@ -375,7 +399,6 @@ public class Perfil extends Fragment {
                     db.collection("chats").document(chatId)
                             .set(chatResumen, SetOptions.merge());
 
-                    // Obtener datos del usuario
                     db.collection("usuarios").document(usuarioId).get()
                             .addOnSuccessListener(usuarioDoc -> {
                                 final String fotoUsuario = usuarioDoc.getString("fotoPerfilUrl");
@@ -415,5 +438,4 @@ public class Perfil extends Fragment {
     private String generarChatId(String uid1, String uid2) {
         return uid1.compareTo(uid2) < 0 ? uid1 + "_" + uid2 : uid2 + "_" + uid1;
     }
-
 }

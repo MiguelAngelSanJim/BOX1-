@@ -184,10 +184,6 @@
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\item_chat_lista.xml"
     },
     {
-        "merged": "com.boxuno.app-debug-53:/layout_fragment_comprar.xml.flat",
-        "source": "com.boxuno.app-main-55:/layout/fragment_comprar.xml"
-    },
-    {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\layout_fragment_recuperar_contrasenia.xml.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\layout\\fragment_recuperar_contrasenia.xml"
     },
@@ -230,6 +226,10 @@
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_placeholder.jpg.flat",
         "source": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-main-55:\\drawable\\placeholder.jpg"
+    },
+    {
+        "merged": "com.boxuno.app-debug-53:/layout_fragment_perfil.xml.flat",
+        "source": "com.boxuno.app-main-55:/layout/fragment_perfil.xml"
     },
     {
         "merged": "C:\\Users\\manol\\.gradle\\daemon\\8.7\\com.boxuno.app-debug-53:\\drawable_custon_spinner.xml.flat",

@@ -164,6 +164,7 @@ id radioOtros
 id radioPrecio
 id ratingBarUsuario
 id ratingBarValoracion
+id ratingBarValoraciones
 id recuperar_contrasenia
 id recyclerFavoritos
 id recyclerListaChats
@@ -200,6 +201,7 @@ id textView
 id textView2
 id textView6
 id textViewEmail
+id textViewNombrePerfil
 id textViewTitulo
 id textoComprar
 id textoFavoritos

@@ -215,6 +215,14 @@ public class DetalleProducto extends Fragment {
                     .navigate(R.id.visitarPerfil, bundle); // cambia el ID al correcto
         });
 
+
+        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        if (email != null && email.equals("box1coleccion@gmail.com")) {
+            btnComprar.setVisibility(View.GONE);
+            btnMandarMensaje.setVisibility(View.GONE);
+        }
+
+
     }
 
     private void cargarSimilares(View view) {

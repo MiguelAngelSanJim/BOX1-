@@ -3738,6 +3738,7 @@ id radioOtros
 id radioPrecio
 id ratingBarUsuario
 id ratingBarValoracion
+id ratingBarValoraciones
 id ratio
 id rectangles
 id recuperar_contrasenia
@@ -3869,6 +3870,7 @@ id textView
 id textView2
 id textView6
 id textViewEmail
+id textViewNombrePerfil
 id textViewTitulo
 id text_input_end_icon
 id text_input_error_icon
