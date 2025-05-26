@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.boxuno.app-mergeDebugResources-51:/values-xlarge-v4/values-xlarge-v4.xml",
+            "outputFile": "com.boxuno.app-mergeDebugResources-53:/values-xlarge-v4/values-xlarge-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\92a04c95a216326b38a5ce7457ff655c\\transformed\\appcompat-1.7.0\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
+                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\d9c615045dea3553e5a0066d35799306\\transformed\\appcompat-1.7.0\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
                         "startColumns": "4,4,4,4,4,4",

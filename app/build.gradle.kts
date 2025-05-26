@@ -54,6 +54,10 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation (libs.firebase.database)
 
+    //GooglePay
+    implementation (libs.play.services.wallet)
+
+
 
 
 

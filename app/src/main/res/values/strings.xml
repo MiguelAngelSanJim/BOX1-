@@ -33,4 +33,10 @@
     <string name="cerrar_sesi_n">Cerrar sesión</string>
     <string name="editar_perfil">Editar perfil</string>
     <string name="mis_direcciones">Mis direcciones</string>
+    <string name="contrase_a">Contraseña *</string>
+    <string name="repita_la_contrase_a_">Repita la contraseña *</string>
+    <string name="la_contrase_a_debe_contener_n_un_m_nimo_de_6_car_cteres">*La contraseña debe contener \n un mínimo de 6 carácteres</string>
+    <string name="descripci_n_del_producto">Descripción del producto...</string>
+    <string name="estado_nuevo">Estado: Nuevo</string>
+    <string name="escala_1_18">Escala: 1:18</string>
 </resources>

@@ -14,6 +14,7 @@ constraintlayout = "2.2.0"
 navigationFragment = "2.8.9"
 navigationUi = "2.7.7"
 photoview = "2.3.0"
+playServicesWallet = "19.4.0"
 
 [libraries]
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
@@ -33,6 +34,7 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationUi" }
 photoview = { module = "com.github.chrisbanes:PhotoView", version.ref = "photoview" }
+play-services-wallet = { module = "com.google.android.gms:play-services-wallet", version.ref = "playServicesWallet" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

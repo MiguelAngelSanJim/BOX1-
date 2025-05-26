@@ -9,7 +9,7 @@
     <item
         android:id="@+id/favoritos"
         android:enabled="true"
-        android:icon="@drawable/megusta"
+        android:icon="@drawable/garaje"
         android:title=""/>
     <item
         android:id="@+id/subirProducto"

@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +32,18 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import com.google.android.gms.wallet.PaymentsClient;
+import com.google.android.gms.wallet.Wallet;
+import com.google.android.gms.wallet.WalletConstants;
+import com.google.android.gms.wallet.PaymentDataRequest;
+import com.google.android.gms.wallet.PaymentData;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.activity.result.IntentSenderRequest;
+
+import org.json.JSONObject;
+
 public class Comprar extends Fragment {
 
     private EditText calle, portal, ciudad, provincia, cp;
@@ -41,6 +52,8 @@ public class Comprar extends Fragment {
     private TextView textPrecioProducto, textPrecioEnvio, textPrecioTotal;
     private Button btnConfirmar;
     private double precioBase = 0.0;
+    private PaymentsClient paymentsClient;
+    private ActivityResultLauncher<IntentSenderRequest> googlePayLauncher;
 
     public Comprar() {
     }
@@ -53,6 +66,32 @@ public class Comprar extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        paymentsClient = Wallet.getPaymentsClient(
+                requireActivity(),
+                new Wallet.WalletOptions.Builder()
+                        .setEnvironment(WalletConstants.ENVIRONMENT_TEST)
+                        .build()
+        );
+
+        googlePayLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartIntentSenderForResult(),
+                result -> {
+                    if (result.getResultCode() == android.app.Activity.RESULT_OK && result.getData() != null) {
+                        PaymentData paymentData = PaymentData.getFromIntent(result.getData());
+
+                        double envio = checkExpress.isChecked() ? 5.0 : 0.0;
+                        double total = precioBase + envio;
+                        String metodoEnvio = checkCorreos.isChecked() ? "correos" : checkExpress.isChecked() ? "express" : "";
+                        String direccionCompleta = calle.getText().toString() + ", " + portal.getText().toString() + ", " +
+                                ciudad.getText().toString() + ", " + provincia.getText().toString() + ", CP: " + cp.getText().toString();
+
+                        procesarCompra("googlepay", total, metodoEnvio, direccionCompleta, requireView());
+                    } else {
+                        Toast.makeText(requireContext(), "Pago cancelado o fallido", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -76,13 +115,13 @@ public class Comprar extends Fragment {
         rbGooglePay = view.findViewById(R.id.radioGooglePay);
 
         int[][] estados = new int[][]{
-                new int[]{android.R.attr.state_checked},   // Marcado
-                new int[]{-android.R.attr.state_checked}   // No marcado
+                new int[]{android.R.attr.state_checked},
+                new int[]{-android.R.attr.state_checked}
         };
 
         int[] colores = new int[]{
-                Color.parseColor("#0B1B4E"), // Check azul oscuro
-                Color.parseColor("#000000")  // Cuadro blanco
+                Color.parseColor("#0B1B4E"),
+                Color.parseColor("#000000")
         };
 
         ColorStateList colorStateList = new ColorStateList(estados, colores);
@@ -91,12 +130,28 @@ public class Comprar extends Fragment {
         rbReembolso.setButtonTintList(ColorStateList.valueOf(Color.parseColor("#0B1B4E")));
         rbGooglePay.setButtonTintList(ColorStateList.valueOf(Color.parseColor("#0B1B4E")));
 
-
         textPrecioProducto = view.findViewById(R.id.textPrecioProducto);
         textPrecioEnvio = view.findViewById(R.id.textPrecioEnvio);
         textPrecioTotal = view.findViewById(R.id.textPrecioTotal);
 
         btnConfirmar = view.findViewById(R.id.btnConfirmarCompra);
+
+        rbGooglePay.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                btnConfirmar.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
+                btnConfirmar.setTextColor(Color.WHITE);
+                btnConfirmar.setText("Pagar con Google Pay");
+                btnConfirmar.setCompoundDrawablesWithIntrinsicBounds(
+                        ContextCompat.getDrawable(requireContext(), R.drawable.logogoogle),
+                        null, null, null);
+                btnConfirmar.setCompoundDrawablePadding(6);
+            } else {
+                btnConfirmar.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.blue)));
+                btnConfirmar.setTextColor(Color.WHITE);
+                btnConfirmar.setText("Confirmar compra");
+                btnConfirmar.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            }
+        });
 
         if (getArguments() != null) {
             precioBase = getArguments().getDouble("precio", 0.0);
@@ -140,48 +195,99 @@ public class Comprar extends Fragment {
 
             String metodoEnvio = checkCorreos.isChecked() ? "correos" : checkExpress.isChecked() ? "express" : "";
             String metodoPago = rbReembolso.isChecked() ? "contrareembolso" : rbGooglePay.isChecked() ? "googlepay" : "";
+            double precioFinal = checkExpress.isChecked() ? precioBase + 5.0 : precioBase;
+
+            if (metodoPago.equals("googlepay")) {
+                try {
+                    JSONObject paymentDataRequestJson = new JSONObject(
+                            com.boxuno.util.GooglePayUtil.getPaymentDataRequest(precioFinal)
+                    );
+                    PaymentDataRequest request = PaymentDataRequest.fromJson(paymentDataRequestJson.toString());
+                    paymentsClient.loadPaymentData(request)
+                            .addOnSuccessListener(paymentData -> {
+                                double envio = checkExpress.isChecked() ? 5.0 : 0.0;
+                                double total = precioBase + envio;
+                                String metodoEnvioGoogle = checkCorreos.isChecked() ? "correos" : checkExpress.isChecked() ? "express" : "";
+                                String direccionCompletaGoogle = calle.getText().toString() + ", " + portal.getText().toString() + ", " +
+                                        ciudad.getText().toString() + ", " + provincia.getText().toString() + ", CP: " + cp.getText().toString();
+                                procesarCompra("googlepay", total, metodoEnvioGoogle, direccionCompletaGoogle, v);
+                            })
+                            .addOnFailureListener(e -> {
+                                if (e instanceof com.google.android.gms.common.api.ResolvableApiException) {
+                                    try {
+                                        IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(
+                                                ((com.google.android.gms.common.api.ResolvableApiException) e)
+                                                        .getResolution().getIntentSender()
+                                        ).build();
+                                        googlePayLauncher.launch(intentSenderRequest);
+                                    } catch (Exception ex) {
+                                        Toast.makeText(requireContext(), "Error al iniciar Google Pay", Toast.LENGTH_SHORT).show();
+                                        ex.printStackTrace();
+                                    }
+                                } else {
+                                    Toast.makeText(requireContext(), "No se puede iniciar Google Pay", Toast.LENGTH_SHORT).show();
+                                    e.printStackTrace();
+                                }
+                            });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(requireContext(), "Error al crear la solicitud de pago", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
 
             if (metodoEnvio.isEmpty() || metodoPago.isEmpty()) {
                 Toast.makeText(getContext(), "Selecciona método de envío y pago.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            double precioFinal = checkExpress.isChecked() ? precioBase + 5.0 : precioBase;
+            procesarCompra(metodoPago, precioFinal, metodoEnvio,
+                    direccionCompleta, v);
+        });
+    }
 
-            String idMaqueta = getArguments() != null ? getArguments().getString("id") : null;
-            String vendedorId = getArguments() != null ? getArguments().getString("vendedorId") : null;
-            String tituloMaqueta = getArguments() != null ? getArguments().getString("titulo") : "Producto";
+    private void procesarCompra(String metodoPago, double precioFinal, String metodoEnvio, String direccionCompleta, View view) {
+        String idMaqueta = getArguments() != null ? getArguments().getString("id") : null;
+        String vendedorId = getArguments() != null ? getArguments().getString("vendedorId") : null;
+        String tituloMaqueta = getArguments() != null ? getArguments().getString("titulo") : "Producto";
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            if (idMaqueta != null) {
-                // Marcar como vendido
-                FirebaseFirestore.getInstance().collection("maquetas").document(idMaqueta)
-                        .update("vendido", true);
+        if (idMaqueta != null) {
+            FirebaseFirestore.getInstance().collection("maquetas").document(idMaqueta)
+                    .update("vendido", true);
 
-                // Registrar compra
-                Map<String, Object> compra = new HashMap<>();
-                compra.put("productoId", idMaqueta);
-                compra.put("productoNombre", tituloMaqueta);
-                compra.put("productoPrecio", precioFinal);
-                compra.put("fecha", new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date()));
-                compra.put("compradorId", uid);
+            Map<String, Object> compra = new HashMap<>();
+            compra.put("productoId", idMaqueta);
+            compra.put("productoNombre", tituloMaqueta);
+            compra.put("productoPrecio", precioFinal);
+            compra.put("fecha", new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date()));
+            compra.put("compradorId", uid);
 
-                FirebaseFirestore.getInstance()
-                        .collection("compras")
-                        .add(compra);
-            }
+            FirebaseFirestore.getInstance()
+                    .collection("compras")
+                    .add(compra);
+        }
 
-            btnConfirmar.setEnabled(false);
-            btnConfirmar.setText("Comprado");
+        btnConfirmar.setEnabled(false);
+        btnConfirmar.setText("Comprado");
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.Box1DialogEstilo);
-            builder.setTitle("Compra confirmada");
-            String mensaje = "Dirección:\n" + direccionCompleta +
-                    "\n\nEnvío: " + metodoEnvio +
-                    "\nPago: " + metodoPago +
-                    "\n\nTotal: " + precioFinal + "€";
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.Box1DialogEstilo);
+        String mensaje = "Dirección:\n" + direccionCompleta +
+                "\n\nEnvío: " + metodoEnvio +
+                "\nPago: " + metodoPago +
+                "\n\nTotal: " + precioFinal + "€";
 
-            builder.setMessage(mensaje);
-            builder.setPositiveButton("Aceptar", (dialog, which) -> {
+        builder.setTitle("Compra confirmada");
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("Aceptar", null); // Se configura después
+        builder.setCancelable(false);
+
+        AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(d -> {
+            Button botonAceptar = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            botonAceptar.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue));
+
+            botonAceptar.setOnClickListener(v -> {
                 if (idMaqueta != null && vendedorId != null) {
                     Map<String, Object> valoracionPendiente = new HashMap<>();
                     valoracionPendiente.put("vendedorId", vendedorId);
@@ -193,10 +299,12 @@ public class Comprar extends Fragment {
                             .document(uid)
                             .set(valoracionPendiente);
                 }
-                Navigation.findNavController(v).navigate(R.id.action_comprar_to_inicio);
+                dialog.dismiss();
+                Navigation.findNavController(view).navigate(R.id.action_comprar_to_inicio);
             });
-            builder.setCancelable(false);
-            builder.show();
         });
+
+        dialog.show();
+
     }
 }

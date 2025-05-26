@@ -158,7 +158,7 @@ public class Registro extends Fragment {
                                     });
                         }
                     } else {
-                        Toast.makeText(getContext(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "La contraseña debe contener 6 carácteres", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

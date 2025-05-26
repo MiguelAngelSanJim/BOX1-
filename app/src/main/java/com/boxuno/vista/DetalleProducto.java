@@ -47,7 +47,7 @@ public class DetalleProducto extends Fragment {
     private Maqueta maqueta;
     private ViewPager2 viewPagerImagenes;
     private ImageView imagenPerfilUser;
-    private TextView tituloDetalleProducto, precioDetalleProducto, descripcionDetalleProducto, subidoPor;
+    private TextView tituloDetalleProducto, precioDetalleProducto, descripcionDetalleProducto, subidoPor, textoEscala, textoEstado;
     private Button btnComprar, btnMandarMensaje;
     private RatingBar ratingBarUsuario;
 
@@ -68,6 +68,8 @@ public class DetalleProducto extends Fragment {
         imagenPerfilUser = view.findViewById(R.id.imagenPerfilUser);
         tituloDetalleProducto = view.findViewById(R.id.tituloDetalleProducto);
         precioDetalleProducto = view.findViewById(R.id.precioDetalleProducto);
+        textoEscala = view.findViewById(R.id.textoEscala);
+        textoEstado = view.findViewById(R.id.textoEstado);
         descripcionDetalleProducto = view.findViewById(R.id.descripcionDetalleProducto);
         subidoPor = view.findViewById(R.id.subidoPor);
         ratingBarUsuario = view.findViewById(R.id.ratingBarUsuario);
@@ -81,6 +83,8 @@ public class DetalleProducto extends Fragment {
             if (maqueta != null) {
                 tituloDetalleProducto.setText(maqueta.getTitulo());
                 precioDetalleProducto.setText(maqueta.getPrecio() + " €");
+                textoEscala.setText("Escala: "+maqueta.getEscala());
+                textoEstado.setText("Estado: "+maqueta.getEstado());
                 descripcionDetalleProducto.setText(maqueta.getDescripcion());
 
                 // Cargar nombre e imagen de perfil del usuario.
@@ -296,8 +300,10 @@ public class DetalleProducto extends Fragment {
             int selectedId = radioGroup.getCheckedRadioButtonId();
             String motivo = "";
             if (selectedId == R.id.radioPrecio) motivo = "Precio especulativo";
-            else if (selectedId == R.id.radioNoRelacionado) motivo = "El producto no está relacionado";
-            else if (selectedId == R.id.radioOtros) motivo = "Otros: " + otrosTexto.getText().toString().trim();
+            else if (selectedId == R.id.radioNoRelacionado)
+                motivo = "El producto no está relacionado";
+            else if (selectedId == R.id.radioOtros)
+                motivo = "Otros: " + otrosTexto.getText().toString().trim();
 
             if (!motivo.isEmpty()) {
                 enviarDenuncia(motivo);

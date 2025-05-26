@@ -10,6 +10,7 @@ drawable bg_input_mensaje
 drawable bg_mensaje_enviado
 drawable bg_mensaje_recibido
 drawable borde_redondeado_blanco
+drawable borde_text_view
 drawable custon_spinner
 drawable edittext_style
 drawable eliminar
@@ -24,6 +25,7 @@ drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable imagenpordefecto
 drawable login_gradient
+drawable logogoogle
 drawable logopng
 drawable megusta
 drawable mensaje
@@ -125,10 +127,12 @@ id imagenUserPerfil
 id imagen_item
 id imagen_maqueta
 id imagenesViewPager
+id infoContrasenia
 id inicio
 id layoutCompra
 id layoutDenunciar
 id layoutDesglosePrecio
+id layoutEscalaEstado
 id layoutFormulario
 id layoutFormularioPerfil
 id linearLayout
@@ -204,11 +208,14 @@ id textViewEmail
 id textViewNombrePerfil
 id textViewTitulo
 id textoComprar
+id textoEscala
+id textoEstado
 id textoFavoritos
 id textoMensaje
 id textoPrecioProductoChat
 id textoSimilares
 id textoTituloProductoChat
+id textoVacio
 id texto_vendido
 id tituloDetalleProducto
 id tituloEditarPerfil
@@ -255,11 +262,15 @@ string boton_iniciar_sesion
 string categor_a_seleccione_una_opci_n
 string cerrar_sesi_n
 string comprar
+string contrase_a
 string contrasenia
 string descripci_n
+string descripci_n_del_producto
 string editar_perfil
 string email
+string escala_1_18
 string escala_ej_1_18
+string estado_nuevo
 string estado_seleccione_una_opci_n
 string f1
 string firebase_database_url
@@ -271,6 +282,7 @@ string google_storage_bucket
 string hello_blank_fragment
 string hint_contrasenia
 string hint_usuario_email_com
+string la_contrase_a_debe_contener_n_un_m_nimo_de_6_car_cteres
 string marca
 string mis_direcciones
 string mis_favoritos
@@ -284,6 +296,7 @@ string publicar
 string recuerdame
 string registrarse
 string repita_la_contrase_a
+string repita_la_contrase_a_
 string resistencia
 string t_tulo
 string todos
