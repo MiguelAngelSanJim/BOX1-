@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.firebase.storage.ktx)
     implementation(platform(libs.firebase.bom))
     implementation (libs.firebase.database)
+    implementation (libs.firebase.messaging)
 
     //GooglePay
     implementation (libs.play.services.wallet)

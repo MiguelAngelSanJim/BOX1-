@@ -66,13 +66,13 @@ public class ChatConversacion extends Fragment {
         nombreOtroUsuario = view.findViewById(R.id.nombreOtroUsuario);
         textoPrecioProductoChat = view.findViewById(R.id.textoPrecioProductoChat);
         textoTituloProductoChat = view.findViewById(R.id.textoTituloProductoChat);
-
+        uidActual = FirebaseAuth.getInstance().getCurrentUser().getUid();
         recyclerMensajes.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new MensajeAdapter(getContext(), listaMensajes);
+        adapter = new MensajeAdapter(getContext(), listaMensajes, uidActual);
         recyclerMensajes.setAdapter(adapter);
 
         db = FirebaseFirestore.getInstance();
-        uidActual = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
         // Recoger UID y datos del otro usuario desde los argumentos.
         if (getArguments() != null) {
@@ -108,7 +108,7 @@ public class ChatConversacion extends Fragment {
         String texto = editTextoMensaje.getText().toString().trim();
         if (TextUtils.isEmpty(texto)) return;
 
-        Mensaje mensaje = new Mensaje(uidActual, texto, System.currentTimeMillis());
+        Mensaje mensaje = new Mensaje(uidActual,uidDestino, texto, System.currentTimeMillis());
 
         db.collection("chats")
                 .document(chatId)

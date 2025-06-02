@@ -12,11 +12,14 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.boxuno.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,12 +36,29 @@ public class MainActivity extends AppCompatActivity {
 
         // Configura el BottomNavigationView con NavigationUI
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomnavigation);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.inicio && navController.getCurrentDestination().getId() == R.id.inicio) {
+                return true;
+            }
+            NavigationUI.onNavDestinationSelected(item, navController);
+            return true;
+        });
+
+
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
-        boolean irAlInicio = getIntent().getBooleanExtra("irAlInicio", false);
-        if (irAlInicio) {
-            navController.navigate(R.id.inicio);
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        boolean recordar = prefs.getBoolean("recordar", false);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (savedInstanceState == null && user != null && recordar && user.isEmailVerified()) {
+            NavOptions navOptions = new NavOptions.Builder()
+                    .setPopUpTo(navController.getGraph().getStartDestinationId(), true)
+                    .build();
+
+            navController.navigate(R.id.inicio, null, navOptions);
         }
+
 
 
     }

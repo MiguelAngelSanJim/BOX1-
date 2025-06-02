@@ -193,9 +193,19 @@ public class Comprar extends Fragment {
                     ", " + ciudad.getText().toString() + ", " + provincia.getText().toString() +
                     ", CP: " + cp.getText().toString();
 
+            if (!checkCorreos.isChecked() && !checkExpress.isChecked()) {
+                Toast.makeText(getContext(), "Selecciona un método de envío.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             String metodoEnvio = checkCorreos.isChecked() ? "correos" : checkExpress.isChecked() ? "express" : "";
             String metodoPago = rbReembolso.isChecked() ? "contrareembolso" : rbGooglePay.isChecked() ? "googlepay" : "";
             double precioFinal = checkExpress.isChecked() ? precioBase + 5.0 : precioBase;
+
+            if (metodoPago.isEmpty()) {
+                Toast.makeText(getContext(), "Selecciona un método de pago.", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             if (metodoPago.equals("googlepay")) {
                 try {
@@ -236,11 +246,6 @@ public class Comprar extends Fragment {
                 return;
             }
 
-            if (metodoEnvio.isEmpty() || metodoPago.isEmpty()) {
-                Toast.makeText(getContext(), "Selecciona método de envío y pago.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
             procesarCompra(metodoPago, precioFinal, metodoEnvio,
                     direccionCompleta, v);
         });
@@ -256,16 +261,23 @@ public class Comprar extends Fragment {
             FirebaseFirestore.getInstance().collection("maquetas").document(idMaqueta)
                     .update("vendido", true);
 
-            Map<String, Object> compra = new HashMap<>();
-            compra.put("productoId", idMaqueta);
-            compra.put("productoNombre", tituloMaqueta);
-            compra.put("productoPrecio", precioFinal);
-            compra.put("fecha", new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date()));
-            compra.put("compradorId", uid);
+            FirebaseFirestore.getInstance().collection("usuarios").document(vendedorId).get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        String nombreVendedor = documentSnapshot.getString("nombre");
 
-            FirebaseFirestore.getInstance()
-                    .collection("compras")
-                    .add(compra);
+                        Map<String, Object> compra = new HashMap<>();
+                        compra.put("productoId", idMaqueta);
+                        compra.put("productoNombre", tituloMaqueta);
+                        compra.put("productoPrecio", precioFinal);
+                        compra.put("fecha", new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date()));
+                        compra.put("compradorId", uid);
+                        compra.put("usuarioNombre", nombreVendedor); // 🔥 Aquí lo guardas
+
+                        FirebaseFirestore.getInstance()
+                                .collection("compras")
+                                .add(compra);
+                    });
+
         }
 
         btnConfirmar.setEnabled(false);

@@ -90,7 +90,14 @@
         android:id="@+id/perfil"
         android:name="com.boxuno.vista.Perfil"
         android:label="Perfil"
-        tools:layout="@layout/fragment_perfil" />
+        tools:layout="@layout/fragment_perfil" >
+        <action
+            android:id="@+id/action_perfil_to_editarPerfil2"
+            app:destination="@id/editarPerfil2" />
+        <action
+            android:id="@+id/action_perfil_to_direccion"
+            app:destination="@id/direccion" />
+    </fragment>
 
     <fragment
         android:id="@+id/favoritos"
@@ -125,7 +132,7 @@
         tools:layout="@layout/fragment_direccion" />
     <fragment
         android:id="@+id/recuperar_contrasenia"
-        android:name="com.boxuno.vista.recuperar_contrasenia"
+        android:name="com.boxuno.vista.RecuperarContrasenia"
         android:label="recuperar_contrasenia"
         tools:layout="@layout/fragment_recuperar_contrasenia" />
     <fragment

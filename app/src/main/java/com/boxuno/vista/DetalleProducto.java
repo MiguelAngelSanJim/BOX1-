@@ -32,6 +32,7 @@ import com.boxuno.adapter.ImagenCarruselAdapter;
 import com.boxuno.adapter.MaquetaAdapter;
 import com.boxuno.modelo.Maqueta;
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -83,8 +84,8 @@ public class DetalleProducto extends Fragment {
             if (maqueta != null) {
                 tituloDetalleProducto.setText(maqueta.getTitulo());
                 precioDetalleProducto.setText(maqueta.getPrecio() + " €");
-                textoEscala.setText("Escala: "+maqueta.getEscala());
-                textoEstado.setText("Estado: "+maqueta.getEstado());
+                textoEscala.setText("Escala: " + maqueta.getEscala());
+                textoEstado.setText("Estado: " + maqueta.getEstado());
                 descripcionDetalleProducto.setText(maqueta.getDescripcion());
 
                 // Cargar nombre e imagen de perfil del usuario.
@@ -221,12 +222,29 @@ public class DetalleProducto extends Fragment {
 
 
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
         if (email != null && email.equals("box1coleccion@gmail.com")) {
             btnComprar.setVisibility(View.GONE);
             btnMandarMensaje.setVisibility(View.GONE);
         }
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String idusuarioMaqueta = maqueta.getUsuarioId();
+
+        if (uid.equals(idusuarioMaqueta)) {
+            btnComprar.setVisibility(View.GONE);
+            btnMandarMensaje.setVisibility(View.GONE);
+            layoutDenunciar.setVisibility(View.INVISIBLE);
+        }
 
 
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomnavigation);
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void cargarSimilares(View view) {

@@ -148,12 +148,13 @@ public class Favoritos extends Fragment {
                 .get()
                 .addOnSuccessListener(snapshot -> {
                     for (DocumentSnapshot doc : snapshot) {
+                        String nombreUsuario = doc.getString("usuarioNombre");
                         String nombre = doc.getString("productoNombre");
                         Double precio = doc.getDouble("productoPrecio");
                         String fecha = doc.getString("fecha");
 
                         if (nombre != null && precio != null && fecha != null) {
-                            lista.add(new Compra(nombre, precio, fecha));
+                            lista.add(new Compra(nombreUsuario,nombre, precio, fecha));
                         }
                     }
                     adapter.notifyDataSetChanged();

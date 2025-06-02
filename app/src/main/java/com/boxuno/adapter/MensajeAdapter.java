@@ -21,21 +21,25 @@ public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MensajeV
     private final Context context;
     private final String uidActual;
 
-    public MensajeAdapter(Context context, List<Mensaje> listaMensajes) {
+    public MensajeAdapter(Context context, List<Mensaje> listaMensajes, String uidActual) {
         this.context = context;
         this.listaMensajes = listaMensajes;
-        this.uidActual = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        this.uidActual = uidActual;
     }
 
     @Override
     public int getItemViewType(int position) {
         String autorId = listaMensajes.get(position).getAutorId();
-        if (autorId != null && autorId.equals(uidActual)) {
-            return 1; // Mensaje enviado por el usuario actual
+
+        if ("sistema".equals(autorId)) {
+            return 2; // mensaje del sistema
+        } else if (autorId != null && autorId.equals(uidActual)) {
+            return 1; // mensaje enviado por mí
         } else {
-            return 0; // Mensaje recibido
+            return 0; // mensaje recibido
         }
     }
+
 
     @NonNull
     @Override
@@ -43,11 +47,14 @@ public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MensajeV
         View view;
         if (viewType == 1) {
             view = LayoutInflater.from(context).inflate(R.layout.item_mensaje_enviado, parent, false);
+        } else if (viewType == 2) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_mensaje_sistema, parent, false);
         } else {
             view = LayoutInflater.from(context).inflate(R.layout.item_mensaje_recibido, parent, false);
         }
         return new MensajeViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull MensajeViewHolder holder, int position) {

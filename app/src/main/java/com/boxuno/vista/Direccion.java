@@ -102,7 +102,7 @@ public class Direccion extends Fragment {
                 btnGuardar.setVisibility(View.GONE);
 
             } else {
-                btnEditar.setVisibility(View.INVISIBLE);
+                btnEditar.setVisibility(View.VISIBLE);
                 btnGuardar.setVisibility(View.GONE);
             }
         }).addOnFailureListener(e ->

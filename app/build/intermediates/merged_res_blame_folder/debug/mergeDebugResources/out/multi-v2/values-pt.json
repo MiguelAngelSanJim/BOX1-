@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.boxuno.app-mergeDebugResources-53:/values-pt/values-pt.xml",
+            "outputFile": "com.boxuno.app-mergeDebugResources-54:/values-pt/values-pt.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\d9c615045dea3553e5a0066d35799306\\transformed\\appcompat-1.7.0\\res\\values-pt\\values-pt.xml",
+                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\a89e773538579de2011b7e4e17a0eea3\\transformed\\appcompat-1.7.0\\res\\values-pt\\values-pt.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -21,24 +21,24 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\2ecdd9b154208abb589dd7bdb7b2cee9\\transformed\\navigation-ui-2.8.9\\res\\values-pt\\values-pt.xml",
+                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\e46334552f32477efa54e1a19a171af9\\transformed\\browser-1.4.0\\res\\values-pt\\values-pt.xml",
                     "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,167",
-                        "endColumns": "111,119",
-                        "endOffsets": "162,282"
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,170,269,381",
+                        "endColumns": "114,98,111,105",
+                        "endOffsets": "165,264,376,482"
                     },
                     "to": {
-                        "startLines": "42,43",
-                        "startColumns": "4,4",
-                        "startOffsets": "4241,4353",
-                        "endColumns": "111,119",
-                        "endOffsets": "4348,4468"
+                        "startLines": "38,39,40,41",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "3809,3924,4023,4135",
+                        "endColumns": "114,98,111,105",
+                        "endOffsets": "3919,4018,4130,4236"
                     }
                 },
                 {
-                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\216bad3c3e6b5640de287bd877576d1a\\transformed\\credentials-1.2.0-rc01\\res\\values-pt\\values-pt.xml",
+                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\bde83df7d0355019bdb0d60e6a411acb\\transformed\\credentials-1.2.0-rc01\\res\\values-pt\\values-pt.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -55,7 +55,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\4ac09f882962980f7a2ec5b0146929cd\\transformed\\core-1.13.0\\res\\values-pt\\values-pt.xml",
+                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\e3f34e191fa904faff1a27a8da6ed081\\transformed\\core-1.13.0\\res\\values-pt\\values-pt.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -72,20 +72,20 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\46a1e198c22f7143ff25d7ab5829c2c2\\transformed\\browser-1.4.0\\res\\values-pt\\values-pt.xml",
+                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\84f28743a36fb58f4936e91e0d04f022\\transformed\\navigation-ui-2.8.9\\res\\values-pt\\values-pt.xml",
                     "from": {
-                        "startLines": "2,3,4,5",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,170,269,381",
-                        "endColumns": "114,98,111,105",
-                        "endOffsets": "165,264,376,482"
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,167",
+                        "endColumns": "111,119",
+                        "endOffsets": "162,282"
                     },
                     "to": {
-                        "startLines": "38,39,40,41",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "3809,3924,4023,4135",
-                        "endColumns": "114,98,111,105",
-                        "endOffsets": "3919,4018,4130,4236"
+                        "startLines": "42,43",
+                        "startColumns": "4,4",
+                        "startOffsets": "4241,4353",
+                        "endColumns": "111,119",
+                        "endOffsets": "4348,4468"
                     }
                 }
             ]

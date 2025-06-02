@@ -39,4 +39,25 @@
     <string name="descripci_n_del_producto">Descripción del producto...</string>
     <string name="estado_nuevo">Estado: Nuevo</string>
     <string name="escala_1_18">Escala: 1:18</string>
+    <string name="introduzca_su_direcci_n">Introduzca su dirección</string>
+    <string name="calle_y_n_mero">Calle y número</string>
+    <string name="portal">Portal</string>
+    <string name="ciudad">Ciudad</string>
+    <string name="provincia">Provincia</string>
+    <string name="c_digo_postal">Código postal</string>
+    <string name="codigo_postal">Código postal</string>
+    <string name="guardar">Guardar</string>
+    <string name="editar">Editar</string>
+    <string name="mi_direcci_n">Mi dirección</string>
+    <string name="confirmar_compra">Confirmar compra</string>
+    <string name="direcci_n_de_env_o">Dirección de envío</string>
+    <string name="m_todo_de_env_o">Método de envío</string>
+    <string name="correos_est_ndar_3_5_d_as_gratis">Correos estándar (3-5 días) Gratis</string>
+    <string name="env_o_express_24h_5_00">Envío express 24h +5,00€</string>
+    <string name="m_todo_de_pago">Método de pago</string>
+    <string name="contrarreembolso">Contrarreembolso</string>
+    <string name="google_pay">Google Pay</string>
+    <string name="precio_del_producto_20">Precio del producto: 20€</string>
+    <string name="env_o_0">Envío: 0€</string>
+    <string name="total_20">Total: 20€</string>
 </resources>

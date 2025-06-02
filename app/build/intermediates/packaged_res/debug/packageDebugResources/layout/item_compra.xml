@@ -14,7 +14,13 @@
         android:text="Nombre del producto"
         android:textSize="16sp"
         android:textStyle="bold" />
-
+    <TextView
+        android:id="@+id/textNombreUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Nombre del usuario"
+        android:textSize="14sp" />
     <TextView
         android:id="@+id/textPrecioCompra"
         android:layout_width="match_parent"

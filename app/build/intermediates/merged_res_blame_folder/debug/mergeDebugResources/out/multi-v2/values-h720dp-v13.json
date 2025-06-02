@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.boxuno.app-mergeDebugResources-53:/values-h720dp-v13/values-h720dp-v13.xml",
+            "outputFile": "com.boxuno.app-mergeDebugResources-54:/values-h720dp-v13/values-h720dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\d9c615045dea3553e5a0066d35799306\\transformed\\appcompat-1.7.0\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
+                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\a89e773538579de2011b7e4e17a0eea3\\transformed\\appcompat-1.7.0\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

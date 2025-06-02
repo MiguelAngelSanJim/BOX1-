@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.boxuno.app-mergeDebugResources-53:/values-fil/values-fil.xml",
+            "outputFile": "com.boxuno.app-mergeDebugResources-54:/values-fil/values-fil.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\4e52bb438d60f19650d345823915c5ac\\transformed\\play-services-wallet-19.4.0\\res\\values-fil\\values.xml",
+                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\b6dee8a8a604edbc179ff82f6db842ef\\transformed\\play-services-wallet-19.4.0\\res\\values-fil\\values.xml",
                     "from": {
                         "startLines": "4,5",
                         "startColumns": "0,0",

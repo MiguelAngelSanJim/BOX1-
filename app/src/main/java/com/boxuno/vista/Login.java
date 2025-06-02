@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +16,7 @@ import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.content.pm.PackageManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +31,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Login extends Fragment {
 
@@ -54,18 +54,17 @@ public class Login extends Fragment {
         EditText contrasenia = view.findViewById(R.id.password);
         CheckBox checkBox = view.findViewById(R.id.checkBox);
         int[][] estados = new int[][]{
-                new int[]{android.R.attr.state_checked},   // Marcado
-                new int[]{-android.R.attr.state_checked}   // No marcado
+                new int[]{android.R.attr.state_checked},
+                new int[]{-android.R.attr.state_checked}
         };
 
         int[] colores = new int[]{
-                Color.parseColor("#0B1B4E"), // Check azul oscuro
-                Color.parseColor("#FFFFFF")  // Cuadro blanco
+                Color.parseColor("#0B1B4E"),
+                Color.parseColor("#FFFFFF")
         };
 
         ColorStateList colorStateList = new ColorStateList(estados, colores);
         checkBox.setButtonTintList(colorStateList);
-
 
         botonInicioSesion.setOnClickListener(v -> {
             String email = campoEmail.getText().toString().trim();
@@ -94,11 +93,29 @@ public class Login extends Fragment {
                                     SharedPreferences prefs = requireActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
                                     prefs.edit().putBoolean("recordar", checkBox.isChecked()).apply();
 
-                                    NavOptions navOptions = new NavOptions.Builder()
-                                            .setPopUpTo(R.id.login, true)
-                                            .build();
+                                    // 🔽 Guardar fcmToken
+                                    FirebaseMessaging.getInstance().getToken().addOnCompleteListener(tokenTask -> {
+                                        if (tokenTask.isSuccessful()) {
+                                            String token = tokenTask.getResult();
+                                            FirebaseFirestore.getInstance().collection("usuarios")
+                                                    .document(user.getUid())
+                                                    .update("fcmToken", token)
+                                                    .addOnSuccessListener(aVoid -> {
+                                                        NavOptions navOptions = new NavOptions.Builder()
+                                                                .setPopUpTo(R.id.login, true)
+                                                                .build();
 
-                                    NavHostFragment.findNavController(Login.this).navigate(R.id.action_login_to_inicio, null, navOptions);
+                                                        NavHostFragment.findNavController(Login.this)
+                                                                .navigate(R.id.inicio, null, navOptions);
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        Toast.makeText(getContext(), "Error al guardar el token FCM.", Toast.LENGTH_SHORT).show();
+                                                    });
+                                        } else {
+                                            Toast.makeText(getContext(), "No se pudo obtener el token FCM.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
                                 } else {
                                     FirebaseAuth.getInstance().signOut();
                                     Toast.makeText(getContext(), "Tu perfil no está configurado. Vuelve a registrarte.", Toast.LENGTH_LONG).show();
@@ -125,5 +142,12 @@ public class Login extends Fragment {
             NavController navController = Navigation.findNavController(view);
             navController.navigate(R.id.action_login_to_recuperar_contrasenia);
         });
+
+        // ✅ Pedir permiso de notificaciones (Android 13+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (requireContext().checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+        }
     }
 }

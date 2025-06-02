@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:gravity="center"
-            android:text="Confirmar compra"
+            android:text="@string/confirmar_compra"
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -42,7 +42,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Dirección de envío"
+                android:text="@string/direcci_n_de_env_o"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="18sp"
@@ -55,7 +55,7 @@
                 android:layout_marginBottom="16dp"
                 android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
-                android:hint=" C/ Fernando Alonso Díaz 33" />
+                android:hint="@string/introduzca_su_direcci_n" />
 
             <EditText
                 android:id="@+id/editTextPortal"
@@ -64,7 +64,7 @@
                 android:layout_marginBottom="16dp"
                 android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
-                android:hint=" 3ºC" />
+                android:hint="@string/portal" />
 
             <EditText
                 android:id="@+id/editTextCiudad"
@@ -73,7 +73,7 @@
                 android:layout_marginBottom="16dp"
                 android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
-                android:hint=" Mérida" />
+                android:hint="@string/ciudad" />
 
             <EditText
                 android:id="@+id/editTextProvincia"
@@ -82,7 +82,7 @@
                 android:layout_marginBottom="16dp"
                 android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
-                android:hint=" Badajoz" />
+                android:hint="@string/provincia" />
 
             <EditText
                 android:id="@+id/editTextCodigoPostal"
@@ -91,13 +91,13 @@
                 android:layout_marginBottom="24dp"
                 android:paddingLeft="12dp"
                 android:background="@drawable/edittext_style"
-                android:hint=" 06700" />
+                android:hint="@string/c_digo_postal" />
 
             <!-- Envío -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Método de envío"
+                android:text="@string/m_todo_de_env_o"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="18sp"
@@ -107,7 +107,7 @@
                 android:id="@+id/checkboxCorreos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Correos estándar (3-5 días) Gratis"
+                android:text="@string/correos_est_ndar_3_5_d_as_gratis"
                 android:textColor="@color/black"
                 app:buttonTint="@color/blue"
                 android:layout_marginBottom="4dp" />
@@ -116,7 +116,7 @@
                 android:id="@+id/checkboxExpress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Envío express 24h  +5,00€"
+                android:text="@string/env_o_express_24h_5_00"
                 android:textColor="@color/black"
                 app:buttonTint="@color/blue"
                 android:layout_marginBottom="24dp" />
@@ -126,7 +126,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Método de pago"
+                android:text="@string/m_todo_de_pago"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="18sp"
@@ -142,14 +142,14 @@
                     android:id="@+id/radioContraReembolso"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Contra reembolso"
+                    android:text="@string/contrarreembolso"
                     android:textColor="@color/black" />
 
                 <RadioButton
                     android:id="@+id/radioGooglePay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Google Pay"
+                    android:text="@string/google_pay"
                     android:textColor="@color/black" />
             </RadioGroup>
 
@@ -165,7 +165,7 @@
                     android:id="@+id/textPrecioProducto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Precio del producto: 20€"
+                    android:text="@string/precio_del_producto_20"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:layout_marginBottom="8dp" />
@@ -174,7 +174,7 @@
                     android:id="@+id/textPrecioEnvio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Envío: 0€"
+                    android:text="@string/env_o_0"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:layout_marginBottom="8dp" />
@@ -183,7 +183,7 @@
                     android:id="@+id/textPrecioTotal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Total: 20€"
+                    android:text="@string/total_20"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="18sp"
@@ -196,7 +196,7 @@
                 android:id="@+id/btnConfirmarCompra"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="Confirmar compra"
+                android:text="@string/confirmar_compra"
                 android:backgroundTint="#0B1B4E"
                 android:textColor="@android:color/white"
                 android:layout_marginBottom="16dp" />

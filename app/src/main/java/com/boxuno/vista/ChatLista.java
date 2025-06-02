@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.boxuno.R;
 import com.boxuno.adapter.ChatListaAdapter;
 import com.boxuno.modelo.ChatPreview;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 
@@ -62,6 +63,12 @@ public class ChatLista extends Fragment {
 
         cargarChats();
         isActive = true;
+
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomnavigation);
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

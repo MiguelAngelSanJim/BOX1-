@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.boxuno.app-mergeDebugResources-53:/values-v17/values-v17.xml",
+            "outputFile": "com.boxuno.app-mergeDebugResources-54:/values-v17/values-v17.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\d9c615045dea3553e5a0066d35799306\\transformed\\appcompat-1.7.0\\res\\values-v17\\values-v17.xml",
+                    "source": "C:\\Users\\manol\\.gradle\\caches\\transforms-4\\a89e773538579de2011b7e4e17a0eea3\\transformed\\appcompat-1.7.0\\res\\values-v17\\values-v17.xml",
                     "from": {
                         "startLines": "2,5,9,12,15,18,22,25,29,33,37,40,43,46,50,53,57",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

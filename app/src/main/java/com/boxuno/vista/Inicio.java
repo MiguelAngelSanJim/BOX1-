@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -36,6 +38,7 @@ public class Inicio extends Fragment {
     private List<Maqueta> maquetaList;
     private MaquetaAdapter maquetaAdapter;
     private SearchView buscador;
+    private String categoriaSeleccionada = null;
 
     public Inicio() {
     }
@@ -51,6 +54,10 @@ public class Inicio extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         buscador = view.findViewById(R.id.buscador);
+        // Cambiar el color del texto a negro
+        int searchEditTextId = buscador.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        EditText searchEditText = buscador.findViewById(searchEditTextId);
+        searchEditText.setTextColor(Color.BLACK);
         buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -115,7 +122,7 @@ public class Inicio extends Fragment {
         categorias.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                String categoriaSeleccionada = null;
+
                 switch (tab.getPosition()) {
                     case 0:
                         break;
@@ -150,6 +157,14 @@ public class Inicio extends Fragment {
         }
 
         comprobarValoracionPendiente();
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                requireActivity().finish(); // Cierra la app si estás en Inicio
+            }
+        });
+
     }
 
     private void cargarMaquetas(@Nullable String categoria) {
@@ -184,7 +199,7 @@ public class Inicio extends Fragment {
 
     private void buscarMaquetasOUsuarios(String query) {
         if (query.isEmpty()) {
-            cargarMaquetas(null);
+            cargarMaquetas(categoriaSeleccionada);  // ⬅ usamos la categoría actual
             return;
         }
 
@@ -198,9 +213,16 @@ public class Inicio extends Fragment {
             boolean encontrado = false;
             for (DocumentSnapshot doc : snapshot.getDocuments()) {
                 Maqueta maqueta = doc.toObject(Maqueta.class);
-                if (maqueta != null && maqueta.getTitulo().toLowerCase().contains(query.toLowerCase())) {
-                    maquetaList.add(maqueta);
-                    encontrado = true;
+                if (maqueta != null) {
+
+                    if (categoriaSeleccionada != null && !categoriaSeleccionada.equalsIgnoreCase(maqueta.getCategoria())) {
+                        continue;  // saltamos si no es de la categoría seleccionada
+                    }
+
+                    if (maqueta.getTitulo().toLowerCase().contains(query.toLowerCase())) {
+                        maquetaList.add(maqueta);
+                        encontrado = true;
+                    }
                 }
             }
             if (encontrado) {
@@ -210,6 +232,7 @@ public class Inicio extends Fragment {
             }
         });
     }
+
 
     private void buscarPorUsuario(String nombreUsuario) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();

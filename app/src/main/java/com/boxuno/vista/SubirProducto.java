@@ -1,6 +1,7 @@
 package com.boxuno.vista;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -28,6 +30,15 @@ import com.boxuno.modelo.Maqueta;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.*;
+
+import android.provider.MediaStore;
+import android.os.Environment;
+
+import androidx.core.content.FileProvider;
+
+import java.io.File;
+import java.io.IOException;
+
 
 import java.util.*;
 
@@ -39,6 +50,8 @@ public class SubirProducto extends Fragment {
     private ViewPager2 viewPagerImagenes;
     private List<Object> imagenesSeleccionadas = new ArrayList<>();
     private ImagenCarruselAdapter carruselAdapter;
+    private Uri imagenUriCamara;
+
 
     private final ActivityResultLauncher<Intent> seleccionarImagen = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -60,6 +73,31 @@ public class SubirProducto extends Fragment {
                     carruselAdapter.notifyDataSetChanged();
                 }
             });
+
+    private final ActivityResultLauncher<Intent> hacerFoto = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && imagenUriCamara != null) {
+                    if (imagenesSeleccionadas.size() < 4) {
+                        imagenesSeleccionadas.add(imagenUriCamara);
+                        carruselAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(getContext(), "Solo puedes subir 4 imágenes", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+    );
+    private final ActivityResultLauncher<String> solicitarPermisoCamara = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            isGranted -> {
+                if (isGranted) {
+                    abrirCamara(); // El permiso fue aceptado, lanza la cámara
+                } else {
+                    Toast.makeText(getContext(), "Se necesita permiso de cámara para hacer fotos", Toast.LENGTH_SHORT).show();
+                }
+            }
+    );
+
 
     @Nullable
     @Override
@@ -89,17 +127,13 @@ public class SubirProducto extends Fragment {
         spinnerCategoria.setAdapter(categoriaAdapter);
 
         // Configurar el Spinner de Estado.
-        String[] estados = {"Seleccione una opción...", "Nuevo", "Usado", "Mal estado"};
+        String[] estados = {"Seleccione una opción...", "Nuevo", "Semi-nuevo", "Usado", "Mal estado"};
         ArrayAdapter<String> estadoAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, estados);
         estadoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerEstado.setAdapter(estadoAdapter);
 
-        btnSubirImagen.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("image/*");
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-            seleccionarImagen.launch(Intent.createChooser(intent, "Selecciona hasta 4 imágenes"));
-        });
+        btnSubirImagen.setOnClickListener(v -> mostrarDialogoSeleccionImagen());
+
 
         btnPublicar.setOnClickListener(v -> {
             Toast.makeText(getContext(), "Subiendo anuncio...", Toast.LENGTH_SHORT).show();
@@ -129,6 +163,15 @@ public class SubirProducto extends Fragment {
             Toast.makeText(getContext(), "Debes añadir al menos una imagen", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (escalaStr.isEmpty()) {
+            Toast.makeText(getContext(), "Por favor introduce una escala.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!escalaStr.matches("^\\d+\\s*[/|:]\\s*\\d+$")) {
+            Toast.makeText(getContext(), "Formato de escala inválido. Ejemplos válidos: 1/43, 1:18, 1/5", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         if (categoriaStr.equals("Seleccione una opción...") || estadoStr.equals("Seleccione una opción...")) {
             Toast.makeText(getContext(), "Debe seleccionar categoría y/o estado válidos", Toast.LENGTH_SHORT).show();
             return;
@@ -160,8 +203,13 @@ public class SubirProducto extends Fragment {
                         Toast.makeText(getContext(), "Maqueta publicada", Toast.LENGTH_LONG).show();
 
                         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                            NavHostFragment.findNavController(SubirProducto.this).navigate(R.id.inicio);
+                            NavOptions navOptions = new NavOptions.Builder()
+                                    .setPopUpTo(R.id.subirProducto, true)
+                                    .build();
+
+                            NavHostFragment.findNavController(SubirProducto.this).navigate(R.id.inicio, null, navOptions);
                         }, 2500);
+
                     })
                     .addOnFailureListener(e -> Toast.makeText(getContext(), "Error al guardar", Toast.LENGTH_SHORT).show());
         });
@@ -172,7 +220,7 @@ public class SubirProducto extends Fragment {
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         for (Object imagenObj : imagenes) {
-            if(imagenObj instanceof Uri) {
+            if (imagenObj instanceof Uri) {
                 Uri imagenUri = (Uri) imagenObj;
                 String nombreArchivo = "imagenes/" + UUID.randomUUID().toString();
                 StorageReference ref = storage.getReference().child(nombreArchivo);
@@ -191,6 +239,53 @@ public class SubirProducto extends Fragment {
             }
         }
     }
+
+    private void abrirCamara() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
+            File imagenArchivo;
+            try {
+                String nombreArchivo = "foto_" + System.currentTimeMillis();
+                File directorio = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                imagenArchivo = File.createTempFile(nombreArchivo, ".jpg", directorio);
+                imagenUriCamara = FileProvider.getUriForFile(
+                        requireContext(),
+                        requireContext().getPackageName() + ".provider",
+                        imagenArchivo
+                );
+            } catch (IOException e) {
+                Toast.makeText(getContext(), "Error al crear archivo de imagen", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imagenUriCamara);
+            hacerFoto.launch(intent);
+        }
+    }
+
+    private void mostrarDialogoSeleccionImagen() {
+        String[] opciones = {"Hacer foto", "Seleccionar de galería"};
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Selecciona una opción")
+                .setItems(opciones, (dialog, which) -> {
+                    if (which == 0) {
+                        solicitarPermisoCamara.launch(android.Manifest.permission.CAMERA);
+                    } else {
+                        abrirGaleria();
+                    }
+                })
+                .show();
+    }
+
+
+    private void abrirGaleria() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        seleccionarImagen.launch(Intent.createChooser(intent, "Selecciona hasta 4 imágenes"));
+    }
+
 
     private interface ImagenesSubidasCallback {
         void onFinalizado(List<String> urls);

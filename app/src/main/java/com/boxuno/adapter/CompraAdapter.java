@@ -31,6 +31,7 @@ public class CompraAdapter extends RecyclerView.Adapter<CompraAdapter.CompraView
     public void onBindViewHolder(@NonNull CompraViewHolder holder, int position) {
         Compra compra = compras.get(position);
         holder.textNombre.setText(compra.getNombreProducto());
+        holder.textNombreUsuario.setText(compra.getNombreUsuario());
         holder.textPrecio.setText(compra.getPrecio() + " €");
         holder.textFecha.setText(compra.getFecha());
     }
@@ -41,11 +42,12 @@ public class CompraAdapter extends RecyclerView.Adapter<CompraAdapter.CompraView
     }
 
     static class CompraViewHolder extends RecyclerView.ViewHolder {
-        TextView textNombre, textPrecio, textFecha;
+        TextView textNombre, textNombreUsuario, textPrecio, textFecha;
 
         CompraViewHolder(@NonNull View itemView) {
             super(itemView);
             textNombre = itemView.findViewById(R.id.textNombreCompra);
+            textNombreUsuario = itemView.findViewById(R.id.textNombreUsuario);
             textPrecio = itemView.findViewById(R.id.textPrecioCompra);
             textFecha = itemView.findViewById(R.id.textFechaCompra);
         }

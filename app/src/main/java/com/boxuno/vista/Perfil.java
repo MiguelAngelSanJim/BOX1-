@@ -35,9 +35,11 @@ import com.boxuno.modelo.Maqueta;
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
@@ -382,7 +384,7 @@ public class Perfil extends Fragment {
                     String chatId = generarChatId(adminId, usuarioId);
 
                     Map<String, Object> mensajeData = new HashMap<>();
-                    mensajeData.put("remitenteId", adminId);
+                    mensajeData.put("remitenteId", "sistema");
                     mensajeData.put("texto", mensaje);
                     mensajeData.put("timestamp", System.currentTimeMillis());
 
