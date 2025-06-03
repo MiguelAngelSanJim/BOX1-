@@ -26,15 +26,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Direccion extends Fragment {
-
-    public Direccion() {
-        // Required empty public constructor
-    }
-
     private EditText editTextCalle, editTextPortal, editTextCiudad, editTextProvincia, editTextCodigoPostal;
     private Button btnGuardar, btnEditar;
     private FirebaseFirestore db;
     private String userId;
+
+    public Direccion() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,7 +61,7 @@ public class Direccion extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setDireccionEditable(false); // Bloquea los campos al inicio
+        setDireccionEditable(false); // Bloquea los campos al inicio.
 
         btnEditar.setOnClickListener(v -> {
             setDireccionEditable(true);

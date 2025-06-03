@@ -238,6 +238,7 @@ public class DetalleProducto extends Fragment {
 
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -295,7 +296,7 @@ public class DetalleProducto extends Fragment {
         EditText otrosTexto = view.findViewById(R.id.editTextOtros);
         Button btnEnviar = view.findViewById(R.id.btnEnviarDenuncia);
 
-        // Forzar color azul al círculo seleccionado
+        // Forzar color azul al círculo seleccionado.
         ColorStateList azul = ColorStateList.valueOf(Color.parseColor("#0B1B4E"));
         RadioButton radioPrecio = view.findViewById(R.id.radioPrecio);
         RadioButton radioNoRelacionado = view.findViewById(R.id.radioNoRelacionado);
@@ -317,11 +318,19 @@ public class DetalleProducto extends Fragment {
         btnEnviar.setOnClickListener(v -> {
             int selectedId = radioGroup.getCheckedRadioButtonId();
             String motivo = "";
-            if (selectedId == R.id.radioPrecio) motivo = "Precio especulativo";
-            else if (selectedId == R.id.radioNoRelacionado)
+            if (selectedId == R.id.radioPrecio) {
+                motivo = "Precio especulativo";
+            } else if (selectedId == R.id.radioNoRelacionado) {
                 motivo = "El producto no está relacionado";
-            else if (selectedId == R.id.radioOtros)
-                motivo = "Otros: " + otrosTexto.getText().toString().trim();
+            } else if (selectedId == R.id.radioOtros) {
+                String otros = otrosTexto.getText().toString().trim();
+                if (otros.isEmpty()) {
+                    Toast.makeText(requireContext(), "Por favor, especifica el motivo en 'Otros'", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                motivo = "Otros: " + otros;
+            }
+
 
             if (!motivo.isEmpty()) {
                 enviarDenuncia(motivo);

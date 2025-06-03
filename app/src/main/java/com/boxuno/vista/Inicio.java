@@ -125,6 +125,7 @@ public class Inicio extends Fragment {
 
                 switch (tab.getPosition()) {
                     case 0:
+                        categoriaSeleccionada = null;
                         break;
                     case 1:
                         categoriaSeleccionada = "F1";
@@ -148,6 +149,7 @@ public class Inicio extends Fragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                cargarMaquetas(categoriaSeleccionada);
             }
         });
 
@@ -310,5 +312,4 @@ public class Inicio extends Fragment {
                     }
                 });
     }
-
 }

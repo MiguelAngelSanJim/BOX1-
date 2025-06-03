@@ -93,7 +93,7 @@ public class Login extends Fragment {
                                     SharedPreferences prefs = requireActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
                                     prefs.edit().putBoolean("recordar", checkBox.isChecked()).apply();
 
-                                    // 🔽 Guardar fcmToken
+                                    // Guardar el fcmToken.
                                     FirebaseMessaging.getInstance().getToken().addOnCompleteListener(tokenTask -> {
                                         if (tokenTask.isSuccessful()) {
                                             String token = tokenTask.getResult();
@@ -143,7 +143,7 @@ public class Login extends Fragment {
             navController.navigate(R.id.action_login_to_recuperar_contrasenia);
         });
 
-        // ✅ Pedir permiso de notificaciones (Android 13+)
+        // Pedir permiso de notificaciones (Android 13+).
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (requireContext().checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);

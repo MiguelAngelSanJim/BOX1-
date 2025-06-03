@@ -40,7 +40,8 @@ import java.util.Map;
 
 public class Registro extends Fragment {
 
-    public Registro() {}
+    public Registro() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -189,6 +190,7 @@ public class Registro extends Fragment {
 
     interface OnFotoSubidaCallback {
         void onSubidaCorrecta(String url);
+
         void onError(String error);
     }
 }

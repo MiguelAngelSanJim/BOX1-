@@ -22,8 +22,6 @@ public class Usuario {
         this.favoritos = new ArrayList<>();
     }
 
-    // Getters y setters
-
     public String getUid() {
         return uid;
     }

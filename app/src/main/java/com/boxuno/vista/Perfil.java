@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,11 +34,9 @@ import com.boxuno.modelo.Maqueta;
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
@@ -112,7 +109,7 @@ public class Perfil extends Fragment {
             new AlertDialog.Builder(requireContext())
                     .setTitle("Foto de perfil")
                     .setIcon(R.drawable.logopng)
-                    .setPositiveButton("Cambiar foto de perfil", (dialog, which) -> openFileChooser())
+                    .setPositiveButton("Cambiar foto de perfil", (dialog, which) -> abrirExploradorArchivo())
                     .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
                     .show();
         });
@@ -141,7 +138,7 @@ public class Perfil extends Fragment {
         }
     }
 
-    private void openFileChooser() {
+    private void abrirExploradorArchivo() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -245,7 +242,7 @@ public class Perfil extends Fragment {
         opcionesPerfil.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                handleTabAction(tab);
+                gestionarPestania(tab);
             }
 
             @Override
@@ -254,7 +251,7 @@ public class Perfil extends Fragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                handleTabAction(tab);
+                gestionarPestania(tab);
             }
         });
     }
@@ -296,7 +293,7 @@ public class Perfil extends Fragment {
         }
     }
 
-    private void handleTabAction(TabLayout.Tab tab) {
+    private void gestionarPestania(TabLayout.Tab tab) {
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
         String tabText = tab.getText().toString();
 

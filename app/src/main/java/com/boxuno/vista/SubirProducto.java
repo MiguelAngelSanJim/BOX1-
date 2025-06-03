@@ -87,6 +87,7 @@ public class SubirProducto extends Fragment {
                 }
             }
     );
+
     private final ActivityResultLauncher<String> solicitarPermisoCamara = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
             isGranted -> {

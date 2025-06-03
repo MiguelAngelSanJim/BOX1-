@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.boxuno.R;
 import com.boxuno.modelo.Mensaje;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -32,11 +31,11 @@ public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MensajeV
         String autorId = listaMensajes.get(position).getAutorId();
 
         if ("sistema".equals(autorId)) {
-            return 2; // mensaje del sistema
+            return 2; // Mensaje del sistema.
         } else if (autorId != null && autorId.equals(uidActual)) {
-            return 1; // mensaje enviado por mí
+            return 1; // Mensaje enviado.
         } else {
-            return 0; // mensaje recibido
+            return 0; // Mensaje recibido.
         }
     }
 

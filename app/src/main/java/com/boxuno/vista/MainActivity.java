@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.blue));
 
-        // Encuentra el NavController del NavHostFragment
+        // Encuentra el NavController del NavHostFragment.
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
 
-        // Configura el BottomNavigationView con NavigationUI
+        // Configura el BottomNavigationView con NavigationUI..
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomnavigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.inicio && navController.getCurrentDestination().getId() == R.id.inicio) {
@@ -58,14 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
             navController.navigate(R.id.inicio, null, navOptions);
         }
-
-
-
-    }
-
-    private boolean recuerdameInicio() {
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        return prefs.getBoolean("recordar", false);
     }
 
     @Override
@@ -86,5 +78,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.dispatchTouchEvent(ev);
     }
-
 }

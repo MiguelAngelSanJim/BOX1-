@@ -69,10 +69,6 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
         }
     }
 
-    public void setMotivosMap(Map<String, String> motivosMap) {
-        this.motivosMap = motivosMap;
-    }
-
     private void cargarFavoritosDesdeFirebase() {
         FirebaseFirestore.getInstance()
                 .collection("favoritos")
@@ -118,7 +114,7 @@ public class MaquetaAdapter extends RecyclerView.Adapter<MaquetaAdapter.MaquetaV
                     .into(holder.imagen);
         }
 
-        // NUEVO: mostrar cartel "VENDIDO"
+
         if (maqueta.isVendido()) {
             holder.textoVendido.setVisibility(View.VISIBLE);
         } else {
