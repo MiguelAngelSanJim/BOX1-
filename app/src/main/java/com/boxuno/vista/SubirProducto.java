@@ -260,6 +260,12 @@ public class SubirProducto extends Fragment {
             }
 
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imagenUriCamara);
+            // Solución al problema con la cámara de Google Pixel A7
+            /*
+            Google exige que, cuando le pasas un Uri generado por FileProvider a otro componente (en este caso a la cámara),
+            le otorgues permiso de lectura temporalmente mediante flags en el intent.
+             */
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             hacerFoto.launch(intent);
         }
     }
