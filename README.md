@@ -1,0 +1,1 @@
+Este proyecto fue desarrollado como proyecto final del ciclo de DAM, aplicando lo aprendido durante la formación. Además, quise aprovechar la oportunidad para probar herramientas nuevas, como Firebase o Glide, con el objetivo de seguir aprendiendo y mejorar mis habilidades como desarrollador.
